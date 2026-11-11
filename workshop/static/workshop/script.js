@@ -218,4 +218,50 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileAutoCarousel(".workshop-outcomes");
   initMobileAutoCarousel(".workshop-audience");
 
+  // Mentor profile: hover for pointer devices, tap/click for touch and keyboard.
+  document.querySelectorAll(".mentor-card-interactive").forEach((card) => {
+    const moreButton = card.querySelector(".mentor-more-btn");
+    const backButton = card.querySelector(".mentor-back-btn");
+    const front = card.querySelector(".mentor-card-front");
+    const detail = card.querySelector(".mentor-card-detail");
+    const hoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)");
+    if (!moreButton || !backButton || !front || !detail) return;
+
+    const setExpanded = (expanded, moveFocus = false) => {
+      const focusWasInsideDetail = detail.contains(document.activeElement);
+
+      card.classList.toggle("is-expanded", expanded);
+      moreButton.setAttribute("aria-expanded", String(expanded));
+      moreButton.tabIndex = expanded ? -1 : 0;
+      backButton.tabIndex = expanded ? 0 : -1;
+      front.setAttribute("aria-hidden", String(expanded));
+      detail.setAttribute("aria-hidden", String(!expanded));
+
+      if (moveFocus || (!expanded && focusWasInsideDetail)) {
+        (expanded ? backButton : moreButton).focus({ preventScroll: true });
+      }
+    };
+
+    card.addEventListener("pointerenter", (event) => {
+      if (hoverDevice.matches && event.pointerType === "mouse") {
+        setExpanded(true);
+      }
+    });
+    card.addEventListener("pointerleave", (event) => {
+      if (hoverDevice.matches && event.pointerType === "mouse") {
+        setExpanded(false);
+      }
+    });
+
+    moreButton.addEventListener("click", () => setExpanded(true, true));
+    backButton.addEventListener("click", () => setExpanded(false, true));
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && card.classList.contains("is-expanded")) {
+        setExpanded(false, true);
+      }
+    });
+
+    setExpanded(false);
+  });
+
 });
