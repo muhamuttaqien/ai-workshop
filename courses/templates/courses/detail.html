@@ -51,18 +51,56 @@
         {% if course.audience %}<p><strong>Cocok untuk</strong><span>{{ course.audience }}</span></p>{% endif %}
         <p><strong>Level</strong><span>{{ course.get_level_display }}</span></p>
         {% if course.duration_label %}<p><strong>Durasi</strong><span>{{ course.duration_label }}</span></p>{% endif %}
-        {% if course.status == "coming_soon" %}<div class="info-coming-soon"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>Materi course ini sedang disiapkan dan belum bisa diikuti.</span></div>{% endif %}
+        {% if course.status == "coming_soon" %}<div class="info-coming-soon"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>Materi pengantar dan kuis sudah bisa dicoba. Video lengkap masih disiapkan.</span></div>{% endif %}
         <a class="button button-primary full-width" href="{% url 'courses:list' %}">Lihat Courses Lain <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
       </div>
     </aside>
   </div>
 </section>
+<section class="platform-section course-syllabus-section" id="daftar-materi">
+  <div class="platform-container">
+    <div class="section-top">
+      <div>
+        <span class="section-label"><span class="section-index">02 /</span> DAFTAR MATERI</span>
+        <h2>Materi pembelajaran.</h2>
+        <p>Pelajari materi satu per satu, baca penjelasan, lalu uji pemahaman melalui kuis.</p>
+      </div>
+      {% with first_lesson=lessons.first %}
+        {% if first_lesson %}
+          <a class="button button-primary syllabus-start" href="{% url 'courses:lesson' course.slug first_lesson.slug %}">Mulai Belajar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        {% endif %}
+      {% endwith %}
+    </div>
+    {% if lessons %}
+      <ol class="syllabus-list">
+        {% for lesson in lessons %}
+          <li>
+            <a class="syllabus-link" href="{% url 'courses:lesson' course.slug lesson.slug %}">
+              <span class="syllabus-index">{{ forloop.counter|stringformat:"02d" }}</span>
+              <span class="syllabus-description">
+                <strong>{{ lesson.title }}</strong>
+                {% if lesson.summary %}<small>{{ lesson.summary }}</small>{% endif %}
+              </span>
+              <span class="syllabus-action">Buka Materi <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <div class="syllabus-empty">
+        <i class="fa-regular fa-clock" aria-hidden="true"></i>
+        <div><h3>Materi sedang disiapkan.</h3><p>Daftar lesson akan tersedia di sini setelah dipublikasikan.</p></div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
 {% if related_courses %}
 <section class="platform-section related-section">
   <div class="platform-container">
     <div class="section-top">
       <div>
-        <span class="section-label"><span class="section-index">02 /</span> LANJUTKAN EKSPLORASI</span>
+        <span class="section-label"><span class="section-index">03 /</span> LANJUTKAN EKSPLORASI</span>
         <h2>Courses lainnya.</h2>
       </div>
       <a class="section-link" href="{% url 'courses:list' %}">Semua Courses <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
