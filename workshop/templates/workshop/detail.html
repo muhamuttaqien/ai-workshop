@@ -5,7 +5,7 @@
 {% block meta_description %}{{ workshop.meta_description }}{% endblock %}
 
 {% block content %}
-<section class="hero {% if workshop.layout_variant == 'productivity' %}hero-productivity{% elif workshop.layout_variant == 'reporting' %}hero-reporting{% endif %}">
+<section class="hero {% if workshop.layout_variant == 'workflow' %}hero-productivity{% elif workshop.layout_variant == 'dashboard' %}hero-reporting{% elif workshop.layout_variant == 'showcase' %}hero-showcase{% elif workshop.layout_variant == 'guide' %}hero-guide{% endif %}">
   <div class="hero-glow hero-glow-one"></div>
   <div class="hero-glow hero-glow-two"></div>
 
@@ -48,7 +48,7 @@
     </div>
 
     <div class="hero-visual reveal">
-      {% if workshop.layout_variant == 'research' %}
+      {% if workshop.layout_variant == 'editorial' %}
         <div class="hero-photo-card{% if not workshop.hero_image %} hero-photo-card-fallback{% endif %}">
           {% if workshop.hero_image %}
             <img class="hero-photo" src="{% static workshop.hero_image %}" alt="Visual {{ workshop.title }}" loading="eager" fetchpriority="high" />
@@ -68,7 +68,7 @@
             <span>{{ workshop.hero_flow }}</span>
           </div>
         </div>
-      {% elif workshop.layout_variant == 'productivity' %}
+      {% elif workshop.layout_variant == 'workflow' %}
         <div class="data-workflow-visual">
           <div class="data-visual-header">
             <span>{{ workshop.hero_badge }}</span>
@@ -86,7 +86,7 @@
           </div>
           <div class="data-flow-label">{{ workshop.hero_flow }}</div>
         </div>
-      {% else %}
+      {% elif workshop.layout_variant == 'dashboard' %}
         <div class="reporting-hero-visual">
           <div class="reporting-ai-chip"><i class="fa-solid fa-gem" aria-hidden="true"></i><span>Gemini</span></div>
           <div class="report-sheet report-sheet-back"></div>
@@ -112,6 +112,34 @@
             </div>
           </div>
           <div class="reporting-flow"><span>Catatan</span><i class="fa-solid fa-arrow-right"></i><span>Analisis</span><i class="fa-solid fa-arrow-right"></i><span>Laporan</span></div>
+        </div>
+      {% elif workshop.layout_variant == 'showcase' %}
+        <div class="showcase-hero-visual">
+          <div class="showcase-label"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span>{{ workshop.hero_badge|default:"CREATIVE AI" }}</span></div>
+          <div class="showcase-canvas">
+            <div class="showcase-card showcase-card-back"><span>IDEA</span></div>
+            <div class="showcase-card showcase-card-main">
+              <small>FROM PROMPT TO OUTPUT</small>
+              <strong>Create.<br />Refine.<br />Show.</strong>
+              <div class="showcase-shapes"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="showcase-flow">{{ workshop.hero_flow|default:"Idea → Create → Refine → Share" }}</div>
+        </div>
+      {% elif workshop.layout_variant == 'guide' %}
+        <div class="guide-hero-visual">
+          <div class="guide-window">
+            <div class="guide-window-head"><span>{{ workshop.hero_badge|default:"GETTING STARTED" }}</span><small>STEP BY STEP</small></div>
+            <div class="guide-step active"><span>01</span><div><strong>Understand</strong><small>Kenali konsep dan tool</small></div><i class="fa-solid fa-check"></i></div>
+            <div class="guide-step"><span>02</span><div><strong>Practice</strong><small>Ikuti contoh langsung</small></div><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="guide-step"><span>03</span><div><strong>Apply</strong><small>Terapkan ke use case</small></div><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="guide-progress"><span></span></div>
+          </div>
+          <div class="guide-flow">{{ workshop.hero_flow|default:"Learn → Practice → Apply" }}</div>
+        </div>
+      {% else %}
+        <div class="hero-photo-card hero-photo-card-fallback">
+          <div class="hero-photo-fallback" aria-hidden="true"><i class="fa-solid fa-layer-group"></i><span>AI WORKSHOP</span></div>
         </div>
       {% endif %}
     </div>
@@ -153,7 +181,7 @@
     </div>
   </div>
 
-  {% if workshop.layout_variant == 'reporting' %}
+  {% if workshop.layout_variant == 'dashboard' %}
     <div class="container reporting-outcomes">
       {% for outcome in workshop.outcome_items.all %}
         <article class="reporting-outcome reveal">
@@ -164,7 +192,7 @@
       {% endfor %}
     </div>
   {% else %}
-    <div class="container outcome-grid {% if workshop.layout_variant == 'productivity' %}outcome-grid-productivity{% endif %}">
+    <div class="container outcome-grid {% if workshop.layout_variant == 'workflow' %}outcome-grid-productivity{% elif workshop.layout_variant == 'showcase' %}outcome-grid-showcase{% elif workshop.layout_variant == 'guide' %}outcome-grid-guide{% endif %}">
       {% for outcome in workshop.outcome_items.all %}
         <article class="outcome-card reveal">
           <div class="number">{{ outcome.number }}</div>
@@ -184,7 +212,7 @@
       {% if workshop.audience_intro %}<p>{{ workshop.audience_intro }}</p>{% endif %}
     </div>
 
-    {% if workshop.layout_variant == 'research' %}
+    {% if workshop.layout_variant == 'editorial' %}
       <div class="audience-grid">
         {% for audience in workshop.audience_items.all %}
           <article class="audience-card reveal">
@@ -194,7 +222,7 @@
           </article>
         {% endfor %}
       </div>
-    {% elif workshop.layout_variant == 'productivity' %}
+    {% elif workshop.layout_variant == 'workflow' %}
       <div class="audience-rows">
         {% for audience in workshop.audience_items.all %}
           <article class="audience-row reveal">
@@ -204,7 +232,7 @@
           </article>
         {% endfor %}
       </div>
-    {% else %}
+    {% elif workshop.layout_variant == 'dashboard' %}
       <div class="audience-mosaic">
         {% for audience in workshop.audience_items.all %}
           <article class="audience-mosaic-card reveal">
@@ -217,11 +245,32 @@
           </article>
         {% endfor %}
       </div>
+    {% elif workshop.layout_variant == 'showcase' %}
+      <div class="audience-grid audience-showcase">
+        {% for audience in workshop.audience_items.all %}
+          <article class="audience-card showcase-audience-card reveal">
+            <div class="audience-icon">{{ audience.icon }}</div>
+            <span class="showcase-audience-no">{{ forloop.counter|stringformat:'02d' }}</span>
+            <h3>{{ audience.label }}</h3>
+            <p>{{ audience.text }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="audience-rows audience-guide">
+        {% for audience in workshop.audience_items.all %}
+          <article class="audience-row reveal">
+            <span>{{ forloop.counter|stringformat:'02d' }}</span>
+            <h3>{{ audience.label }}</h3>
+            <p>{{ audience.text }}</p>
+          </article>
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 </section>
 
-<section class="section curriculum-section {% if workshop.layout_variant == 'productivity' %}curriculum-productivity{% elif workshop.layout_variant == 'reporting' %}curriculum-reporting{% endif %}" id="materi">
+<section class="section curriculum-section {% if workshop.layout_variant == 'workflow' %}curriculum-productivity{% elif workshop.layout_variant == 'dashboard' %}curriculum-reporting{% elif workshop.layout_variant == 'showcase' %}curriculum-showcase{% elif workshop.layout_variant == 'guide' %}curriculum-guide{% endif %}" id="materi">
   <div class="container">
     <div class="section-heading curriculum-heading reveal">
       <div>
@@ -231,7 +280,7 @@
       <p>{{ workshop.curriculum_intro }}</p>
     </div>
 
-    {% if workshop.layout_variant == 'research' %}
+    {% if workshop.layout_variant == 'editorial' %}
       {% for session in curriculum_sessions %}
         <div class="day-block reveal">
           <div class="day-label"><span>{{ session.label }}</span><strong>{{ session.title }}</strong></div>
@@ -246,7 +295,7 @@
           </div>
         </div>
       {% endfor %}
-    {% elif workshop.layout_variant == 'productivity' %}
+    {% elif workshop.layout_variant == 'workflow' %}
       <div class="session-stack">
         {% for session in curriculum_sessions %}
           <article class="session-panel reveal">
@@ -268,7 +317,7 @@
           </article>
         {% endfor %}
       </div>
-    {% else %}
+    {% elif workshop.layout_variant == 'dashboard' %}
       <div class="reporting-curriculum">
         {% for session in curriculum_sessions %}
           <article class="reporting-session reveal">
@@ -294,6 +343,35 @@
           </article>
         {% endfor %}
       </div>
+    {% elif workshop.layout_variant == 'showcase' %}
+      <div class="showcase-curriculum-grid">
+        {% for session in curriculum_sessions %}
+          <article class="showcase-session reveal">
+            <div class="showcase-session-head"><span>{{ session.label }}</span><small>{{ session.day }} • {{ session.time }}</small></div>
+            <h3>{{ session.title }}</h3>
+            <div class="showcase-module-chips">
+              {% for module in session.modules %}
+                <div><span>{{ module.number }}</span><strong>{{ module.title }}</strong><p>{{ module.text }}</p></div>
+              {% endfor %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="guide-curriculum">
+        {% for session in curriculum_sessions %}
+          <article class="guide-session reveal">
+            <div class="guide-session-index">{{ forloop.counter|stringformat:'02d' }}</div>
+            <div class="guide-session-body">
+              <span>{{ session.label }} • {{ session.day }} • {{ session.time }}</span>
+              <h3>{{ session.title }}</h3>
+              {% for module in session.modules %}
+                <div class="guide-module"><i class="fa-solid fa-check" aria-hidden="true"></i><div><strong>{{ module.title }}</strong><p>{{ module.text }}</p></div></div>
+              {% endfor %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 </section>
@@ -306,7 +384,7 @@
       {% if workshop.benefits_intro %}<p>{{ workshop.benefits_intro }}</p>{% endif %}
     </div>
 
-    {% if workshop.layout_variant == 'research' %}
+    {% if workshop.layout_variant == 'editorial' %}
       <div class="benefit-alternating">
         {% for benefit in workshop.benefit_items.all %}
           <article class="benefit-feature {% if forloop.counter|divisibleby:'2' %}benefit-feature-reverse{% endif %} reveal">
@@ -333,7 +411,7 @@
           </article>
         {% endfor %}
       </div>
-    {% elif workshop.layout_variant == 'productivity' %}
+    {% elif workshop.layout_variant == 'workflow' %}
       <div class="benefit-bento">
         {% for benefit in workshop.benefit_items.all %}
           <article class="benefit-bento-card benefit-bento-{{ forloop.counter }} reveal">
@@ -345,7 +423,7 @@
           </article>
         {% endfor %}
       </div>
-    {% else %}
+    {% elif workshop.layout_variant == 'dashboard' %}
       <div class="benefit-ledger">
         {% for benefit in workshop.benefit_items.all %}
           <article class="benefit-ledger-item reveal">
@@ -362,6 +440,26 @@
               <h3>{{ benefit.title }}</h3>
               <p>{{ benefit.text }}</p>
             </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% elif workshop.layout_variant == 'showcase' %}
+      <div class="benefit-bento benefit-showcase">
+        {% for benefit in workshop.benefit_items.all %}
+          <article class="benefit-bento-card reveal">
+            <span class="benefit-kicker">{{ benefit.number }} • {{ benefit.kicker }}</span>
+            <h3>{{ benefit.title }}</h3>
+            <p>{{ benefit.text }}</p>
+            <i class="fa-solid fa-sparkles showcase-benefit-spark" aria-hidden="true"></i>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="benefit-ledger guide-benefits">
+        {% for benefit in workshop.benefit_items.all %}
+          <article class="benefit-ledger-item reveal">
+            <div class="benefit-ledger-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></div>
+            <div><span>{{ benefit.number }} • {{ benefit.kicker }}</span><h3>{{ benefit.title }}</h3><p>{{ benefit.text }}</p></div>
           </article>
         {% endfor %}
       </div>
