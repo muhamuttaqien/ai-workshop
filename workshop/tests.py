@@ -362,3 +362,32 @@ class WorkshopPageTests(TestCase):
         self.assertContains(response, 'aria-label="Workshop AI"')
         self.assertContains(response, "Workshop AI • by Indonesia AI")
         self.assertNotContains(response, ">Daftar Workshop <i")
+
+
+    def test_mentor_profile_data_and_degree_are_updated(self):
+        mentor = Mentor.objects.get(name="Muhammad Angga Muttaqien, M.Eng.")
+        self.assertIn("lebih dari 10 tahun", mentor.full_bio)
+        self.assertIn("GRID Co., Ltd.", mentor.full_bio)
+        self.assertIn("Advanced Industrial Science and Technology", mentor.full_bio)
+        self.assertIn("Embodied AI", mentor.full_bio)
+        self.assertIn("Human-Robot Interaction", mentor.full_bio)
+
+    def test_mentor_slider_is_shared_across_all_five_layouts(self):
+        mentor = Mentor.objects.get(name="Muhammad Angga Muttaqien, M.Eng.")
+        self.current.mentor = mentor
+        for layout in ["editorial", "workflow", "dashboard", "showcase", "guide"]:
+            with self.subTest(layout=layout):
+                self.current.layout_variant = layout
+                self.current.save(update_fields=["mentor", "layout_variant"])
+                response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
+                self.assertContains(response, "Muhammad Angga Muttaqien, M.Eng.")
+                self.assertContains(response, "mentor-card-track")
+                self.assertContains(response, "mentor-more-btn")
+                self.assertContains(response, "mentor-card-detail")
+                self.assertContains(response, "Kak Angga memiliki pengalaman lebih dari 10 tahun")
+
+    def test_mentor_without_full_bio_keeps_simple_card(self):
+        response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
+        self.assertContains(response, "mentor-card-front")
+        self.assertNotContains(response, "mentor-card-track")
+        self.assertNotContains(response, "mentor-more-btn")
