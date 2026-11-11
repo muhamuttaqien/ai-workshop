@@ -359,7 +359,7 @@ class WorkshopPageTests(TestCase):
 
     def test_branding_and_ended_footer_cta_are_consistent(self):
         response = self.client.get(reverse("workshop:detail", args=[self.previous.slug]))
-        self.assertContains(response, 'aria-label="AI untuk Semua"')
+        self.assertContains(response, 'aria-label="Indonesia AI"')
         self.assertContains(response, "Workshop AI • by Indonesia AI")
         self.assertNotContains(response, ">Daftar Workshop <i")
 
