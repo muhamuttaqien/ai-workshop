@@ -98,6 +98,9 @@ class WorkshopPageTests(TestCase):
         self.assertContains(response, "Workshop Lama")
 
     def test_home_uses_next_non_archived_workshop(self):
+        Workshop.objects.exclude(
+            pk__in=[self.previous.pk, self.current.pk]
+        ).update(is_archived=True)
         response = self.client.get(reverse("workshop:home"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Workshop Baru")
@@ -285,3 +288,15 @@ class WorkshopPageTests(TestCase):
         self.assertContains(response, "Semua Workshop")
         self.assertContains(response, reverse("workshop:list"))
         self.assertNotContains(response, ">Daftar Sekarang</a>")
+
+
+    def test_seeded_showcase_and_guide_workshops_exist(self):
+        expected = {
+            "canva-ai-konten-media-sosial": "showcase",
+            "gamma-presentasi-profesional": "showcase",
+            "notebooklm-belajar-dari-dokumen": "guide",
+        }
+        for slug, layout in expected.items():
+            workshop = Workshop.objects.get(slug=slug)
+            self.assertEqual(workshop.layout_variant, layout)
+            self.assertTrue(workshop.is_published)
