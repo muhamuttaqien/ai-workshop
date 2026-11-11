@@ -9,6 +9,8 @@ from .models import (
     WorkshopBenefit,
     WorkshopCurriculumModule,
     WorkshopFAQ,
+    WorkshopOutcome,
+    WorkshopAudience,
 )
 
 
@@ -315,9 +317,48 @@ class WorkshopPageTests(TestCase):
             'id="faq"',
         ]
         for layout in ["editorial", "workflow", "dashboard", "showcase", "guide"]:
-            self.current.layout_variant = layout
-            self.current.save(update_fields=["layout_variant"])
-            response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
-            self.assertEqual(response.status_code, 200)
-            for section_id in section_ids:
-                self.assertContains(response, section_id)
+            with self.subTest(layout=layout):
+                self.current.layout_variant = layout
+                self.current.save(update_fields=["layout_variant"])
+                response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
+                self.assertEqual(response.status_code, 200)
+                html = response.content.decode("utf-8")
+                self.assertIn("layout-" + layout, html)
+                positions = []
+                for section_id in section_ids:
+                    self.assertEqual(html.count(section_id), 1, section_id)
+                    positions.append(html.index(section_id))
+                self.assertEqual(positions, sorted(positions))
+
+
+    def test_all_layouts_render_card_numbers_and_icons(self):
+        WorkshopOutcome.objects.create(
+            workshop=self.current,
+            number="01",
+            title="Outcome untuk Audit",
+            text="Deskripsi outcome.",
+        )
+        WorkshopAudience.objects.create(
+            workshop=self.current,
+            icon="",
+            label="Audience untuk Audit",
+            text="Deskripsi audience.",
+        )
+        for layout in ["editorial", "workflow", "dashboard", "showcase", "guide"]:
+            with self.subTest(layout=layout):
+                self.current.layout_variant = layout
+                self.current.save(update_fields=["layout_variant"])
+                response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
+                html = response.content.decode("utf-8")
+                self.assertIn('class="workshop-card-number">01</div>', html)
+                self.assertIn('class="workshop-audience-icon">01</span>', html)
+                self.assertIn('class="workshop-module-number">01</span>', html)
+                self.assertContains(response, "Outcome untuk Audit")
+                self.assertContains(response, "Audience untuk Audit")
+                self.assertContains(response, "Materi Dinamis")
+
+    def test_branding_and_ended_footer_cta_are_consistent(self):
+        response = self.client.get(reverse("workshop:detail", args=[self.previous.slug]))
+        self.assertContains(response, 'aria-label="Workshop AI"')
+        self.assertContains(response, "Workshop AI • by Indonesia AI")
+        self.assertNotContains(response, ">Daftar Workshop <i")
