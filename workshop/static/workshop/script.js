@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!target) return;
 
       container.scrollTo({
-        left: target.offsetLeft - container.offsetLeft,
+        left: target.offsetLeft - cards[0].offsetLeft,
         behavior: smooth && !reducedMotionQuery.matches ? "smooth" : "auto",
       });
     };
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     start();
   };
 
-  initMobileAutoCarousel(".outcome-grid");
-  initMobileAutoCarousel(".audience-grid");
+  initMobileAutoCarousel(".workshop-outcomes");
+  initMobileAutoCarousel(".workshop-audience");
 
 });
