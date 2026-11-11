@@ -15,7 +15,7 @@
         <a href="#materi">Materi</a>
         <a href="#mentor">Mentor</a>
         <a href="#faq">FAQ</a>
-        {% if workshop.show_registration and not workshop.is_archived %}
+        {% if workshop.show_registration and not workshop.has_ended %}
           <a class="btn btn-sm btn-primary" href="#daftar">Daftar Sekarang</a>
         {% else %}
           <a class="btn btn-sm btn-primary" href="{% url 'workshop:list' %}">Semua Workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
