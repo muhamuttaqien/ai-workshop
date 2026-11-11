@@ -392,3 +392,44 @@ class WorkshopPageTests(TestCase):
         self.assertContains(response, "mentor-card-front")
         self.assertNotContains(response, "mentor-card-track")
         self.assertNotContains(response, "mentor-more-btn")
+
+
+    def test_consolidate_duplicate_mentor_reassigns_all_workshops(self):
+        from django.apps import apps
+        from importlib import import_module
+
+        module = import_module("workshop.migrations.0013_consolidate_duplicate_mentor")
+        original = Mentor.objects.get(name="Muhammad Angga Muttaqien, M.Eng.")
+        duplicate = Mentor.objects.create(
+            name="Muhammad Angga Muttaqien, M.Eng.",
+            role=original.role,
+            bio=original.bio,
+            full_bio=original.full_bio,
+            photo=original.photo,
+        )
+        self.previous.mentor = original
+        self.previous.save(update_fields=["mentor"])
+        self.current.mentor = duplicate
+        self.current.save(update_fields=["mentor"])
+
+        module.consolidate_mentor_records(apps, None)
+
+        self.assertEqual(
+            Mentor.objects.filter(name="Muhammad Angga Muttaqien, M.Eng.").count(),
+            1,
+        )
+        canonical = Mentor.objects.get(name="Muhammad Angga Muttaqien, M.Eng.")
+        self.assertEqual(canonical.pk, duplicate.pk)
+        self.previous.refresh_from_db()
+        self.current.refresh_from_db()
+        self.assertEqual(self.previous.mentor_id, canonical.pk)
+        self.assertEqual(self.current.mentor_id, canonical.pk)
+        self.assertIn("Embodied AI", canonical.full_bio)
+
+        # Re-running is safe, and unrelated mentor records stay intact.
+        module.consolidate_mentor_records(apps, None)
+        self.assertEqual(
+            Mentor.objects.filter(name="Muhammad Angga Muttaqien, M.Eng.").count(),
+            1,
+        )
+        self.assertTrue(Mentor.objects.filter(name="Mentor Test").exists())
