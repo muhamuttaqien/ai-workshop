@@ -4,7 +4,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#090d13" />
+  <meta name="theme-color" content="#0b0b0e" />
+  <script>
+    // Apply the saved preference before styles render to avoid a theme flash.
+    try {
+      if (localStorage.getItem("indonesia-ai-course-theme") === "light") {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    } catch (e) { /* Browser storage may be unavailable. */ }
+  </script>
   <meta name="description" content="{% block meta_description %}Indonesia AI, platform pembelajaran AI praktis melalui Courses dan Workshop.{% endblock %}" />
   <title>{% block title %}Indonesia AI — Learning Platform{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,6 +20,8 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@600;700;800&family=Manrope:wght@800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link rel="stylesheet" href="{% static 'courses/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'courses/themes.css' %}" />
+  <script defer src="{% static 'courses/theme.js' %}"></script>
 </head>
 <body class="courses-platform">
   <header class="platform-header">
@@ -25,6 +35,11 @@
         <a href="{% url 'courses:list' %}"{% if request.resolver_match.namespace == 'courses' and request.resolver_match.url_name != 'home' %} class="current"{% endif %}>Courses</a>
         <a href="{% url 'workshop:home' %}">Workshop</a>
       </nav>
+      <button class="theme-toggle" id="course-theme-toggle" type="button"
+        aria-label="Aktifkan mode terang" aria-pressed="false" title="Ganti mode terang atau gelap">
+        <i class="fa-solid fa-sun theme-icon" aria-hidden="true"></i>
+        <span class="theme-label">Terang</span>
+      </button>
       <details class="platform-mobile-menu">
         <summary aria-label="Buka navigasi"><i class="fa-solid fa-bars" aria-hidden="true"></i></summary>
         <nav class="platform-mobile-links" aria-label="Navigasi Mobile">
