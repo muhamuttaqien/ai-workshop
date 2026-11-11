@@ -92,6 +92,36 @@ def main():
                             if layout in ("workflow", "showcase", "guide"):
                                 assert color == "rgb(255, 255, 255)", (url, color)
 
+                            mentor_card = page.locator(".mentor-card-interactive")
+                            assert mentor_card.count() == 1, url
+                            assert "Muhammad Angga Muttaqien, M.Eng." in mentor_card.inner_text(), url
+                            assert "GRID Co., Ltd." in page.locator(".mentor-card-detail").inner_text(), url
+
+                            if width == 1440:
+                                mentor_card.hover()
+                                assert "is-expanded" in mentor_card.get_attribute("class"), url
+                                assert page.locator(".mentor-card-detail").get_attribute("aria-hidden") == "false", url
+                            else:
+                                page.locator(".mentor-more-btn").click()
+                                assert "is-expanded" in mentor_card.get_attribute("class"), url
+                                assert page.locator(".mentor-card-detail").get_attribute("aria-hidden") == "false", url
+
+                            page.wait_for_timeout(700)
+                            card_bounds = mentor_card.bounding_box()
+                            detail_bounds = page.locator(".mentor-card-detail").bounding_box()
+                            assert abs(card_bounds["x"] - detail_bounds["x"]) < 5, (url, card_bounds, detail_bounds)
+                            assert page.locator(".mentor-card-detail").evaluate(
+                                "(element) => element.scrollHeight <= element.clientHeight + 3"
+                            ), ("mentor biography overflow", url)
+
+                            if width == 1440:
+                                page.mouse.move(1, 1)
+                                assert "is-expanded" not in mentor_card.get_attribute("class"), url
+                            else:
+                                page.locator(".mentor-back-btn").click()
+                                assert "is-expanded" not in mentor_card.get_attribute("class"), url
+                                assert page.locator(".mentor-card-detail").get_attribute("aria-hidden") == "true", url
+
                             if width == 390:
                                 assert page.locator(".mobile-cta").count() == 1, url
                                 display = page.locator(".workshop-outcomes").evaluate(
