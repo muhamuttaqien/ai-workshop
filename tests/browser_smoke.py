@@ -96,31 +96,29 @@ def main():
                             assert mentor_card.count() == 1, url
                             assert "Muhammad Angga Muttaqien, M.Eng." in mentor_card.inner_text(), url
                             assert "GRID Co., Ltd." in page.locator(".mentor-card-detail").inner_text(), url
+                            assert page.locator(".mentor-more-btn, .mentor-back-btn").count() == 0, url
 
                             if width == 1440:
                                 mentor_card.hover()
                                 assert "is-expanded" in mentor_card.get_attribute("class"), url
                                 assert page.locator(".mentor-card-detail").get_attribute("aria-hidden") == "false", url
-                            else:
-                                page.locator(".mentor-more-btn").click()
-                                assert "is-expanded" in mentor_card.get_attribute("class"), url
-                                assert page.locator(".mentor-card-detail").get_attribute("aria-hidden") == "false", url
-
-                            page.wait_for_timeout(700)
-                            card_bounds = mentor_card.bounding_box()
-                            detail_bounds = page.locator(".mentor-card-detail").bounding_box()
-                            assert abs(card_bounds["x"] - detail_bounds["x"]) < 5, (url, card_bounds, detail_bounds)
-                            assert page.locator(".mentor-card-detail").evaluate(
-                                "(element) => element.scrollHeight <= element.clientHeight + 3"
-                            ), ("mentor biography overflow", url)
-
-                            if width == 1440:
+                                page.wait_for_timeout(700)
+                                card_bounds = mentor_card.bounding_box()
+                                detail_bounds = page.locator(".mentor-card-detail").bounding_box()
+                                assert abs(card_bounds["x"] - detail_bounds["x"]) < 5, (url, card_bounds, detail_bounds)
                                 page.mouse.move(1, 1)
                                 assert "is-expanded" not in mentor_card.get_attribute("class"), url
                             else:
-                                page.locator(".mentor-back-btn").click()
-                                assert "is-expanded" not in mentor_card.get_attribute("class"), url
-                                assert page.locator(".mentor-card-detail").get_attribute("aria-hidden") == "true", url
+                                track = page.locator(".mentor-card-track")
+                                assert track.evaluate(
+                                    "(element) => window.getComputedStyle(element).flexDirection"
+                                ) == "column", url
+                                assert page.locator(".mentor-card-detail").get_attribute("aria-hidden") == "false", url
+                                assert page.locator(".mentor-card-detail").is_visible(), url
+
+                            assert page.locator(".mentor-card-detail").evaluate(
+                                "(element) => element.scrollHeight <= element.clientHeight + 3"
+                            ), ("mentor biography overflow", url)
 
                             if width == 390:
                                 assert page.locator(".mobile-cta").count() == 1, url
