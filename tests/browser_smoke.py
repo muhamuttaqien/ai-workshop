@@ -152,6 +152,38 @@ def main():
                                 "() => document.documentElement.scrollWidth <= window.innerWidth + 1"
                             ), ("courses horizontal overflow", route, width)
 
+                        # Course detail: ordered syllabus, lesson video/text/quiz and navigation.
+                        detail_url = BASE_URL + "/courses/chatgpt-untuk-aktivitas-sehari-hari/"
+                        detail_response = page.goto(detail_url, wait_until="load")
+                        assert detail_response is not None and detail_response.status == 200
+                        labels = page.locator(".detail-section .section-index, .course-syllabus-section .section-index, .related-section .section-index")
+                        assert labels.all_inner_texts() == ["01 /", "02 /", "03 /"]
+                        assert page.locator(".syllabus-list li").count() == 2
+                        page.locator(".syllabus-start").click()
+                        assert page.url.endswith("/courses/chatgpt-untuk-aktivitas-sehari-hari/lessons/mengenal-chatgpt/")
+                        assert page.locator(".lesson-sidebar-nav a").count() == 2
+                        assert page.locator(".lesson-nav-item.active").count() == 1
+                        assert page.locator(".lesson-video-placeholder").count() == 1
+                        assert page.locator(".lesson-content-text p").count() >= 2
+                        assert page.locator(".quiz-question").count() == 1
+                        page.locator(".quiz-option input[value='b']").check()
+                        page.locator(".quiz-submit").click()
+                        assert "Hasil Kuis: 1 / 1" in page.locator(".quiz-feedback h3").inner_text()
+                        assert page.evaluate(
+                            "() => document.documentElement.scrollWidth <= window.innerWidth + 1"
+                        ), ("lesson horizontal overflow", width)
+                        # The lesson pages use the same persisted light/dark preference.
+                        page.locator("#course-theme-toggle").click()
+                        assert page.locator("html").get_attribute("data-theme") == "light"
+                        page.locator(".lesson-bottom-nav a").last.click()
+                        assert page.url.endswith("/lessons/menulis-prompt-yang-jelas/")
+                        assert page.locator("html").get_attribute("data-theme") == "light"
+                        assert page.evaluate(
+                            "() => document.documentElement.scrollWidth <= window.innerWidth + 1"
+                        ), ("light lesson horizontal overflow", width)
+                        page.locator("#course-theme-toggle").click()
+                        assert page.locator("html").get_attribute("data-theme") is None
+
                         for slug, layout in WORKSHOPS:
                             url = BASE_URL + "/workshop/" + slug + "/"
                             response = page.goto(url, wait_until="domcontentloaded")
