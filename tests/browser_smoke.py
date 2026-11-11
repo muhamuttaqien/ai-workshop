@@ -64,7 +64,9 @@ def main():
                         ) == "rgb(239, 77, 77)", ("Courses logo background", width)
                         assert page.locator(".platform-nav-cta").count() == 0
                         assert page.locator(".hero-actions a").count() == 2
-                        assert page.locator(".hero-actions a").first.inner_text().strip().startswith("Jelajahi Courses")
+                        assert page.locator(".hero-actions a").first.inner_text().strip().startswith("Lihat Program")
+                        assert page.locator(".hero-actions a").first.get_attribute("href") == "#courses"
+                        assert page.locator(".hero-actions a").nth(1).inner_text().strip().startswith("Jelajahi Courses")
                         assert page.locator(".learning-journey-grid, .journey-step").count() == 0
                         assert page.locator(".learning-journey-layout").count() == 1
                         assert page.locator(".learning-path-step").count() == 4
@@ -90,7 +92,51 @@ def main():
                         ) == "rgb(247, 247, 248)", ("hero text white", width)
                         assert page.locator(".hero-studio").count() == 1
                         assert page.locator(".studio-label").inner_text() == "PRATINJAU KONSEP"
-                        assert page.locator(".course-card").count() == 3
+                        assert page.locator(".course-card").count() == 5
+                        # In-page navigation should scroll to the first program section.
+                        page.locator(".hero-actions a").first.click()
+                        page.wait_for_function("() => window.location.hash === '#courses'")
+                        page.wait_for_function(
+                            "() => document.querySelector('#courses').getBoundingClientRect().top < 150"
+                        )
+
+                        # Switch to light mode and retain preference between Courses pages.
+                        toggle = page.locator("#course-theme-toggle")
+                        assert toggle.get_attribute("aria-label") == "Aktifkan mode terang"
+                        toggle.click()
+                        assert page.locator("html").get_attribute("data-theme") == "light"
+                        assert toggle.get_attribute("aria-label") == "Aktifkan mode gelap"
+                        assert page.locator("body").evaluate(
+                            "(el) => getComputedStyle(el).backgroundColor"
+                        ) == "rgb(255, 255, 255)", ("light homepage", width)
+                        assert page.evaluate(
+                            "() => localStorage.getItem('indonesia-ai-course-theme')"
+                        ) == "light"
+
+                        for route, selector in (
+                            ("/courses/", ".catalog-layout"),
+                            ("/courses/gemini-untuk-produktivitas-dan-laporan/", ".detail-content"),
+                            ("/courses/notebooklm-untuk-belajar-dari-dokumen/", ".detail-content"),
+                        ):
+                            course_response = page.goto(BASE_URL + route, wait_until="load")
+                            assert course_response is not None and course_response.status == 200, route
+                            assert page.locator(selector).count() == 1, (route, selector)
+                            assert page.locator("html").get_attribute("data-theme") == "light", route
+                            assert page.locator("body").evaluate(
+                                "(el) => getComputedStyle(el).backgroundColor"
+                            ) == "rgb(255, 255, 255)", ("light course", route, width)
+                            assert page.evaluate(
+                                "() => document.documentElement.scrollWidth <= window.innerWidth + 1"
+                            ), ("light course horizontal overflow", route, width)
+
+                        # Return to dark mode; choice must persist across navigation.
+                        page.locator("#course-theme-toggle").click()
+                        assert page.locator("html").get_attribute("data-theme") is None
+                        assert page.locator("#course-theme-toggle").get_attribute("aria-label") == "Aktifkan mode terang"
+                        assert page.evaluate(
+                            "() => localStorage.getItem('indonesia-ai-course-theme')"
+                        ) == "dark"
+
                         for route, selector in (
                             ("/courses/", ".catalog-layout"),
                             ("/courses/chatgpt-untuk-aktivitas-sehari-hari/", ".detail-content"),
@@ -98,6 +144,7 @@ def main():
                             course_response = page.goto(BASE_URL + route, wait_until="domcontentloaded")
                             assert course_response is not None and course_response.status == 200, route
                             assert page.locator(selector).count() == 1, (route, selector)
+                            assert page.locator("html").get_attribute("data-theme") is None, route
                             assert page.locator("body").evaluate(
                                 "(el) => getComputedStyle(el).backgroundColor"
                             ) == "rgb(11, 11, 14)", ("dark course page", route, width)
@@ -111,6 +158,7 @@ def main():
                             assert response is not None and response.status == 200, url
                             assert page.locator("body").get_attribute("class") == "layout-" + layout, url
                             assert page.locator(".site-header .brand-text").inner_text() == "Indonesia AI", url
+                            assert page.locator("#course-theme-toggle").count() == 0, url
                             assert page.locator(".site-header .nav-links a").filter(has_text="Courses").count() == 0, url
                             assert page.locator(".hero h1").count() == 1, url
                             assert page.locator(".hero h1").inner_text().strip(), url
