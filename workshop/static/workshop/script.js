@@ -218,48 +218,35 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileAutoCarousel(".workshop-outcomes");
   initMobileAutoCarousel(".workshop-audience");
 
-  // Mentor profile: hover for pointer devices, tap/click for touch and keyboard.
+  // Automatic mentor slide on desktop; mobile shows both sections without controls.
   document.querySelectorAll(".mentor-card-interactive").forEach((card) => {
-    const moreButton = card.querySelector(".mentor-more-btn");
-    const backButton = card.querySelector(".mentor-back-btn");
     const front = card.querySelector(".mentor-card-front");
     const detail = card.querySelector(".mentor-card-detail");
     const hoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)");
-    if (!moreButton || !backButton || !front || !detail) return;
+    if (!front || !detail) return;
 
-    const setExpanded = (expanded, moveFocus = false) => {
-      const focusWasInsideDetail = detail.contains(document.activeElement);
-
+    const setExpanded = (expanded) => {
+      if (!hoverDevice.matches) expanded = false;
       card.classList.toggle("is-expanded", expanded);
-      moreButton.setAttribute("aria-expanded", String(expanded));
-      moreButton.tabIndex = expanded ? -1 : 0;
-      backButton.tabIndex = expanded ? 0 : -1;
       front.setAttribute("aria-hidden", String(expanded));
-      detail.setAttribute("aria-hidden", String(!expanded));
-
-      if (moveFocus || (!expanded && focusWasInsideDetail)) {
-        (expanded ? backButton : moreButton).focus({ preventScroll: true });
-      }
+      detail.setAttribute("aria-hidden", String(!expanded && hoverDevice.matches));
     };
 
     card.addEventListener("pointerenter", (event) => {
-      if (hoverDevice.matches && event.pointerType === "mouse") {
-        setExpanded(true);
-      }
+      if (event.pointerType === "mouse") setExpanded(true);
     });
     card.addEventListener("pointerleave", (event) => {
-      if (hoverDevice.matches && event.pointerType === "mouse") {
+      if (event.pointerType === "mouse") setExpanded(false);
+    });
+    card.addEventListener("focus", () => setExpanded(true));
+    card.addEventListener("blur", () => setExpanded(false));
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        card.blur();
         setExpanded(false);
       }
     });
-
-    moreButton.addEventListener("click", () => setExpanded(true, true));
-    backButton.addEventListener("click", () => setExpanded(false, true));
-    card.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && card.classList.contains("is-expanded")) {
-        setExpanded(false, true);
-      }
-    });
+    hoverDevice.addEventListener?.("change", () => setExpanded(false));
 
     setExpanded(false);
   });
