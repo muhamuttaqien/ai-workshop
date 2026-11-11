@@ -73,10 +73,16 @@ def main():
                         # Courses must have a completely independent dark UI.
                         assert page.locator("body").evaluate(
                             "(el) => getComputedStyle(el).backgroundColor"
-                        ) == "rgb(8, 13, 20)", ("homepage dark background", width)
+                        ) == "rgb(11, 11, 14)", ("homepage dark background", width)
                         assert page.locator(".platform-header").evaluate(
                             "(el) => getComputedStyle(el).backgroundColor"
-                        ).startswith("rgba(8, 13, 20,"), ("dark navigation", width)
+                        ).startswith("rgba(11, 11, 14,"), ("dark navigation", width)
+                        assert page.locator(".hero-actions .button-primary").evaluate(
+                            "(el) => getComputedStyle(el).backgroundColor"
+                        ) == "rgb(239, 77, 77)", ("primary action red", width)
+                        assert page.locator(".hero-copy h1").evaluate(
+                            "(el) => getComputedStyle(el).color"
+                        ) == "rgb(247, 247, 248)", ("hero text white", width)
                         assert page.locator(".hero-studio").count() == 1
                         assert page.locator(".studio-label").inner_text() == "PRATINJAU KONSEP"
                         assert page.locator(".course-card").count() == 3
@@ -89,7 +95,7 @@ def main():
                             assert page.locator(selector).count() == 1, (route, selector)
                             assert page.locator("body").evaluate(
                                 "(el) => getComputedStyle(el).backgroundColor"
-                            ) == "rgb(8, 13, 20)", ("dark course page", route, width)
+                            ) == "rgb(11, 11, 14)", ("dark course page", route, width)
                             assert page.evaluate(
                                 "() => document.documentElement.scrollWidth <= window.innerWidth + 1"
                             ), ("courses horizontal overflow", route, width)
