@@ -2375,50 +2375,50 @@ button {
 }
 
 /* Productivity variation: darker editorial hero */
-.layout-productivity .hero-productivity {
+.layout-workflow .hero-productivity {
   background:
     radial-gradient(circle at 78% 12%, rgba(239,77,77,.19), transparent 26%),
     #111;
   color: #fff;
 }
 
-.layout-productivity .hero-productivity .hero-glow-one,
-.layout-productivity .hero-productivity .hero-glow-two {
+.layout-workflow .hero-productivity .hero-glow-one,
+.layout-workflow .hero-productivity .hero-glow-two {
   display: none;
 }
 
-.layout-productivity .hero-productivity .hero-subtitle {
+.layout-workflow .hero-productivity .hero-subtitle {
   color: #b8b8b8;
 }
 
-.layout-productivity .hero-productivity .meta-item {
+.layout-workflow .hero-productivity .meta-item {
   background: rgba(255,255,255,.06);
   border-color: rgba(255,255,255,.11);
 }
 
-.layout-productivity .hero-productivity .meta-item small {
+.layout-workflow .hero-productivity .meta-item small {
   color: #909090;
 }
 
-.layout-productivity .hero-productivity .meta-item strong {
+.layout-workflow .hero-productivity .meta-item strong {
   color: #fff;
 }
 
-.layout-productivity .hero-productivity .meta-icon {
+.layout-workflow .hero-productivity .meta-icon {
   background: rgba(239,77,77,.14);
 }
 
-.layout-productivity .hero-productivity .btn-ghost {
+.layout-workflow .hero-productivity .btn-ghost {
   border-color: #3a3a3a;
   background: #1b1b1b;
   color: #fff;
 }
 
-.layout-productivity .hero-productivity .hero-note {
+.layout-workflow .hero-productivity .hero-note {
   color: #a6a6a6;
 }
 
-.layout-productivity .hero-productivity .archive-pill {
+.layout-workflow .hero-productivity .archive-pill {
   border-color: rgba(255,255,255,.12);
   background: rgba(255,255,255,.06);
   color: #bdbdbd;
@@ -2583,21 +2583,21 @@ button {
 }
 
 /* Productivity curriculum intentionally switches back to light */
-.layout-productivity .curriculum-section.curriculum-productivity {
+.layout-workflow .curriculum-section.curriculum-productivity {
   background: #fff !important;
   color: var(--ink);
 }
 
-.layout-productivity .curriculum-productivity .eyebrow {
+.layout-workflow .curriculum-productivity .eyebrow {
   color: var(--red);
 }
 
-.layout-productivity .curriculum-productivity .section-heading h2,
-.layout-productivity .curriculum-productivity .day-label strong {
+.layout-workflow .curriculum-productivity .section-heading h2,
+.layout-workflow .curriculum-productivity .day-label strong {
   color: var(--ink);
 }
 
-.layout-productivity .curriculum-productivity .curriculum-heading > p {
+.layout-workflow .curriculum-productivity .curriculum-heading > p {
   color: var(--muted);
 }
 
@@ -3051,13 +3051,13 @@ button {
    Reporting layout variation: Gemini workshop
    ========================================================== */
 
-.layout-reporting .hero-reporting {
+.layout-dashboard .hero-reporting {
   background:
     radial-gradient(circle at 82% 10%, rgba(239,77,77,.10), transparent 24%),
     linear-gradient(180deg, #f7f4ef 0%, #fff 88%);
 }
 
-.layout-reporting .hero-reporting .hero-glow-one {
+.layout-dashboard .hero-reporting .hero-glow-one {
   width: 380px;
   height: 380px;
   right: -140px;
@@ -3065,11 +3065,11 @@ button {
   background: rgba(239,77,77,.07);
 }
 
-.layout-reporting .hero-reporting .hero-glow-two {
+.layout-dashboard .hero-reporting .hero-glow-two {
   display: none;
 }
 
-.layout-reporting .hero-reporting h1 span {
+.layout-dashboard .hero-reporting h1 span {
   color: #252525;
   text-decoration: underline;
   text-decoration-color: rgba(239,77,77,.55);
@@ -3077,7 +3077,7 @@ button {
   text-underline-offset: .12em;
 }
 
-.layout-reporting .hero-reporting .meta-item {
+.layout-dashboard .hero-reporting .meta-item {
   background: rgba(255,255,255,.72);
   border-color: rgba(0,0,0,.08);
 }
@@ -3335,7 +3335,7 @@ button {
 }
 
 /* Reporting audience is an asymmetric mosaic. */
-.layout-reporting .audience-section {
+.layout-dashboard .audience-section {
   background: #f7f4ef;
 }
 
@@ -3411,20 +3411,20 @@ button {
 }
 
 /* Reporting curriculum uses warm background and editorial session rows. */
-.layout-reporting .curriculum-section.curriculum-reporting {
+.layout-dashboard .curriculum-section.curriculum-reporting {
   background: #ece7df !important;
   color: var(--ink);
 }
 
-.layout-reporting .curriculum-reporting .eyebrow {
+.layout-dashboard .curriculum-reporting .eyebrow {
   color: var(--red);
 }
 
-.layout-reporting .curriculum-reporting .section-heading h2 {
+.layout-dashboard .curriculum-reporting .section-heading h2 {
   color: var(--ink);
 }
 
-.layout-reporting .curriculum-reporting .curriculum-heading > p {
+.layout-dashboard .curriculum-reporting .curriculum-heading > p {
   color: #6e6a64;
 }
 
@@ -3559,42 +3559,42 @@ button {
   font-size: .85rem;
 }
 
-.layout-reporting .schedule-grid {
+.layout-dashboard .schedule-grid {
   position: relative;
   grid-template-columns: 1fr;
   max-width: 900px;
   margin: 0 auto;
 }
 
-.layout-reporting .schedule-card {
+.layout-dashboard .schedule-card {
   grid-template-columns: 80px 1fr;
   border-radius: 0;
   border-width: 0 0 1px;
   padding: 30px 0;
 }
 
-.layout-reporting .schedule-number {
+.layout-dashboard .schedule-number {
   border-radius: 50%;
   background: var(--red-soft);
   color: var(--red);
 }
 
-.layout-reporting .mentor-section {
+.layout-dashboard .mentor-section {
   background: #151515;
   color: #fff;
 }
 
-.layout-reporting .mentor-section .section-heading > p,
-.layout-reporting .mentor-info p {
+.layout-dashboard .mentor-section .section-heading > p,
+.layout-dashboard .mentor-info p {
   color: #aaa;
 }
 
-.layout-reporting .mentor-card {
+.layout-dashboard .mentor-card {
   background: #202020;
   border-color: #303030;
 }
 
-.layout-reporting .mentor-role {
+.layout-dashboard .mentor-role {
   color: #ff8383;
 }
 
