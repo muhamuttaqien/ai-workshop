@@ -1,8 +1,6 @@
 # Workshop AI
 
-A Django-based website for managing and publishing practical AI workshops by **Indonesia AI (PT. Teknologi Artifisial Indonesia)**.
-
-The platform is designed to make it easy to create, update, archive, and reuse workshop pages through Django Admin without building a new page for every event.
+A Django-based website for managing and publishing practical AI workshops by **Indonesia AI (PT. Teknologi Artifisial Indonesia)**. The platform is designed to make it easy to create, update, archive, and reuse workshop pages through Django Admin without building a new page for every event.
 
 ## Features
 
