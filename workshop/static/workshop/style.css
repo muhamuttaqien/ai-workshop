@@ -3891,3 +3891,132 @@ button {
     margin-right: 0 !important;
   }
 }
+
+
+/* ============================================================
+   GENERAL LAYOUT VARIANTS: SHOWCASE + GUIDE
+   Editorial, Workflow and Dashboard keep their established styles.
+   ============================================================ */
+
+.hero-showcase {
+  background:
+    radial-gradient(circle at 78% 20%, rgba(239,77,77,.22), transparent 30%),
+    linear-gradient(135deg, #101010 0%, #191313 54%, #101010 100%);
+}
+.showcase-hero-visual {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.showcase-label {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 9px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.showcase-canvas { position: relative; height: 340px; }
+.showcase-card {
+  position: absolute;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 30px 80px rgba(0,0,0,.36);
+}
+.showcase-card-back {
+  inset: 18px 46px 0 78px;
+  transform: rotate(7deg);
+  background: linear-gradient(135deg, #ef4d4d, #7d2828);
+  color: rgba(255,255,255,.7);
+  padding: 24px;
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+.showcase-card-main {
+  inset: 0 70px 22px 24px;
+  padding: 34px;
+  overflow: hidden;
+  background: #f8f5f0;
+  color: #171717;
+}
+.showcase-card-main small { font-size: .68rem; font-weight: 800; letter-spacing: .12em; color: #8d3434; }
+.showcase-card-main strong { display: block; margin-top: 18px; font-size: clamp(2rem,4vw,3.4rem); line-height: .94; letter-spacing: -.055em; }
+.showcase-shapes { position: absolute; right: 28px; bottom: 28px; display: flex; align-items: end; gap: 8px; }
+.showcase-shapes i { display: block; width: 42px; height: 42px; background: #171717; border-radius: 50%; }
+.showcase-shapes i:nth-child(2) { height: 72px; border-radius: 10px; background: #ef4d4d; }
+.showcase-shapes i:nth-child(3) { width: 72px; border-radius: 10px; background: #d9cec1; }
+.showcase-flow, .guide-flow { color: rgba(255,255,255,.72); font-size: .78rem; font-weight: 700; letter-spacing: .05em; }
+.outcome-grid-showcase .outcome-card,
+.showcase-audience-card { position: relative; overflow: hidden; }
+.outcome-grid-showcase .outcome-card:nth-child(odd),
+.showcase-audience-card:nth-child(even) { transform: translateY(14px); }
+.showcase-audience-no { position: absolute; top: 20px; right: 20px; font-size: .7rem; font-weight: 900; color: #b8b0a8; }
+.curriculum-showcase { background: #111 !important; }
+.showcase-curriculum-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px; }
+.showcase-session { padding: 30px; border: 1px solid #303030; border-radius: 24px; background: linear-gradient(145deg,#191919,#121212); }
+.showcase-session-head { display: flex; justify-content: space-between; gap: 20px; color: #a9a9a9; font-size: .72rem; }
+.showcase-session-head span { color: #ff8585; font-weight: 800; letter-spacing: .08em; }
+.showcase-session h3 { margin: 13px 0 22px; color: #fff; }
+.showcase-module-chips { display: grid; gap: 10px; }
+.showcase-module-chips > div { padding: 15px 16px; border-radius: 14px; background: #202020; }
+.showcase-module-chips span { color: #ff8585; font-size: .68rem; font-weight: 800; }
+.showcase-module-chips strong { display: block; margin-top: 4px; color: #fff; }
+.showcase-module-chips p { margin: 5px 0 0; color: #aaa; font-size: .86rem; }
+.benefit-showcase { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.benefit-showcase .benefit-bento-card { min-height: 250px; position: relative; }
+.showcase-benefit-spark { position: absolute; right: 24px; bottom: 24px; font-size: 1.35rem; color: #ef4d4d; }
+
+.hero-guide {
+  background: linear-gradient(135deg, #101010 0%, #151515 65%, #1c1917 100%);
+}
+.guide-hero-visual { min-height: 500px; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+.guide-window { padding: 24px; border-radius: 22px; background: #fff; box-shadow: 0 30px 80px rgba(0,0,0,.34); }
+.guide-window-head { display: flex; justify-content: space-between; gap: 18px; padding-bottom: 18px; border-bottom: 1px solid #eee; }
+.guide-window-head span { font-size: .72rem; font-weight: 900; color: #9b3232; letter-spacing: .08em; }
+.guide-window-head small { color: #8a8a8a; font-size: .65rem; }
+.guide-step { display: grid; grid-template-columns: 38px 1fr 20px; gap: 13px; align-items: center; padding: 17px 0; border-bottom: 1px solid #eee; }
+.guide-step > span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #f3f1ed; font-size: .68rem; font-weight: 900; }
+.guide-step strong, .guide-step small { display: block; }
+.guide-step small { margin-top: 3px; color: #858585; }
+.guide-step > i { color: #a0a0a0; }
+.guide-step.active > span { background: #ef4d4d; color: #fff; }
+.guide-step.active > i { color: #3f9d66; }
+.guide-progress { height: 5px; margin-top: 18px; border-radius: 99px; background: #eee; overflow: hidden; }
+.guide-progress span { display: block; width: 34%; height: 100%; background: #ef4d4d; border-radius: inherit; }
+.outcome-grid-guide .outcome-card { border-left: 3px solid #ef4d4d; }
+.audience-guide .audience-row { background: #fff; }
+.curriculum-guide { background: #121212 !important; }
+.guide-curriculum { max-width: 920px; margin: 0 auto; display: grid; gap: 18px; }
+.guide-session { display: grid; grid-template-columns: 72px 1fr; gap: 20px; padding: 26px; border: 1px solid #2e2e2e; border-radius: 20px; background: #191919; }
+.guide-session-index { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: #ef4d4d; color: #fff; font-weight: 900; }
+.guide-session-body > span { color: #ff8585; font-size: .72rem; font-weight: 800; letter-spacing: .05em; }
+.guide-session-body h3 { margin: 8px 0 18px; color: #fff; }
+.guide-module { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 12px 0; border-top: 1px solid #2b2b2b; }
+.guide-module i { margin-top: 4px; color: #6fcf97; }
+.guide-module strong { color: #fff; }
+.guide-module p { margin: 4px 0 0; color: #aaa; }
+.guide-benefits { max-width: 920px; margin: 0 auto; }
+.guide-benefits .benefit-ledger-icon { background: #edf8f1; color: #2f8b58; }
+
+@media (max-width: 900px) {
+  .showcase-curriculum-grid, .benefit-showcase { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .showcase-hero-visual, .guide-hero-visual { min-height: 390px; }
+  .showcase-canvas { height: 290px; }
+  .showcase-card-main { inset: 0 34px 20px 0; padding: 26px; }
+  .showcase-card-back { inset: 18px 8px 0 54px; }
+  .showcase-curriculum-grid, .benefit-showcase { grid-template-columns: 1fr; }
+  .outcome-grid-showcase .outcome-card:nth-child(odd),
+  .showcase-audience-card:nth-child(even) { transform: none; }
+  .guide-session { grid-template-columns: 54px 1fr; padding: 20px; }
+  .guide-session-index { width: 44px; height: 44px; }
+}
