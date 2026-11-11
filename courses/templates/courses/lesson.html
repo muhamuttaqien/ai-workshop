@@ -1,0 +1,114 @@
+{% extends "courses/base.html" %}
+{% block title %}{{ lesson.title }} | {{ course.title }} | Indonesia AI{% endblock %}
+{% block meta_description %}{{ lesson.summary|default:course.short_description }}{% endblock %}
+{% block content %}
+<section class="lesson-topbar">
+  <div class="platform-container lesson-topbar-inner">
+    <a class="back-link" href="{% url 'courses:detail' course.slug %}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali ke Detail Course</a>
+    <span class="lesson-course-title">{{ course.title }}</span>
+  </div>
+</section>
+
+<div class="platform-container lesson-layout">
+  <aside class="lesson-sidebar" aria-label="Daftar materi">
+    <div class="lesson-sidebar-head">
+      <span class="section-label">COURSE CONTENT</span>
+      <h2>Daftar Materi</h2>
+      <p>{{ course.title }}</p>
+    </div>
+    <nav class="lesson-sidebar-nav" aria-label="Navigasi materi">
+      {% for item in lessons %}
+        <a href="{% url 'courses:lesson' course.slug item.slug %}" class="lesson-nav-item{% if item.pk == lesson.pk %} active{% endif %}" {% if item.pk == lesson.pk %}aria-current="page"{% endif %}>
+          <span class="lesson-nav-index">{{ forloop.counter|stringformat:"02d" }}</span>
+          <span>{{ item.title }}</span>
+          {% if item.pk == lesson.pk %}<i class="fa-solid fa-play" aria-hidden="true"></i>{% endif %}
+        </a>
+      {% endfor %}
+    </nav>
+    <a href="{% url 'courses:detail' course.slug %}#daftar-materi" class="lesson-sidebar-back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Semua Materi</a>
+  </aside>
+
+  <article class="lesson-main">
+    <header class="lesson-heading">
+      <span class="section-label">MATERI {{ lesson_position|stringformat:"02d" }} / {{ lessons|length|stringformat:"02d" }}</span>
+      <h1>{{ lesson.title }}</h1>
+      {% if lesson.summary %}<p>{{ lesson.summary }}</p>{% endif %}
+    </header>
+
+    <section class="lesson-video-section" aria-label="Video pembelajaran">
+      {% if lesson.youtube_video_id %}
+        <div class="lesson-video-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/{{ lesson.youtube_video_id }}" title="Video materi {{ lesson.title }}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      {% else %}
+        <div class="lesson-video-placeholder">
+          <span class="lesson-video-placeholder-icon"><i class="fa-solid fa-circle-play" aria-hidden="true"></i></span>
+          <strong>Video pembelajaran sedang disiapkan</strong>
+          <span>Materi teks dan kuis di bawah ini sudah dapat dipelajari.</span>
+        </div>
+      {% endif %}
+    </section>
+
+    <section class="lesson-explanation" id="penjelasan">
+      <span class="section-label">PENJELASAN MATERI</span>
+      <h2>Ringkasan & Penjelasan</h2>
+      <div class="lesson-content-text">{{ lesson.content|linebreaks }}</div>
+    </section>
+
+    <section class="lesson-quiz" id="kuis">
+      <div class="lesson-quiz-heading">
+        <span class="section-label">KUIS PEMAHAMAN</span>
+        <h2>Uji Pemahamanmu</h2>
+        <p>Jawab pertanyaan berdasarkan materi yang baru dipelajari.</p>
+      </div>
+      {% if questions %}
+        <form method="post" class="lesson-quiz-form">
+          {% csrf_token %}
+          {% for question in questions %}
+            <fieldset class="quiz-question">
+              <legend><span class="quiz-number">{{ forloop.counter|stringformat:"02d" }}</span> {{ question.question }}</legend>
+              <div class="quiz-options">
+                {% for key, option_text in question.choices %}
+                  <label class="quiz-option">
+                    <input type="radio" name="question_{{ question.pk }}" value="{{ key }}" required>
+                    <span class="quiz-option-key">{{ key|upper }}</span>
+                    <span>{{ option_text }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+            </fieldset>
+          {% endfor %}
+          <button class="button button-primary quiz-submit" type="submit">Periksa Jawaban <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+        </form>
+        {% if quiz_results != None %}
+          <div class="quiz-feedback" role="status" aria-live="polite" id="hasil-kuis">
+            <h3>Hasil Kuis: {{ quiz_score }} / {{ quiz_total }}</h3>
+            {% for result in quiz_results %}
+              <div class="quiz-feedback-item">
+                <strong>{{ forloop.counter }}. {% if result.is_correct %}Benar{% else %}Belum Tepat{% endif %}</strong>
+                <p>{{ result.question.question }}</p>
+                <p>Jawaban benar: {{ result.question.correct_text }}</p>
+                {% if result.question.explanation %}<p>{{ result.question.explanation }}</p>{% endif %}
+              </div>
+            {% endfor %}
+            <p class="quiz-feedback-note">Jawaban diperiksa pada halaman ini. Penyimpanan progres peserta belum tersedia.</p>
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="quiz-empty"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Kuis untuk materi ini sedang disiapkan.</div>
+      {% endif %}
+    </section>
+
+    <nav class="lesson-bottom-nav" aria-label="Navigasi lesson">
+      {% if previous_lesson %}
+        <a href="{% url 'courses:lesson' course.slug previous_lesson.slug %}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Materi Sebelumnya</a>
+      {% else %}
+        <a href="{% url 'courses:detail' course.slug %}#daftar-materi"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Detail Course</a>
+      {% endif %}
+      {% if next_lesson %}
+        <a href="{% url 'courses:lesson' course.slug next_lesson.slug %}">Materi Berikutnya <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      {% endif %}
+    </nav>
+  </article>
+</div>
+{% endblock %}
