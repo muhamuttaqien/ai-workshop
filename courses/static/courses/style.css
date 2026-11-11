@@ -14,8 +14,7 @@ button{font:inherit}
 .brand-symbol{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;color:#fff;background:var(--red);font-family:"Manrope",sans-serif;font-weight:800}
 .platform-links{display:flex;align-items:center;gap:32px;margin-left:auto;font-weight:600;font-size:.91rem}
 .platform-links a:hover,.platform-links a.current{color:var(--red-dark)}
-.platform-nav-cta{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:11px;background:var(--red);color:#fff;font-weight:800;font-size:.86rem;white-space:nowrap}
-.platform-nav-cta:hover,.button-primary:hover{background:var(--red-dark)}
+.button-primary:hover{background:var(--red-dark)}
 .platform-mobile-menu{display:none;position:relative;margin-left:auto}
 .platform-mobile-menu summary{cursor:pointer;list-style:none;font-size:1.1rem;padding:10px}
 .platform-mobile-menu summary::-webkit-details-marker{display:none}
@@ -122,7 +121,7 @@ button{font:inherit}
 @media(max-width:760px){
   .platform-container{width:calc(100% - 36px)}
   .platform-nav{min-height:68px}
-  .platform-links,.platform-nav-cta{display:none}
+  .platform-links{display:none}
   .platform-mobile-menu{display:block}
   .platform-hero{padding:55px 0 65px}
   .platform-hero-grid,.detail-hero-grid,.detail-content,.footer-grid{grid-template-columns:1fr}
@@ -145,3 +144,74 @@ button{font:inherit}
   .footer-bottom{flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Course learning journey — a preview of the planned free online learning experience. */
+.learning-journey-section{
+  background:linear-gradient(150deg,#faf9f8 0%,#fff5f5 100%);
+  border-top:1px solid #f0ecea;
+  border-bottom:1px solid #f0ecea;
+}
+.learning-journey-header{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:28px;
+  margin-bottom:32px;
+}
+.learning-journey-header h2{
+  margin:9px 0 13px;
+  font:800 clamp(1.9rem,3.5vw,2.7rem)/1.18 "Manrope",sans-serif;
+  letter-spacing:-.045em;
+}
+.learning-journey-header p{max-width:760px;margin:0;color:var(--muted)}
+.journey-status{
+  flex-shrink:0;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 14px;
+  border:1px solid #f3d9d9;
+  border-radius:100px;
+  color:#bd3b3b;
+  background:#fff;
+  font-size:.77rem;
+  font-weight:800;
+}
+.learning-journey-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:17px;
+}
+.journey-step{
+  min-width:0;
+  padding:26px 23px 28px;
+  border:1px solid #ebe3e0;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:0 12px 34px rgba(28,20,20,.035);
+}
+.journey-step-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:28px}
+.journey-step-icon{
+  display:grid;
+  place-items:center;
+  width:52px;
+  height:52px;
+  border-radius:15px;
+  background:var(--red-soft);
+  color:var(--red-dark);
+  font-size:1.2rem;
+}
+.journey-step-number{font:800 .75rem "Manrope",sans-serif;letter-spacing:.06em;color:#a29d9d}
+.journey-step h3{margin:0 0 11px;font:800 1.07rem/1.35 "Manrope",sans-serif;letter-spacing:-.025em}
+.journey-step p{margin:0;font-size:.88rem;color:var(--muted)}
+.journey-note{display:flex;align-items:flex-start;gap:9px;margin:22px 0 0;font-size:.79rem;color:#777}
+.journey-note i{margin-top:5px;color:var(--red-dark)}
+@media(max-width:1020px){
+  .learning-journey-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .learning-journey-header{align-items:flex-start;flex-direction:column;gap:17px}
+  .learning-journey-grid{grid-template-columns:1fr;gap:13px}
+  .journey-step{padding:22px}
+  .journey-step-top{margin-bottom:19px}
+}

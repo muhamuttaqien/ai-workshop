@@ -14,6 +14,32 @@ class LearningPlatformTests(TestCase):
         self.assertContains(response, "ChatGPT untuk Aktivitas Sehari-hari")
         self.assertContains(response, 'href="/workshop/"')
 
+    def test_homepage_navigation_and_learning_journey(self):
+        response = self.client.get(reverse("courses:home"))
+        self.assertNotContains(response, "Jelajahi Courses")
+        self.assertContains(response, 'aria-label="Navigasi Utama"')
+        self.assertContains(response, 'href="/">Beranda</a>')
+        self.assertContains(response, 'href="/courses/">Courses</a>')
+        self.assertContains(response, 'href="/workshop/">Workshop</a>')
+        self.assertContains(response, "Mulai Belajar AI Sekarang!")
+        for phrase in (
+            "Buat Akun Gratis",
+            "Pelajari Materi Video",
+            "Kerjakan Kuis",
+            "Praktik Langsung",
+            "masih dalam pengembangan",
+        ):
+            self.assertContains(response, phrase)
+        html = response.content.decode("utf-8")
+        self.assertLess(
+            html.index("Courses untuk mulai belajar AI."),
+            html.index("Mulai Belajar AI Sekarang!"),
+        )
+        self.assertLess(
+            html.index("Mulai Belajar AI Sekarang!"),
+            html.index("Ingin belajar bersama mentor?"),
+        )
+
     def test_courses_catalog_and_details(self):
         response = self.client.get(reverse("courses:list"))
         self.assertEqual(response.status_code, 200)
