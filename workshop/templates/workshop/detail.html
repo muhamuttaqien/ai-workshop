@@ -333,7 +333,7 @@
       <h2>{{ workshop.mentor_section_title }}</h2>
       <p>{{ workshop.mentor_section_intro }}</p>
     </div>
-    <article class="mentor-card{% if workshop.mentor.full_bio %} mentor-card-interactive{% endif %} reveal">
+    <article class="mentor-card{% if workshop.mentor.full_bio %} mentor-card-interactive{% endif %} reveal"{% if workshop.mentor.full_bio %} tabindex="0" aria-label="Profil mentor {{ workshop.mentor.name }}"{% endif %}>
       {% if workshop.mentor.full_bio %}<div class="mentor-card-track">{% endif %}
         <div class="mentor-card-panel mentor-card-front">
           <div class="mentor-photo">
@@ -343,11 +343,6 @@
             <h3>{{ workshop.mentor.name }}</h3>
             <div class="mentor-role">{{ workshop.mentor.role }}</div>
             <p>{{ workshop.mentor.bio }}</p>
-            {% if workshop.mentor.full_bio %}
-              <button class="mentor-more-btn" type="button" aria-expanded="false">
-                Profil lengkap <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              </button>
-            {% endif %}
           </div>
         </div>
       {% if workshop.mentor.full_bio %}
@@ -356,9 +351,6 @@
           <h3>{{ workshop.mentor.name }}</h3>
           <div class="mentor-detail-role">{{ workshop.mentor.role }}</div>
           <p>{{ workshop.mentor.full_bio }}</p>
-          <button class="mentor-back-btn" type="button" tabindex="-1">
-            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali
-          </button>
         </div>
       </div>
       {% endif %}
