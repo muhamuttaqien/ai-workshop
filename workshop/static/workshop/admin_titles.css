@@ -1,0 +1,9 @@
+/* Keep Django Admin's collapsible section headings in Title Case. */
+.change-form .module h2,
+.change-form .inline-group h2,
+.change-form fieldset > h2,
+.change-form fieldset > summary,
+.change-form .inline-group summary,
+.change-form .collapse summary {
+  text-transform: none !important;
+}
