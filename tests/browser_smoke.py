@@ -57,6 +57,11 @@ def main():
                     try:
                         response = page.goto(BASE_URL + "/", wait_until="domcontentloaded")
                         assert response is not None and response.status == 200
+                        assert page.locator(".platform-brand .brand-mark").count() == 2
+                        assert page.locator(".platform-header .brand-text").inner_text() == "Indonesia AI"
+                        assert page.locator(".platform-header .brand-mark").evaluate(
+                            "(el) => getComputedStyle(el).backgroundColor"
+                        ) == "rgb(239, 77, 77)", ("Courses logo background", width)
                         assert page.locator(".platform-nav-cta").count() == 0
                         assert page.locator(".hero-actions a").count() == 2
                         assert page.locator(".hero-actions a").first.inner_text().strip().startswith("Jelajahi Courses")
@@ -105,6 +110,8 @@ def main():
                             response = page.goto(url, wait_until="domcontentloaded")
                             assert response is not None and response.status == 200, url
                             assert page.locator("body").get_attribute("class") == "layout-" + layout, url
+                            assert page.locator(".site-header .brand-text").inner_text() == "Indonesia AI", url
+                            assert page.locator(".site-header .nav-links a").filter(has_text="Courses").count() == 0, url
                             assert page.locator(".hero h1").count() == 1, url
                             assert page.locator(".hero h1").inner_text().strip(), url
                             assert page.locator(".hero-subtitle").inner_text().strip(), url
