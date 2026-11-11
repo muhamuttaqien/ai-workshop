@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".mentor-card-interactive").forEach((card) => {
     const front = card.querySelector(".mentor-card-front");
     const detail = card.querySelector(".mentor-card-detail");
-    const hoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const hoverDevice = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 761px)");
     if (!front || !detail) return;
 
     const setExpanded = (expanded) => {
