@@ -1,4 +1,4 @@
-# AI untuk Semua — Learning Platform
+# Indonesia AI — Learning Platform
 
 A simple Django learning platform by **Indonesia AI (PT. Teknologi Artifisial Indonesia)**, with two sections: **Courses** and **Workshop**.
 
