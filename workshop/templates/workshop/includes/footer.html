@@ -3,9 +3,9 @@
     <div class="footer-brand">
       <a class="brand brand-footer" href="{% url 'workshop:home' %}">
         <span class="brand-mark">AI</span>
-        <span class="brand-text">Indonesia AI</span>
+        <span class="brand-text">Workshop AI</span>
       </a>
-      <p>Program edukasi Artificial Intelligence untuk membantu talenta Indonesia memahami dan menggunakan AI secara praktis.</p>
+      <p>Program edukasi by Indonesia AI (PT. Teknologi Artifisial Indonesia) untuk mendorong pemanfaatan teknologi AI dan beragam use case-nya dalam kehidupan sehari-hari, sekaligus membantu talenta Indonesia memahami dan menggunakan AI secara praktis.</p>
     </div>
 
     <div class="footer-links">
@@ -22,7 +22,7 @@
     <div class="footer-links">
       <strong>Indonesia AI</strong>
       <a href="https://aiforindonesia.com/" target="_blank" rel="noreferrer">Website Utama</a>
-      {% if workshop.show_registration and not workshop.is_archived %}
+      {% if workshop.show_registration and not workshop.has_ended %}
         <a href="#daftar">Daftar Workshop</a>
       {% endif %}
     </div>
@@ -30,6 +30,6 @@
 
   <div class="container footer-bottom">
     <span>© <span id="year"></span> PT. Teknologi Artifisial Indonesia</span>
-    <span>Indonesia AI • AI for Everyone</span>
+    <span>Workshop AI • by Indonesia AI</span>
   </div>
 </footer>
