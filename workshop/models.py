@@ -6,6 +6,11 @@ class Mentor(models.Model):
     name = models.CharField(max_length=120)
     role = models.CharField(max_length=180)
     bio = models.TextField()
+    full_bio = models.TextField(
+        blank=True,
+        default="",
+        help_text="Profil lengkap mentor yang ditampilkan saat kartu mentor dibuka.",
+    )
     photo = models.CharField(
         max_length=255,
         default="workshop/img/mentor.jpg",
