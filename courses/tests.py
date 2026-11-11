@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Course
+from .models import Course, Lesson, QuizQuestion
 
 
 class LearningPlatformTests(TestCase):
@@ -112,6 +112,101 @@ class LearningPlatformTests(TestCase):
         self.assertContains(detail, "Segera Hadir")
         self.assertContains(detail, "Memahami fungsi AI sebagai pendamping riset")
 
+    def test_course_detail_has_three_ordered_sections(self):
+        response = self.client.get(reverse("courses:detail", args=["chatgpt-untuk-aktivitas-sehari-hari"]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "01 /")
+        self.assertContains(response, "02 /")
+        self.assertContains(response, "03 /")
+        self.assertContains(response, "DAFTAR MATERI")
+        self.assertContains(response, "LANJUTKAN EKSPLORASI")
+        self.assertContains(response, "Mulai Belajar")
+        html = response.content.decode()
+        self.assertLess(html.index("TENTANG COURSE"), html.index("DAFTAR MATERI"))
+        self.assertLess(html.index("DAFTAR MATERI"), html.index("LANJUTKAN EKSPLORASI"))
+        self.assertContains(
+            response,
+            'href="/courses/chatgpt-untuk-aktivitas-sehari-hari/lessons/mengenal-chatgpt/"',
+        )
+
+    def test_seeded_lessons_and_quizzes_are_accessible(self):
+        self.assertEqual(Lesson.objects.filter(is_published=True).count(), 10)
+        self.assertEqual(QuizQuestion.objects.count(), 10)
+        for course in Course.objects.filter(is_published=True):
+            with self.subTest(course=course.slug):
+                self.assertEqual(course.lessons.filter(is_published=True).count(), 2)
+                first = course.lessons.first()
+                response = self.client.get(reverse("courses:lesson", args=[course.slug, first.slug]))
+                self.assertEqual(response.status_code, 200)
+                self.assertContains(response, first.title)
+                self.assertContains(response, 'aria-label="Daftar materi"')
+                self.assertContains(response, "Video pembelajaran sedang disiapkan")
+                self.assertContains(response, "PENJELASAN MATERI")
+                self.assertContains(response, "KUIS PEMAHAMAN")
+                self.assertContains(response, "Periksa Jawaban")
+                self.assertContains(response, "Materi Berikutnya")
+                self.assertContains(response, 'id="course-theme-toggle"')
+
+    def test_quiz_grading_and_answer_feedback(self):
+        course = Course.objects.get(slug="chatgpt-untuk-aktivitas-sehari-hari")
+        lesson = course.lessons.get(slug="mengenal-chatgpt")
+        question = lesson.quiz_questions.first()
+        url = reverse("courses:lesson", args=[course.slug, lesson.slug])
+
+        initial = self.client.get(url)
+        self.assertNotContains(initial, "Hasil Kuis:")
+        correct = self.client.post(url, {f"question_{question.pk}": question.correct_option})
+        self.assertContains(correct, "Hasil Kuis: 1 / 1")
+        self.assertContains(correct, "Benar")
+        self.assertContains(correct, question.explanation)
+        wrong_answer = next(option for option in "abcd" if option != question.correct_option)
+        wrong = self.client.post(url, {f"question_{question.pk}": wrong_answer})
+        self.assertContains(wrong, "Hasil Kuis: 0 / 1")
+        self.assertContains(wrong, "Belum Tepat")
+
+    def test_lesson_is_scoped_to_published_course_and_published_lesson(self):
+        published = Course.objects.get(slug="chatgpt-untuk-aktivitas-sehari-hari")
+        hidden = Course.objects.create(
+            title="Draft Course", slug="draft-course", short_description="Draft",
+            description="Draft", is_published=False,
+        )
+        draft_lesson = Lesson.objects.create(
+            course=published, title="Hidden Lesson", slug="hidden-lesson",
+            content="Draft", is_published=False,
+        )
+        foreign_lesson = Lesson.objects.create(
+            course=hidden, title="Foreign Lesson", slug="foreign-lesson",
+            content="Draft", is_published=True,
+        )
+        self.assertEqual(
+            self.client.get(reverse("courses:lesson", args=[published.slug, draft_lesson.slug])).status_code,
+            404,
+        )
+        self.assertEqual(
+            self.client.get(reverse("courses:lesson", args=[hidden.slug, foreign_lesson.slug])).status_code,
+            404,
+        )
+        self.assertEqual(
+            self.client.get(reverse("courses:lesson", args=[published.slug, foreign_lesson.slug])).status_code,
+            404,
+        )
+
+    def test_video_embed_accepts_youtube_id_only(self):
+        lesson = Lesson.objects.get(
+            course__slug="chatgpt-untuk-aktivitas-sehari-hari", slug="mengenal-chatgpt"
+        )
+        lesson.youtube_video_id = "dQw4w9WgXcQ"
+        lesson.full_clean()
+        lesson.save(update_fields=["youtube_video_id"])
+        response = self.client.get(reverse("courses:lesson", args=[lesson.course.slug, lesson.slug]))
+        self.assertContains(
+            response, 'src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"'
+        )
+        lesson.youtube_video_id = "https://example.com/?unsafe"
+        from django.core.exceptions import ValidationError
+        with self.assertRaises(ValidationError):
+            lesson.full_clean()
+
     def test_unpublished_course_is_not_public(self):
         course = Course.objects.create(
             title="Hidden Demo Course",
@@ -160,6 +255,10 @@ class LearningPlatformTests(TestCase):
         self.assertContains(workshop_index, "Kelola Workshop")
         self.assertEqual(
             self.client.get(reverse("workshop_admin:workshop_workshop_changelist")).status_code,
+            200,
+        )
+        self.assertEqual(
+            self.client.get(reverse("courses_admin:courses_lesson_changelist")).status_code,
             200,
         )
         self.assertEqual(self.client.get("/admin-courses/workshop/workshop/").status_code, 404)
