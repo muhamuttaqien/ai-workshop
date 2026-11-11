@@ -26,7 +26,7 @@ class WorkshopPageTests(TestCase):
             headline="Workshop",
             headline_accent="Lama",
             description="Workshop lama",
-            layout_variant="productivity",
+            layout_variant="workflow",
             start_date=date(2026, 10, 1),
             end_date=date(2026, 10, 2),
             dates_label="1 & 2 Oktober 2026",
@@ -49,7 +49,7 @@ class WorkshopPageTests(TestCase):
             headline="Workshop",
             headline_accent="Baru",
             description="Workshop baru",
-            layout_variant="research",
+            layout_variant="editorial",
             start_date=date(2099, 10, 15),
             end_date=date(2099, 10, 16),
             dates_label="15 & 16 Oktober 2099",
@@ -170,14 +170,14 @@ class WorkshopPageTests(TestCase):
         self.assertEqual(self.current.format_label, "Zoom Online")
 
 
-    def test_reporting_layout_renders_distinct_variant(self):
+    def test_dashboard_layout_renders_distinct_variant(self):
         reporting = Workshop.objects.create(
             slug="gemini-reporting-test",
             title="Gemini Reporting",
             headline="Pakai Gemini",
             headline_accent="untuk Laporan",
             description="Workshop reporting",
-            layout_variant="reporting",
+            layout_variant="dashboard",
             start_date=date(2026, 9, 17),
             end_date=date(2026, 9, 18),
             dates_label="17 & 18 September 2026",
@@ -228,7 +228,7 @@ class WorkshopPageTests(TestCase):
         self.assertContains(response, "Apakah ada spesifikasi laptop tertentu yang dibutuhkan?")
         self.assertContains(response, "laptop standar yang biasa digunakan untuk aktivitas sehari-hari")
 
-    def test_research_layout_without_hero_image_uses_fallback(self):
+    def test_editorial_layout_without_hero_image_uses_fallback(self):
         self.current.hero_image = ""
         self.current.save(update_fields=["hero_image"])
         response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
@@ -237,3 +237,22 @@ class WorkshopPageTests(TestCase):
         self.assertContains(response, "fa-magnifying-glass-chart")
         self.assertNotContains(response, 'class="hero-photo"')
 
+
+
+    def test_general_layout_choices_are_available(self):
+        values = {value for value, _label in Workshop.LAYOUT_CHOICES}
+        self.assertEqual(values, {"editorial", "workflow", "dashboard", "showcase", "guide"})
+
+    def test_showcase_layout_renders_distinct_variant(self):
+        self.current.layout_variant = "showcase"
+        self.current.save(update_fields=["layout_variant"])
+        response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
+        self.assertContains(response, "hero-showcase")
+        self.assertContains(response, "showcase-hero-visual")
+
+    def test_guide_layout_renders_distinct_variant(self):
+        self.current.layout_variant = "guide"
+        self.current.save(update_fields=["layout_variant"])
+        response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
+        self.assertContains(response, "hero-guide")
+        self.assertContains(response, "guide-hero-visual")
