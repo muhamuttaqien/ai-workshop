@@ -4998,3 +4998,230 @@ button {
     min-height: 0;
   }
 }
+
+
+/* ============================================================
+   INTERACTIVE MENTOR PROFILE
+   Default: portrait and short bio.
+   Expanded: full biography slides in from the right.
+   ============================================================ */
+
+.mentor-card {
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  isolation: isolate;
+}
+
+.mentor-card-track {
+  display: flex;
+  align-items: stretch;
+  width: 200%;
+  transition: transform .62s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
+}
+
+.mentor-card-interactive.is-expanded .mentor-card-track {
+  transform: translateX(-50%);
+}
+
+.mentor-card-panel {
+  min-width: 0;
+  min-height: 338px;
+}
+
+.mentor-card-track > .mentor-card-panel {
+  flex: 0 0 50%;
+  width: 50%;
+}
+
+.mentor-card-front {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 30px;
+  align-items: center;
+  padding: 18px;
+}
+
+.mentor-card-front .mentor-photo {
+  width: 100%;
+  max-width: 230px;
+}
+
+.mentor-card-front .mentor-info {
+  min-width: 0;
+}
+
+.mentor-card-front .mentor-info h3 {
+  font-size: clamp(1.22rem, 2.4vw, 1.6rem);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.mentor-card-front .mentor-info p {
+  line-height: 1.6;
+}
+
+.mentor-more-btn,
+.mentor-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--red-dark);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mentor-more-btn {
+  margin-top: 18px;
+}
+
+.mentor-more-btn i,
+.mentor-back-btn i {
+  transition: transform .22s ease;
+}
+
+.mentor-more-btn:hover i {
+  transform: translateX(4px);
+}
+
+.mentor-back-btn:hover i {
+  transform: translateX(-4px);
+}
+
+.mentor-more-btn:focus-visible,
+.mentor-back-btn:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+.mentor-card-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 26px 32px;
+  background: linear-gradient(125deg, #fff 0%, #faf6f4 100%);
+  color: var(--ink);
+}
+
+.mentor-detail-eyebrow {
+  color: var(--red-dark);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+.mentor-card-detail h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(1.3rem, 2.1vw, 1.55rem);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.mentor-detail-role {
+  color: var(--red-dark);
+  font-size: .87rem;
+  font-weight: 750;
+}
+
+.mentor-card-detail p {
+  max-width: 100%;
+  margin: 4px 0 0;
+  color: #505050;
+  font-size: .88rem;
+  line-height: 1.62;
+  overflow-wrap: anywhere;
+}
+
+.mentor-back-btn {
+  margin-top: 10px;
+}
+
+.layout-dashboard .mentor-card-detail {
+  background: linear-gradient(125deg, #232323, #2a2424);
+  color: #fff;
+}
+
+.layout-dashboard .mentor-card-detail p {
+  color: #d2d2d2;
+}
+
+.layout-dashboard .mentor-detail-eyebrow,
+.layout-dashboard .mentor-detail-role,
+.layout-dashboard .mentor-more-btn,
+.layout-dashboard .mentor-back-btn {
+  color: #ff9191;
+}
+
+@media (max-width: 760px) {
+  .mentor-card-front {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .mentor-card-panel {
+    min-height: 560px;
+  }
+
+  .mentor-card-front .mentor-photo {
+    width: min(100%, 218px);
+  }
+
+  .mentor-card-front .mentor-info h3 {
+    font-size: 1.42rem;
+  }
+
+  .mentor-card-front .mentor-info p,
+  .mentor-card-detail p {
+    font-size: .87rem;
+  }
+
+  .mentor-card-detail {
+    padding: 26px 23px;
+    gap: 9px;
+  }
+
+  .mentor-card-detail h3 {
+    font-size: 1.32rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .mentor-card-panel {
+    min-height: 605px;
+  }
+
+  .mentor-card-front .mentor-photo {
+    width: min(100%, 180px);
+  }
+
+  .mentor-card-detail {
+    padding: 23px 20px;
+  }
+
+  .mentor-card-detail p {
+    font-size: .82rem;
+    line-height: 1.54;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mentor-card-track,
+  .mentor-more-btn i,
+  .mentor-back-btn i {
+    transition: none;
+  }
+}
