@@ -382,7 +382,8 @@ class WorkshopPageTests(TestCase):
                 response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
                 self.assertContains(response, "Muhammad Angga Muttaqien, M.Eng.")
                 self.assertContains(response, "mentor-card-track")
-                self.assertContains(response, "mentor-more-btn")
+                self.assertNotContains(response, "mentor-more-btn")
+                self.assertNotContains(response, "mentor-back-btn")
                 self.assertContains(response, "mentor-card-detail")
                 self.assertContains(response, "Kak Angga memiliki pengalaman lebih dari 10 tahun")
 
