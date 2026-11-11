@@ -256,3 +256,32 @@ class WorkshopPageTests(TestCase):
         response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
         self.assertContains(response, "hero-guide")
         self.assertContains(response, "guide-hero-visual")
+
+
+    def test_date_ended_workshop_header_links_to_all_workshops(self):
+        ended = Workshop.objects.create(
+            slug="ended-by-date",
+            title="Ended by Date",
+            headline="Ended",
+            headline_accent="Workshop",
+            description="Workshop ended by date",
+            layout_variant="editorial",
+            start_date=date(2026, 1, 1),
+            end_date=date(2026, 1, 2),
+            dates_label="1 & 2 Januari 2026",
+            days_label="Kamis & Jumat",
+            time_label="19.30–21.00 WIB",
+            intro_title="Intro",
+            audience_title="Audience",
+            curriculum_title="Curriculum",
+            benefits_title="Benefits",
+            schedule_title="Schedule",
+            mentor=self.current.mentor,
+            mentor_section_title="Mentor",
+            is_archived=False,
+            show_registration=True,
+        )
+        response = self.client.get(reverse("workshop:detail", args=[ended.slug]))
+        self.assertContains(response, "Semua Workshop")
+        self.assertContains(response, reverse("workshop:list"))
+        self.assertNotContains(response, ">Daftar Sekarang</a>")
