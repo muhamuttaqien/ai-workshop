@@ -48,7 +48,8 @@ a:focus-visible, summary:focus-visible {
   border-bottom: 1px solid #29292d;
   backdrop-filter: blur(22px);
 }
-.platform-nav { display: flex; align-items: center; gap: 30px; min-height: 82px; }
+.platform-header .platform-container { width: min(1160px, calc(100% - 48px)); }
+.platform-nav { display: flex; align-items: center; gap: 30px; height: 76px; }
 .platform-brand {
   display: inline-flex;
   align-items: center;
@@ -73,12 +74,12 @@ a:focus-visible, summary:focus-visible {
   letter-spacing: normal;
 }
 .brand-text { color: #f7f7f8; font-size: 1.05rem; white-space: nowrap; }
-.platform-links { display: flex; align-items: center; gap: 36px; margin-left: auto; font-size: .88rem; font-weight: 700; }
+.platform-links { display: flex; align-items: center; gap: 30px; margin-left: auto; font-size: .93rem; font-weight: 600; }
 .platform-links a { position: relative; padding: 10px 0; color: var(--muted); transition: color .18s ease; }
 .platform-links a:hover, .platform-links a.current { color: var(--ink); }
 .platform-links a.current:after { position: absolute; content: ""; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--accent); }
 .platform-mobile-menu { display: none; position: relative; margin-left: auto; }
-.platform-mobile-menu summary { display: grid; place-items: center; width: 44px; height: 44px; list-style: none; border: 1px solid var(--border); border-radius: 11px; cursor: pointer; }
+.platform-mobile-menu summary { display: grid; place-items: center; width: 42px; height: 42px; list-style: none; border: 0; border-radius: 0; background: transparent; cursor: pointer; }
 .platform-mobile-menu summary::-webkit-details-marker { display: none; }
 .platform-mobile-links { position: absolute; right: 0; top: calc(100% + 10px); display: grid; gap: 4px; min-width: 220px; padding: 10px; background: #19191d; border: 1px solid #444448; border-radius: 13px; box-shadow: 0 28px 55px #0009; }
 .platform-mobile-links a { display: block; padding: 11px 15px; border-radius: 8px; color: var(--ink); font-weight: 650; }
@@ -366,7 +367,8 @@ a:focus-visible, summary:focus-visible {
 }
 @media (max-width: 760px) {
   .platform-container { width: calc(100% - 36px); }
-  .platform-nav { min-height: 72px; }
+  .platform-header .platform-container { width: min(1160px, calc(100% - 32px)); }
+  .platform-nav { height: 68px; }
   .platform-links { display: none; }
   .platform-mobile-menu { display: block; }
   .platform-hero { padding: 53px 0 70px; }

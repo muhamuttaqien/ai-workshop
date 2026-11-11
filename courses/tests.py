@@ -147,6 +147,20 @@ class LearningPlatformTests(TestCase):
                 self.assertContains(response, "Materi Berikutnya")
                 self.assertContains(response, 'id="course-theme-toggle"')
 
+    def test_mini_switch_and_header_alignment_styles(self):
+        from pathlib import Path
+        from django.contrib.staticfiles import finders
+
+        theme_styles = Path(finders.find("courses/themes.css")).read_text(encoding="utf-8")
+        main_styles = Path(finders.find("courses/style.css")).read_text(encoding="utf-8")
+        self.assertIn("width: 56px;", theme_styles)
+        self.assertIn("height: 36px;", theme_styles)
+        self.assertIn("width: 26px;", theme_styles)
+        self.assertIn("height: 26px;", theme_styles)
+        self.assertIn("height: 76px;", main_styles)
+        self.assertIn("height: 68px;", main_styles)
+        self.assertIn("width: min(1160px, calc(100% - 48px))", main_styles)
+
     def test_home_ticker_removed_and_compact_theme_toggle(self):
         response = self.client.get(reverse("courses:home"))
         self.assertNotContains(response, "BUKAN CUMA TEORI")

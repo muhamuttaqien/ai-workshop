@@ -62,6 +62,14 @@ def main():
                         assert page.locator(".platform-header .brand-mark").evaluate(
                             "(el) => getComputedStyle(el).backgroundColor"
                         ) == "rgb(239, 77, 77)", ("Courses logo background", width)
+                        courses_header_box = page.locator(".platform-header").bounding_box()
+                        courses_brand_box = page.locator(".platform-header .brand-mark").bounding_box()
+                        courses_nav_box = page.locator(".platform-nav").bounding_box()
+                        assert courses_header_box is not None and courses_brand_box is not None
+                        assert courses_nav_box is not None
+                        expected_nav_height = 68 if width <= 760 else 76
+                        assert abs(courses_nav_box["height"] - expected_nav_height) <= 1, ("Courses nav height", width)
+                        assert abs(courses_brand_box["width"] - 37) <= 1, ("Courses logo width", width)
                         assert page.locator(".platform-ticker").count() == 0
                         assert page.locator(".theme-label").count() == 0
                         assert page.locator(".platform-header #course-theme-toggle").count() == 0
@@ -72,6 +80,8 @@ def main():
                         assert toggle_bounds is not None
                         assert toggle_bounds["x"] > width - 115, ("floating switch right", width)
                         assert toggle_bounds["y"] > 730, ("floating switch bottom", width)
+                        assert 55 <= toggle_bounds["width"] <= 57, ("mini switch width", width)
+                        assert 35 <= toggle_bounds["height"] <= 37, ("mini switch height", width)
                         assert page.locator("#course-theme-toggle .theme-icon").count() == 1
                         assert page.locator(".platform-nav-cta").count() == 0
                         assert page.locator(".hero-actions a").count() == 2
@@ -212,6 +222,15 @@ def main():
                             assert response is not None and response.status == 200, url
                             assert page.locator("body").get_attribute("class") == "layout-" + layout, url
                             assert page.locator(".site-header .brand-text").inner_text() == "Indonesia AI (Workshop)", url
+                            workshop_header_box = page.locator(".site-header").bounding_box()
+                            workshop_brand_box = page.locator(".site-header .brand-mark").bounding_box()
+                            workshop_nav_box = page.locator(".nav-wrap").bounding_box()
+                            assert workshop_header_box is not None and workshop_brand_box is not None
+                            assert workshop_nav_box is not None
+                            assert abs(workshop_header_box["height"] - courses_header_box["height"]) <= 1, ("header height parity", width, url)
+                            assert abs(workshop_nav_box["height"] - courses_nav_box["height"]) <= 1, ("nav height parity", width, url)
+                            assert abs(workshop_brand_box["x"] - courses_brand_box["x"]) <= 1, ("logo horizontal alignment", width, url)
+                            assert abs(workshop_brand_box["y"] - courses_brand_box["y"]) <= 1, ("logo vertical alignment", width, url)
                             assert page.locator("#course-theme-toggle").count() == 0, url
                             assert page.locator(".site-footer .brand-text").inner_text() == "Indonesia AI (Workshop)", url
                             assert page.locator(".site-header .nav-links a").filter(has_text="Courses").count() == 0, url
