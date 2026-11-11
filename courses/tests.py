@@ -44,6 +44,21 @@ class LearningPlatformTests(TestCase):
             html.index("Ingin belajar bersama mentor?"),
         )
 
+    def test_consistent_indonesia_ai_branding_and_workshop_navigation(self):
+        for url in ("/", "/courses/", "/courses/chatgpt-untuk-aktivitas-sehari-hari/"):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertContains(response, 'class="brand-mark"')
+                self.assertContains(response, 'class="brand-text">Indonesia AI</span>')
+                self.assertNotContains(response, "AI untuk Semua")
+                self.assertContains(response, 'href="/courses/">Courses</a>')
+
+        workshop_response = self.client.get("/workshop/")
+        self.assertContains(workshop_response, 'aria-label="Indonesia AI"')
+        self.assertContains(workshop_response, '<span class="brand-mark">AI</span>')
+        self.assertNotContains(workshop_response, 'href="/courses/">Courses</a>')
+        self.assertContains(workshop_response, 'href="/workshop/">Workshop</a>')
+
     def test_courses_theme_uses_brand_palette(self):
         from pathlib import Path
         from django.contrib.staticfiles import finders
@@ -90,7 +105,7 @@ class LearningPlatformTests(TestCase):
         )
         response = self.client.get("/workshop/")
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "AI untuk Semua")
+        self.assertContains(response, "Indonesia AI")
         self.assertEqual(self.client.get("/workshop").status_code, 302)
         self.assertEqual(
             self.client.get("/workshop").headers["Location"], "/workshop/"
