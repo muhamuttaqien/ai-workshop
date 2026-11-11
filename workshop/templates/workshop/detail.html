@@ -202,7 +202,7 @@
     <div class="workshop-outcomes">
       {% for outcome in workshop.outcome_items.all %}
         <article class="workshop-outcome-card reveal">
-          <div class="workshop-card-number">{{ outcome.number|default:forloop.counter|stringformat:'02d' }}</div>
+          <div class="workshop-card-number">{% if outcome.number %}{{ outcome.number }}{% else %}{{ forloop.counter|stringformat:'02d' }}{% endif %}</div>
           <h3>{{ outcome.title }}</h3>
           <p>{{ outcome.text }}</p>
         </article>
@@ -223,7 +223,7 @@
       {% for audience in workshop.audience_items.all %}
         <article class="workshop-audience-card reveal">
           <div class="workshop-audience-top">
-            <span class="workshop-audience-icon">{{ audience.icon|default:forloop.counter|stringformat:'02d' }}</span>
+            <span class="workshop-audience-icon">{% if audience.icon %}{{ audience.icon }}{% else %}{{ forloop.counter|stringformat:'02d' }}{% endif %}</span>
             <span class="workshop-audience-number">{{ forloop.counter|stringformat:'02d' }}</span>
           </div>
           <h3>{{ audience.label }}</h3>
@@ -262,7 +262,7 @@
           <div class="workshop-modules">
             {% for module in session.modules %}
               <article class="workshop-module">
-                <span class="workshop-module-number">{{ module.number|default:forloop.counter|stringformat:'02d' }}</span>
+                <span class="workshop-module-number">{% if module.number %}{{ module.number }}{% else %}{{ forloop.counter|stringformat:'02d' }}{% endif %}</span>
                 <div>
                   <h4>{{ module.title }}</h4>
                   <p>{{ module.text }}</p>
