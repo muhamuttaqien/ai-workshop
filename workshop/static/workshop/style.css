@@ -4035,3 +4035,822 @@ button {
   .guide-session { grid-template-columns: 54px 1fr; padding: 20px; }
   .guide-session-index { width: 44px; height: 44px; }
 }
+
+
+/* ============================================================
+   UNIFIED WORKSHOP SECTION SYSTEM
+   All five layout variants share the same semantic sections.
+   Variants differ only through layout, styling and colour.
+   ============================================================ */
+
+.workshop-outcomes,
+.workshop-audience,
+.workshop-benefits {
+  display: grid;
+  gap: 18px;
+}
+
+.workshop-outcome-card,
+.workshop-audience-card,
+.workshop-benefit-card {
+  position: relative;
+  min-width: 0;
+}
+
+.workshop-card-number,
+.workshop-audience-number,
+.workshop-module-number {
+  font-family: "Manrope", sans-serif;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.workshop-audience-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.workshop-audience-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-weight: 800;
+}
+
+.workshop-curriculum {
+  display: grid;
+  gap: 22px;
+}
+
+.workshop-session {
+  overflow: hidden;
+}
+
+.workshop-session-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 18px;
+}
+
+.workshop-session-index {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+}
+
+.workshop-session-title > span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.workshop-session-title h3 {
+  margin: 0;
+}
+
+.workshop-session-head small {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 14px;
+  font-size: .75rem;
+}
+
+.workshop-modules {
+  display: grid;
+  gap: 10px;
+}
+
+.workshop-module {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 12px;
+}
+
+.workshop-module h4 {
+  margin: 0 0 5px;
+}
+
+.workshop-module p {
+  margin: 0;
+}
+
+.workshop-benefit-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 22px;
+  border-radius: 14px;
+  font-size: 1.05rem;
+}
+
+/* Editorial */
+.layout-editorial .workshop-outcomes,
+.layout-editorial .workshop-audience {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.layout-editorial .workshop-outcome-card,
+.layout-editorial .workshop-audience-card {
+  padding: 28px;
+  border: 1px solid #e4e1dc;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.layout-editorial .workshop-card-number,
+.layout-editorial .workshop-audience-number {
+  color: var(--red);
+}
+
+.layout-editorial .workshop-audience-icon {
+  background: #f8eeee;
+  color: var(--red-dark);
+}
+
+.layout-editorial .section-curriculum {
+  background: #121212;
+  color: #fff;
+}
+
+.layout-editorial .section-curriculum .eyebrow {
+  color: #ff9696;
+}
+
+.layout-editorial .section-curriculum .section-heading h2 {
+  color: #fff;
+}
+
+.layout-editorial .section-curriculum .curriculum-heading > p {
+  color: #aaa;
+}
+
+.layout-editorial .workshop-session {
+  padding: 26px;
+  border: 1px solid #303030;
+  border-radius: 20px;
+  background: #191919;
+}
+
+.layout-editorial .workshop-session-index {
+  background: rgba(239,77,77,.12);
+  color: #ff8585;
+}
+
+.layout-editorial .workshop-session-title > span,
+.layout-editorial .workshop-module-number {
+  color: #ff8585;
+}
+
+.layout-editorial .workshop-session-head small,
+.layout-editorial .workshop-module p {
+  color: #aaa;
+}
+
+.layout-editorial .workshop-modules {
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  margin-top: 24px;
+}
+
+.layout-editorial .workshop-module {
+  padding: 18px;
+  border-radius: 14px;
+  background: #202020;
+}
+
+.layout-editorial .workshop-module h4 {
+  color: #fff;
+}
+
+.layout-editorial .workshop-benefits {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.layout-editorial .workshop-benefit-card {
+  padding: 30px;
+  border-bottom: 1px solid #ddd8d1;
+}
+
+.layout-editorial .workshop-benefit-icon {
+  background: #f7eeee;
+  color: var(--red);
+}
+
+/* Workflow */
+.layout-workflow .workshop-outcomes {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.layout-workflow .workshop-outcome-card {
+  padding: 28px;
+  border-left: 4px solid var(--red);
+  background: #fff;
+  box-shadow: 0 10px 34px rgba(20,20,20,.06);
+}
+
+.layout-workflow .workshop-card-number {
+  color: var(--red);
+}
+
+.layout-workflow .workshop-audience {
+  grid-template-columns: 1fr;
+  max-width: 920px;
+  margin: 0 auto;
+  gap: 0;
+}
+
+.layout-workflow .workshop-audience-card {
+  display: grid;
+  grid-template-columns: 74px 220px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.layout-workflow .workshop-audience-top {
+  margin: 0;
+}
+
+.layout-workflow .workshop-audience-number {
+  display: none;
+}
+
+.layout-workflow .workshop-audience-icon {
+  background: #111;
+  color: #fff;
+}
+
+.layout-workflow .section-curriculum {
+  background: #f1efeb;
+}
+
+.layout-workflow .workshop-curriculum {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.layout-workflow .workshop-session {
+  padding: 28px;
+  border: 1px solid #ddd7cf;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.layout-workflow .workshop-session-index {
+  border-radius: 12px;
+  background: #111;
+  color: #fff;
+}
+
+.layout-workflow .workshop-session-title > span,
+.layout-workflow .workshop-module-number {
+  color: var(--red);
+}
+
+.layout-workflow .workshop-modules {
+  margin-top: 24px;
+}
+
+.layout-workflow .workshop-module {
+  padding: 15px 0;
+  border-top: 1px solid #ece8e2;
+}
+
+.layout-workflow .workshop-benefits {
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+.layout-workflow .workshop-benefit-card {
+  min-height: 235px;
+  padding: 28px;
+  border-radius: 20px;
+  background: #f4f2ee;
+}
+
+.layout-workflow .workshop-benefit-card:nth-child(2),
+.layout-workflow .workshop-benefit-card:nth-child(5) {
+  background: #171717;
+  color: #fff;
+}
+
+.layout-workflow .workshop-benefit-card:nth-child(2) p,
+.layout-workflow .workshop-benefit-card:nth-child(5) p {
+  color: #aaa;
+}
+
+.layout-workflow .workshop-benefit-icon {
+  background: #fff;
+  color: var(--red);
+}
+
+/* Dashboard */
+.layout-dashboard .workshop-outcomes {
+  grid-template-columns: repeat(4, minmax(0,1fr));
+}
+
+.layout-dashboard .workshop-outcome-card {
+  padding: 24px;
+  border: 1px solid #dadada;
+  border-top: 4px solid #171717;
+  background: #fff;
+}
+
+.layout-dashboard .workshop-card-number {
+  color: #8a8a8a;
+}
+
+.layout-dashboard .workshop-audience {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.layout-dashboard .workshop-audience-card {
+  padding: 26px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px #dfdfdf;
+}
+
+.layout-dashboard .workshop-audience-icon {
+  border-radius: 10px;
+  background: #171717;
+  color: #fff;
+}
+
+.layout-dashboard .workshop-audience-number {
+  color: #999;
+}
+
+.layout-dashboard .section-curriculum {
+  background: #131313;
+  color: #fff;
+}
+
+.layout-dashboard .section-curriculum .section-heading h2 {
+  color: #fff;
+}
+
+.layout-dashboard .section-curriculum .eyebrow {
+  color: #ff8f8f;
+}
+
+.layout-dashboard .section-curriculum .curriculum-heading > p {
+  color: #aaa;
+}
+
+.layout-dashboard .workshop-session {
+  border: 1px solid #313131;
+  background: #181818;
+}
+
+.layout-dashboard .workshop-session-head {
+  padding: 22px 24px;
+  border-bottom: 1px solid #313131;
+}
+
+.layout-dashboard .workshop-session-index {
+  border-radius: 8px;
+  background: #252525;
+  color: #ff8585;
+}
+
+.layout-dashboard .workshop-session-title > span,
+.layout-dashboard .workshop-module-number {
+  color: #ff8585;
+}
+
+.layout-dashboard .workshop-session-head small,
+.layout-dashboard .workshop-module p {
+  color: #aaa;
+}
+
+.layout-dashboard .workshop-modules {
+  gap: 0;
+}
+
+.layout-dashboard .workshop-module {
+  grid-template-columns: 46px 1fr;
+  padding: 18px 24px;
+  border-bottom: 1px solid #292929;
+}
+
+.layout-dashboard .workshop-module:last-child {
+  border-bottom: 0;
+}
+
+.layout-dashboard .workshop-module h4 {
+  color: #fff;
+}
+
+.layout-dashboard .workshop-benefits {
+  grid-template-columns: 1fr;
+  max-width: 980px;
+  margin: 0 auto;
+  gap: 0;
+}
+
+.layout-dashboard .workshop-benefit-card {
+  display: grid;
+  grid-template-columns: 62px 180px 1fr 1.5fr;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.layout-dashboard .workshop-benefit-icon {
+  margin: 0;
+  border-radius: 10px;
+  background: #171717;
+  color: #fff;
+}
+
+.layout-dashboard .workshop-benefit-card .benefit-kicker {
+  margin: 0;
+}
+
+/* Showcase */
+.layout-showcase .workshop-outcomes,
+.layout-showcase .workshop-audience {
+  grid-template-columns: repeat(4, minmax(0,1fr));
+}
+
+.layout-showcase .workshop-outcome-card,
+.layout-showcase .workshop-audience-card {
+  padding: 28px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 18px 50px rgba(20,20,20,.08);
+}
+
+.layout-showcase .workshop-outcome-card:nth-child(odd),
+.layout-showcase .workshop-audience-card:nth-child(even) {
+  transform: translateY(14px);
+}
+
+.layout-showcase .workshop-outcome-card:nth-child(2),
+.layout-showcase .workshop-audience-card:nth-child(3) {
+  background: #f8ecec;
+}
+
+.layout-showcase .workshop-card-number,
+.layout-showcase .workshop-audience-number {
+  color: var(--red);
+}
+
+.layout-showcase .workshop-audience-icon {
+  background: #171717;
+  color: #fff;
+}
+
+.layout-showcase .section-curriculum {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(239,77,77,.16), transparent 28%),
+    #111;
+  color: #fff;
+}
+
+.layout-showcase .section-curriculum .section-heading h2 {
+  color: #fff;
+}
+
+.layout-showcase .section-curriculum .eyebrow {
+  color: #ff8585;
+}
+
+.layout-showcase .section-curriculum .curriculum-heading > p {
+  color: #aaa;
+}
+
+.layout-showcase .workshop-curriculum {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.layout-showcase .workshop-session {
+  padding: 28px;
+  border: 1px solid #323232;
+  border-radius: 24px;
+  background: linear-gradient(145deg,#1b1b1b,#131313);
+}
+
+.layout-showcase .workshop-session-head {
+  grid-template-columns: auto 1fr;
+}
+
+.layout-showcase .workshop-session-head small {
+  grid-column: 2;
+  justify-content: flex-start;
+  color: #aaa;
+}
+
+.layout-showcase .workshop-session-index {
+  background: var(--red);
+  color: #fff;
+}
+
+.layout-showcase .workshop-session-title > span,
+.layout-showcase .workshop-module-number {
+  color: #ff8585;
+}
+
+.layout-showcase .workshop-modules {
+  margin-top: 22px;
+}
+
+.layout-showcase .workshop-module {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #222;
+}
+
+.layout-showcase .workshop-module h4 {
+  color: #fff;
+}
+
+.layout-showcase .workshop-module p {
+  color: #aaa;
+}
+
+.layout-showcase .workshop-benefits {
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+.layout-showcase .workshop-benefit-card {
+  min-height: 245px;
+  padding: 28px;
+  border-radius: 24px;
+  background: #f6f3ee;
+}
+
+.layout-showcase .workshop-benefit-card:nth-child(2),
+.layout-showcase .workshop-benefit-card:nth-child(6) {
+  background: #171717;
+  color: #fff;
+}
+
+.layout-showcase .workshop-benefit-card:nth-child(2) p,
+.layout-showcase .workshop-benefit-card:nth-child(6) p {
+  color: #aaa;
+}
+
+.layout-showcase .workshop-benefit-icon {
+  background: #fff;
+  color: var(--red);
+}
+
+/* Guide */
+.layout-guide .workshop-outcomes {
+  max-width: 920px;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.layout-guide .workshop-outcome-card {
+  display: grid;
+  grid-template-columns: 58px 220px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 24px;
+  border: 1px solid #e0ddd7;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.layout-guide .workshop-card-number {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+}
+
+.layout-guide .workshop-outcome-card h3,
+.layout-guide .workshop-outcome-card p {
+  margin: 0;
+}
+
+.layout-guide .workshop-audience {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.layout-guide .workshop-audience-card {
+  padding: 26px;
+  border-left: 3px solid var(--red);
+  background: #fff;
+}
+
+.layout-guide .workshop-audience-icon {
+  background: #f5f2ed;
+  color: #222;
+}
+
+.layout-guide .workshop-audience-number {
+  color: #aaa;
+}
+
+.layout-guide .section-curriculum {
+  background: #121212;
+  color: #fff;
+}
+
+.layout-guide .section-curriculum .section-heading h2 {
+  color: #fff;
+}
+
+.layout-guide .section-curriculum .eyebrow {
+  color: #ff8585;
+}
+
+.layout-guide .section-curriculum .curriculum-heading > p {
+  color: #aaa;
+}
+
+.layout-guide .workshop-curriculum {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.layout-guide .workshop-session {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 20px;
+  padding: 26px;
+  border: 1px solid #303030;
+  border-radius: 20px;
+  background: #191919;
+}
+
+.layout-guide .workshop-session-head {
+  display: contents;
+}
+
+.layout-guide .workshop-session-index {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  background: var(--red);
+  color: #fff;
+}
+
+.layout-guide .workshop-session-title,
+.layout-guide .workshop-session-head small,
+.layout-guide .workshop-modules {
+  grid-column: 2;
+}
+
+.layout-guide .workshop-session-title > span,
+.layout-guide .workshop-module-number {
+  color: #ff8585;
+}
+
+.layout-guide .workshop-session-head small {
+  justify-content: flex-start;
+  color: #aaa;
+}
+
+.layout-guide .workshop-modules {
+  margin-top: 8px;
+}
+
+.layout-guide .workshop-module {
+  padding: 14px 0;
+  border-top: 1px solid #2e2e2e;
+}
+
+.layout-guide .workshop-module h4 {
+  color: #fff;
+}
+
+.layout-guide .workshop-module p {
+  color: #aaa;
+}
+
+.layout-guide .workshop-benefits {
+  max-width: 920px;
+  margin: 0 auto;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.layout-guide .workshop-benefit-card {
+  padding: 24px;
+  border: 1px solid #e0ddd7;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.layout-guide .workshop-benefit-icon {
+  background: #edf8f1;
+  color: #2f8b58;
+}
+
+/* Shared responsive behaviour */
+@media (max-width: 980px) {
+  .layout-editorial .workshop-outcomes,
+  .layout-editorial .workshop-audience,
+  .layout-dashboard .workshop-outcomes,
+  .layout-showcase .workshop-outcomes,
+  .layout-showcase .workshop-audience {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+
+  .layout-workflow .workshop-benefits,
+  .layout-showcase .workshop-benefits {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+
+  .layout-editorial .workshop-modules {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-dashboard .workshop-benefit-card {
+    grid-template-columns: 62px 160px 1fr;
+  }
+
+  .layout-dashboard .workshop-benefit-card p {
+    grid-column: 2 / -1;
+    margin-top: -8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .workshop-session-head {
+    grid-template-columns: auto 1fr;
+  }
+
+  .workshop-session-head small {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+
+  .layout-editorial .workshop-outcomes,
+  .layout-editorial .workshop-audience,
+  .layout-workflow .workshop-outcomes,
+  .layout-workflow .workshop-benefits,
+  .layout-dashboard .workshop-outcomes,
+  .layout-dashboard .workshop-audience,
+  .layout-showcase .workshop-outcomes,
+  .layout-showcase .workshop-audience,
+  .layout-showcase .workshop-curriculum,
+  .layout-showcase .workshop-benefits,
+  .layout-guide .workshop-audience,
+  .layout-guide .workshop-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-showcase .workshop-outcome-card:nth-child(odd),
+  .layout-showcase .workshop-audience-card:nth-child(even) {
+    transform: none;
+  }
+
+  .layout-workflow .workshop-audience-card {
+    grid-template-columns: 58px 1fr;
+  }
+
+  .layout-workflow .workshop-audience-card p {
+    grid-column: 2;
+  }
+
+  .layout-guide .workshop-outcome-card {
+    grid-template-columns: 52px 1fr;
+  }
+
+  .layout-guide .workshop-outcome-card p {
+    grid-column: 2;
+  }
+
+  .layout-dashboard .workshop-benefit-card {
+    grid-template-columns: 54px 1fr;
+    gap: 14px;
+  }
+
+  .layout-dashboard .workshop-benefit-card .benefit-kicker,
+  .layout-dashboard .workshop-benefit-card h3,
+  .layout-dashboard .workshop-benefit-card p {
+    grid-column: 2;
+  }
+
+  .layout-dashboard .workshop-benefit-card .benefit-kicker {
+    margin-top: -48px;
+  }
+
+  .layout-guide .workshop-session {
+    grid-template-columns: 54px 1fr;
+    padding: 20px;
+  }
+}
