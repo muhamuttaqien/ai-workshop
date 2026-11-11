@@ -1,0 +1,36 @@
+{% extends 'workshop/base.html' %}
+
+{% block title %}AI Workshop | Indonesia AI{% endblock %}
+{% block meta_description %}Daftar workshop Indonesia AI untuk mempelajari penggunaan AI secara praktis dalam berbagai kebutuhan.{% endblock %}
+{% block body_class %}workshop-list-page{% endblock %}
+
+{% block content %}
+<section class="archive-hero">
+  <div class="container reveal">
+    <div class="eyebrow">INDONESIA AI WORKSHOP</div>
+    <h1>Belajar AI lewat use case yang konkret.</h1>
+    <p>Temukan workshop terbaru dan lihat kembali workshop yang sudah pernah diselenggarakan.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container workshop-list-grid">
+    {% for item in workshops %}
+      <article class="workshop-list-card reveal {% if item.has_ended %}is-past{% endif %}">
+        <div class="workshop-list-meta">
+          <span>{% if item.has_ended %}<i class="fa-solid fa-circle-check" aria-hidden="true"></i> SELESAI{% else %}<i class="fa-regular fa-calendar-check" aria-hidden="true"></i> TERDEKAT{% endif %}</span>
+          <small>{{ item.dates_label }}</small>
+        </div>
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.description }}</p>
+        <div class="workshop-list-footer">
+          <span><i class="fa-solid fa-video" aria-hidden="true"></i> {{ item.format_label }} • {{ item.time_label }}</span>
+          <a href="{% url 'workshop:detail' item.slug %}">Lihat detail <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </article>
+    {% empty %}
+      <p>Belum ada workshop.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

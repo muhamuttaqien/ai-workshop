@@ -1,0 +1,28 @@
+<header class="site-header" id="top">
+  <div class="container nav-wrap">
+    <a class="brand" href="{% url 'workshop:home' %}" aria-label="Indonesia AI">
+      <span class="brand-mark">AI</span>
+      <span class="brand-text">Indonesia AI</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav-links" aria-label="Navigasi utama">
+      {% if workshop %}
+        <a href="#tentang">Tentang</a>
+        <a href="#materi">Materi</a>
+        <a href="#mentor">Mentor</a>
+        <a href="#faq">FAQ</a>
+        {% if workshop.show_registration and not workshop.is_archived %}
+          <a class="btn btn-sm btn-primary" href="#daftar">Daftar Sekarang</a>
+        {% else %}
+          <a class="btn btn-sm btn-primary" href="{% url 'workshop:list' %}">Semua Workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        {% endif %}
+      {% else %}
+        <a href="{% url 'workshop:list' %}">Semua Workshop</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>

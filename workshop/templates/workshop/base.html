@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{% block meta_description %}{{ workshop.meta_description|default:'AI Workshop Indonesia AI' }}{% endblock %}" />
+  <title>{% block title %}{{ workshop.title|default:'AI Workshop' }} | Indonesia AI{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="{% static 'workshop/style.css' %}" rel="stylesheet" />
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% if workshop %}layout-{{ workshop.layout_variant }}{% endif %}{% endblock %}">
+  {% include 'workshop/includes/header.html' %}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  {% include 'workshop/includes/footer.html' %}
+  {% if workshop %}
+    {% if workshop.has_ended %}
+      {% if latest_workshop %}
+        {% include 'workshop/includes/mobile_cta.html' %}
+      {% endif %}
+    {% elif workshop.show_registration %}
+      {% include 'workshop/includes/mobile_cta.html' %}
+    {% endif %}
+  {% endif %}
+  <script src="{% static 'workshop/script.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

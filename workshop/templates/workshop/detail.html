@@ -1,0 +1,507 @@
+{% extends 'workshop/base.html' %}
+{% load static %}
+
+{% block title %}{{ workshop.title }} | Indonesia AI{% endblock %}
+{% block meta_description %}{{ workshop.meta_description }}{% endblock %}
+
+{% block content %}
+<section class="hero {% if workshop.layout_variant == 'productivity' %}hero-productivity{% elif workshop.layout_variant == 'reporting' %}hero-reporting{% endif %}">
+  <div class="hero-glow hero-glow-one"></div>
+  <div class="hero-glow hero-glow-two"></div>
+
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">{{ workshop.eyebrow }}</div>
+      {% if workshop.has_ended %}
+        <div class="archive-pill">SELESAI • {{ workshop.dates_label }}</div>
+      {% endif %}
+      <h1>{{ workshop.headline }}<br /><span>{{ workshop.headline_accent }}</span></h1>
+      <p class="hero-subtitle">{{ workshop.description }}</p>
+
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-icon" aria-hidden="true"><i class="fa-regular fa-calendar-days"></i></span>
+          <div><small>Tanggal</small><strong>{{ workshop.dates_label }}</strong></div>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon" aria-hidden="true"><i class="fa-regular fa-clock"></i></span>
+          <div><small>Waktu</small><strong>{{ workshop.time_label }}</strong></div>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon" aria-hidden="true"><i class="fa-solid fa-video"></i></span>
+          <div><small>Format</small><strong>{{ workshop.format_label }}</strong></div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        {% if workshop.show_registration and not workshop.has_ended %}
+          <a class="btn btn-primary btn-lg" href="#daftar">Daftar Workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        {% elif workshop.has_ended %}
+          <a class="btn btn-primary btn-lg btn-recording" href="{{ workshop.recording_request_link }}"><i class="fa-solid fa-circle-play" aria-hidden="true"></i><span>Request Beli Rekaman</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        {% endif %}
+        <a class="btn btn-ghost btn-lg" href="#materi">Lihat Materi</a>
+      </div>
+
+      {% if workshop.hero_note %}
+        <div class="hero-note"><span class="check-dot"><i class="fa-solid fa-check" aria-hidden="true"></i></span>{{ workshop.hero_note }}</div>
+      {% endif %}
+    </div>
+
+    <div class="hero-visual reveal">
+      {% if workshop.layout_variant == 'research' %}
+        <div class="hero-photo-card{% if not workshop.hero_image %} hero-photo-card-fallback{% endif %}">
+          {% if workshop.hero_image %}
+            <img class="hero-photo" src="{% static workshop.hero_image %}" alt="Visual {{ workshop.title }}" loading="eager" fetchpriority="high" />
+          {% else %}
+            <div class="hero-photo-fallback" aria-hidden="true">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
+              <span>AI WORKFLOW</span>
+            </div>
+          {% endif %}
+          <div class="hero-photo-overlay"></div>
+          <div class="hero-photo-badge hero-photo-badge-top">
+            <span>{{ workshop.hero_badge }}</span>
+            <strong>AI Research Workflow</strong>
+          </div>
+          <div class="hero-photo-badge hero-photo-badge-bottom">
+            <span class="hero-photo-dot"></span>
+            <span>{{ workshop.hero_flow }}</span>
+          </div>
+        </div>
+      {% elif workshop.layout_variant == 'productivity' %}
+        <div class="data-workflow-visual">
+          <div class="data-visual-header">
+            <span>{{ workshop.hero_badge }}</span>
+            <small>WORKFLOW DEMO</small>
+          </div>
+          <div class="chat-bubble incoming">
+            Laporan hari ini: 12 kunjungan, 3 follow-up tertunda, 2 pelanggan meminta revisi jadwal.
+          </div>
+          <div class="chat-arrow"><i class="fa-solid fa-arrow-down" aria-hidden="true"></i></div>
+          <div class="structured-table">
+            <div class="table-row table-head"><span>Field</span><span>Value</span></div>
+            <div class="table-row"><span>Kunjungan</span><strong>12</strong></div>
+            <div class="table-row"><span>Follow-up</span><strong>3</strong></div>
+            <div class="table-row"><span>Revisi Jadwal</span><strong>2</strong></div>
+          </div>
+          <div class="data-flow-label">{{ workshop.hero_flow }}</div>
+        </div>
+      {% else %}
+        <div class="reporting-hero-visual">
+          <div class="reporting-ai-chip"><i class="fa-solid fa-gem" aria-hidden="true"></i><span>Gemini</span></div>
+          <div class="report-sheet report-sheet-back"></div>
+          <div class="report-sheet report-sheet-main">
+            <div class="report-sheet-head">
+              <div>
+                <small>WEEKLY REPORT</small>
+                <strong>Operational Summary</strong>
+              </div>
+              <span>AI DRAFT</span>
+            </div>
+            <div class="report-kpi-grid">
+              <div><small>Aktivitas</small><strong>128</strong></div>
+              <div><small>Follow-up</small><strong>24</strong></div>
+              <div><small>Selesai</small><strong>81%</strong></div>
+            </div>
+            <div class="report-chart">
+              <i style="--h:42%"></i><i style="--h:66%"></i><i style="--h:53%"></i><i style="--h:82%"></i><i style="--h:72%"></i><i style="--h:91%"></i>
+            </div>
+            <div class="report-summary">
+              <span><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> AI Summary</span>
+              <p>Tiga isu utama ditemukan. Prioritaskan follow-up pelanggan dan revisi jadwal minggu ini.</p>
+            </div>
+          </div>
+          <div class="reporting-flow"><span>Catatan</span><i class="fa-solid fa-arrow-right"></i><span>Analisis</span><i class="fa-solid fa-arrow-right"></i><span>Laporan</span></div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if previous_workshop and not workshop.has_ended %}
+<section class="history-strip">
+  <div class="container history-strip-inner reveal">
+    <div>
+      <span class="history-label">WORKSHOP SEBELUMNYA</span>
+      <strong>{{ previous_workshop.title }}</strong>
+      <small>{{ previous_workshop.dates_label }}</small>
+    </div>
+    <a href="{% url 'workshop:detail' previous_workshop.slug %}">Lihat halaman workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+  </div>
+</section>
+{% elif latest_workshop and workshop.has_ended %}
+<section class="history-strip history-strip-next">
+  <div class="container history-strip-inner reveal">
+    <div>
+      <span class="history-label">WORKSHOP TERBARU</span>
+      <strong>{{ latest_workshop.title }}</strong>
+      <small>{{ latest_workshop.dates_label }}</small>
+    </div>
+    <a href="{% url 'workshop:detail' latest_workshop.slug %}">Lihat workshop terbaru <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+  </div>
+</section>
+{% endif %}
+
+<section class="section intro-section" id="tentang">
+  <div class="container split-layout">
+    <div class="section-heading reveal">
+      <div class="eyebrow">TENTANG WORKSHOP</div>
+      <h2>{{ workshop.intro_title }}</h2>
+    </div>
+    <div class="intro-copy reveal">
+      {% for paragraph in workshop.intro_paragraph_items.all %}<p>{{ paragraph.text }}</p>{% endfor %}
+    </div>
+  </div>
+
+  {% if workshop.layout_variant == 'reporting' %}
+    <div class="container reporting-outcomes">
+      {% for outcome in workshop.outcome_items.all %}
+        <article class="reporting-outcome reveal">
+          <div class="reporting-outcome-marker"><span>{{ outcome.number }}</span></div>
+          <h3>{{ outcome.title }}</h3>
+          <p>{{ outcome.text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="container outcome-grid {% if workshop.layout_variant == 'productivity' %}outcome-grid-productivity{% endif %}">
+      {% for outcome in workshop.outcome_items.all %}
+        <article class="outcome-card reveal">
+          <div class="number">{{ outcome.number }}</div>
+          <h3>{{ outcome.title }}</h3>
+          <p>{{ outcome.text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+<section class="section soft-section audience-section">
+  <div class="container">
+    <div class="section-heading centered reveal">
+      <div class="eyebrow">UNTUK SIAPA?</div>
+      <h2>{{ workshop.audience_title }}</h2>
+      {% if workshop.audience_intro %}<p>{{ workshop.audience_intro }}</p>{% endif %}
+    </div>
+
+    {% if workshop.layout_variant == 'research' %}
+      <div class="audience-grid">
+        {% for audience in workshop.audience_items.all %}
+          <article class="audience-card reveal">
+            <div class="audience-icon">{{ audience.icon }}</div>
+            <h3>{{ audience.label }}</h3>
+            <p>{{ audience.text }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% elif workshop.layout_variant == 'productivity' %}
+      <div class="audience-rows">
+        {% for audience in workshop.audience_items.all %}
+          <article class="audience-row reveal">
+            <span>{{ forloop.counter|stringformat:'02d' }}</span>
+            <h3>{{ audience.label }}</h3>
+            <p>{{ audience.text }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="audience-mosaic">
+        {% for audience in workshop.audience_items.all %}
+          <article class="audience-mosaic-card reveal">
+            <div class="audience-mosaic-top">
+              <span>{{ audience.icon }}</span>
+              <i class="fa-solid fa-arrow-up-right-dots" aria-hidden="true"></i>
+            </div>
+            <h3>{{ audience.label }}</h3>
+            <p>{{ audience.text }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section curriculum-section {% if workshop.layout_variant == 'productivity' %}curriculum-productivity{% elif workshop.layout_variant == 'reporting' %}curriculum-reporting{% endif %}" id="materi">
+  <div class="container">
+    <div class="section-heading curriculum-heading reveal">
+      <div>
+        <div class="eyebrow">MATERI WORKSHOP</div>
+        <h2>{{ workshop.curriculum_title }}</h2>
+      </div>
+      <p>{{ workshop.curriculum_intro }}</p>
+    </div>
+
+    {% if workshop.layout_variant == 'research' %}
+      {% for session in curriculum_sessions %}
+        <div class="day-block reveal">
+          <div class="day-label"><span>{{ session.label }}</span><strong>{{ session.title }}</strong></div>
+          <div class="module-grid">
+            {% for module in session.modules %}
+              <article class="module-card">
+                <span class="module-no">{{ module.number }}</span>
+                <h3>{{ module.title }}</h3>
+                <p>{{ module.text }}</p>
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    {% elif workshop.layout_variant == 'productivity' %}
+      <div class="session-stack">
+        {% for session in curriculum_sessions %}
+          <article class="session-panel reveal">
+            <div class="session-panel-head">
+              <span>{{ session.label }}</span>
+              <div>
+                <small>{{ session.day }} • {{ session.time }}</small>
+                <h3>{{ session.title }}</h3>
+              </div>
+            </div>
+            <div class="session-module-list">
+              {% for module in session.modules %}
+                <div class="session-module-item">
+                  <span>{{ forloop.counter|stringformat:'02d' }}</span>
+                  <div><strong>{{ module.title }}</strong><p>{{ module.text }}</p></div>
+                </div>
+              {% endfor %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="reporting-curriculum">
+        {% for session in curriculum_sessions %}
+          <article class="reporting-session reveal">
+            <div class="reporting-session-index">{{ forloop.counter|stringformat:'02d' }}</div>
+            <div class="reporting-session-main">
+              <div class="reporting-session-head">
+                <div>
+                  <span>{{ session.label }}</span>
+                  <h3>{{ session.title }}</h3>
+                </div>
+                <small><i class="fa-regular fa-calendar" aria-hidden="true"></i> {{ session.day }} &nbsp; <i class="fa-regular fa-clock" aria-hidden="true"></i> {{ session.time }}</small>
+              </div>
+              <div class="reporting-module-list">
+                {% for module in session.modules %}
+                  <div class="reporting-module-item">
+                    <span>{{ module.number }}</span>
+                    <div><strong>{{ module.title }}</strong><p>{{ module.text }}</p></div>
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section benefits-section">
+  <div class="container">
+    <div class="section-heading centered reveal">
+      <div class="eyebrow">BENEFIT &amp; FASILITAS</div>
+      <h2>{{ workshop.benefits_title }}</h2>
+      {% if workshop.benefits_intro %}<p>{{ workshop.benefits_intro }}</p>{% endif %}
+    </div>
+
+    {% if workshop.layout_variant == 'research' %}
+      <div class="benefit-alternating">
+        {% for benefit in workshop.benefit_items.all %}
+          <article class="benefit-feature {% if forloop.counter|divisibleby:'2' %}benefit-feature-reverse{% endif %} reveal">
+            <div class="benefit-feature-copy">
+              <span class="benefit-kicker">{{ benefit.number }} • {{ benefit.kicker }}</span>
+              <h3>{{ benefit.title }}</h3>
+              <p>{{ benefit.text }}</p>
+            </div>
+            <div class="benefit-feature-visual visual-{{ benefit.visual }}" aria-hidden="true">
+              {% if benefit.visual == 'live' %}
+                <div class="visual-big-number">2</div><div class="visual-big-label">HARI</div><div class="visual-caption">{{ workshop.days_label }}<br />{{ workshop.time_label }}</div>
+              {% elif benefit.visual == 'practice' %}
+                <div class="practice-window"><div class="practice-top"><i></i><i></i><i></i></div><div class="practice-line wide"></div><div class="practice-line"></div><div class="practice-prompt">Ask <i class="fa-solid fa-arrow-right"></i> Iterate <i class="fa-solid fa-arrow-right"></i> Critique</div></div>
+              {% elif benefit.visual == 'material' %}
+                <div class="material-sheet sheet-back"></div><div class="material-sheet sheet-mid"></div><div class="material-sheet sheet-front"><span>WORKSHOP NOTES</span><strong>Claude<br />for Research</strong><i></i><i></i><i class="short"></i></div>
+              {% elif benefit.visual == 'flow' %}
+                <div class="flow-node">Paper</div><i class="fa-solid fa-arrow-right"></i><div class="flow-node">Compare</div><i class="fa-solid fa-arrow-right"></i><div class="flow-node accent">Gap</div><i class="fa-solid fa-arrow-right"></i><div class="flow-node">Question</div>
+              {% elif benefit.visual == 'replay' %}
+                <div class="replay-ring"><div class="replay-triangle"></div></div><div class="replay-timeline"><span></span></div><small>WORKSHOP RECORDING</small>
+              {% elif benefit.visual == 'modules' %}
+                <div class="modules-number">12<span>+</span></div><div class="modules-label">MODUL<br />TOOLS AI</div><div class="modules-stack"><i></i><i></i><i></i></div>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% elif workshop.layout_variant == 'productivity' %}
+      <div class="benefit-bento">
+        {% for benefit in workshop.benefit_items.all %}
+          <article class="benefit-bento-card benefit-bento-{{ forloop.counter }} reveal">
+            <span class="benefit-kicker">{{ benefit.kicker }}</span>
+            {% if benefit.visual == 'modules' %}<div class="bento-big-number">12+</div>{% endif %}
+            <h3>{{ benefit.title }}</h3>
+            <p>{{ benefit.text }}</p>
+            {% if benefit.visual == 'flow' %}<div class="bento-flow">Chat <i class="fa-solid fa-arrow-right"></i> Struktur <i class="fa-solid fa-arrow-right"></i> Rekap</div>{% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="benefit-ledger">
+        {% for benefit in workshop.benefit_items.all %}
+          <article class="benefit-ledger-item reveal">
+            <div class="benefit-ledger-icon">
+              {% if benefit.visual == 'live' %}<i class="fa-solid fa-users-viewfinder"></i>
+              {% elif benefit.visual == 'practice' %}<i class="fa-solid fa-laptop-code"></i>
+              {% elif benefit.visual == 'material' %}<i class="fa-regular fa-file-lines"></i>
+              {% elif benefit.visual == 'flow' %}<i class="fa-solid fa-diagram-project"></i>
+              {% elif benefit.visual == 'replay' %}<i class="fa-solid fa-circle-play"></i>
+              {% else %}<i class="fa-solid fa-layer-group"></i>{% endif %}
+            </div>
+            <div>
+              <span>{{ benefit.number }} • {{ benefit.kicker }}</span>
+              <h3>{{ benefit.title }}</h3>
+              <p>{{ benefit.text }}</p>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section schedule-section">
+  <div class="container">
+    <div class="section-heading centered reveal">
+      <div class="eyebrow">JADWAL WORKSHOP</div>
+      <h2>{{ workshop.schedule_title }}</h2>
+    </div>
+    <div class="schedule-grid">
+      {% for item in workshop.schedule_items.all %}
+        <article class="schedule-card reveal">
+          <div class="schedule-number">{{ item.number }}</div>
+          <div>
+            <span class="schedule-day">{{ item.label }}</span>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section mentor-section" id="mentor">
+  <div class="container mentor-wrap">
+    <div class="section-heading reveal">
+      <div class="eyebrow">MENTOR</div>
+      <h2>{{ workshop.mentor_section_title }}</h2>
+      <p>{{ workshop.mentor_section_intro }}</p>
+    </div>
+    <article class="mentor-card reveal">
+      <div class="mentor-photo"><img src="{% static workshop.mentor.photo %}" alt="{{ workshop.mentor.name }}" loading="lazy" /></div>
+      <div class="mentor-info">
+        <h3>{{ workshop.mentor.name }}</h3>
+        <div class="mentor-role">{{ workshop.mentor.role }}</div>
+        <p>{{ workshop.mentor.bio }}</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section registration-section" id="daftar">
+  {% if workshop.show_registration and not workshop.has_ended %}
+    <div class="container registration-card reveal">
+      <div class="registration-copy">
+        <div class="eyebrow eyebrow-light">AI WORKSHOP</div>
+        <h2>{{ workshop.title }}</h2>
+        <p>{{ workshop.audience_label }}</p>
+        <div class="registration-details">
+          <span>{{ workshop.dates_label }}</span>
+          <span>{{ workshop.time_label }}</span>
+          <span>{{ workshop.format_label }}</span>
+          <span>{{ workshop.duration_label }}</span>
+        </div>
+      </div>
+      <div class="price-box">
+        <small>Biaya Workshop</small>
+        <div class="price-offer-meta">
+          <span class="price-original">{{ workshop.original_price_label }}</span>
+          <span class="discount-badge">{{ workshop.discount_label }}</span>
+        </div>
+        <div class="price">{{ workshop.price_label }}</div>
+        <a class="btn btn-white btn-lg js-register" href="{{ workshop.registration_link }}">Daftar Sekarang</a>
+        <span class="price-note">{{ workshop.registration_note }}</span>
+      </div>
+    </div>
+  {% else %}
+    <div class="container past-workshop-card reveal">
+      <div>
+        <div class="eyebrow">ARSIP WORKSHOP</div>
+        <h2>{{ workshop.title }}</h2>
+        <p>{{ workshop.registration_note }}</p>
+      </div>
+      <a class="btn btn-primary btn-lg btn-recording" href="{{ workshop.recording_request_link }}"><i class="fa-solid fa-circle-play" aria-hidden="true"></i><span>Request Beli Rekaman</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  {% endif %}
+</section>
+
+<section class="section testimonial-section" id="testimonial">
+  <div class="container">
+    <div class="testimonial-head reveal">
+      <div class="section-heading">
+        <div class="eyebrow">TESTIMONI</div>
+        <h2>Kesan alumni terhadap program Indonesia AI.</h2>
+        <p>Cerita dari peserta dengan latar belakang profesional dan akademik yang pernah belajar bersama Indonesia AI.</p>
+      </div>
+      <div class="testimonial-controls" aria-label="Navigasi testimoni">
+        <button class="testimonial-nav testimonial-prev" type="button" aria-label="Testimoni sebelumnya"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+        <button class="testimonial-nav testimonial-next" type="button" aria-label="Testimoni berikutnya"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <div class="testimonial-slider reveal">
+      <div class="testimonial-viewport">
+        <div class="testimonial-track">
+          {% for testimonial in testimonials %}
+            <article class="testimonial-card">
+              <div class="quote-mark">“</div>
+              <p>{{ testimonial.quote }}</p>
+              <div class="testimonial-person">
+                <div class="testimonial-avatar">{{ testimonial.initials }}</div>
+                <div>
+                  <strong>{{ testimonial.name }}</strong>
+                  <span>{{ testimonial.role }}</span>
+                  <small>{{ testimonial.organization }}</small>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="testimonial-progress" aria-hidden="true"><span class="testimonial-progress-bar"></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section faq-section" id="faq">
+  <div class="container faq-layout">
+    <div class="section-heading reveal">
+      <div class="eyebrow">FAQ</div>
+      <h2>Pertanyaan yang sering ditanyakan.</h2>
+      <p>Masih ada yang ingin ditanyakan? Hubungi tim Indonesia AI melalui kanal resmi kami.</p>
+    </div>
+    <div class="faq-list reveal">
+      {% for faq in workshop.faq_items.all %}
+        <article class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">{{ faq.question }}<span class="faq-toggle-icon"><i class="fa-solid fa-plus" aria-hidden="true"></i></span></button>
+          <div class="faq-answer"><p>{{ faq.answer }}</p></div>
+        </article>
+      {% endfor %}
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">Apakah ada spesifikasi laptop tertentu yang dibutuhkan?<span class="faq-toggle-icon"><i class="fa-solid fa-plus" aria-hidden="true"></i></span></button>
+        <div class="faq-answer"><p>Tidak perlu laptop dengan spesifikasi khusus. Cukup gunakan laptop standar yang biasa digunakan untuk aktivitas sehari-hari.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+{% endblock %}

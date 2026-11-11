@@ -1,0 +1,20 @@
+{% if workshop.has_ended and latest_workshop %}
+<div class="mobile-cta mobile-cta-archive mobile-cta-archive-only">
+  <a class="btn btn-primary mobile-latest-workshop-btn" href="{% url 'workshop:detail' latest_workshop.slug %}">
+    Workshop Terbaru <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+  </a>
+</div>
+{% else %}
+<div class="mobile-cta">
+  <div class="mobile-cta-pricing">
+    <small>Biaya Workshop</small>
+    <div class="mobile-price-row">
+      <strong class="mobile-price-current">{{ workshop.price_label }}</strong>
+      <span class="mobile-discount-badge">{{ workshop.discount_label }}</span>
+    </div>
+  </div>
+  <a class="btn btn-primary" href="#daftar">
+    Daftar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+  </a>
+</div>
+{% endif %}
