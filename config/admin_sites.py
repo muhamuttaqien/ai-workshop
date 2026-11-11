@@ -1,7 +1,7 @@
 from django.contrib.admin import AdminSite
 
-from courses.admin import CourseAdmin
-from courses.models import Course
+from courses.admin import CourseAdmin, LessonAdmin
+from courses.models import Course, Lesson
 from workshop.admin import MentorAdmin, TestimonialAdmin, WorkshopAdmin
 from workshop.models import Mentor, Testimonial, Workshop
 
@@ -20,6 +20,7 @@ class WorkshopAdminSite(AdminSite):
 
 courses_admin_site = CoursesAdminSite(name="courses_admin")
 courses_admin_site.register(Course, CourseAdmin)
+courses_admin_site.register(Lesson, LessonAdmin)
 
 workshop_admin_site = WorkshopAdminSite(name="workshop_admin")
 workshop_admin_site.register(Workshop, WorkshopAdmin)
