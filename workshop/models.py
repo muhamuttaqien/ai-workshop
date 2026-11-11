@@ -36,13 +36,17 @@ class Testimonial(models.Model):
 
 
 class Workshop(models.Model):
-    LAYOUT_RESEARCH = "research"
-    LAYOUT_PRODUCTIVITY = "productivity"
-    LAYOUT_REPORTING = "reporting"
+    LAYOUT_EDITORIAL = "editorial"
+    LAYOUT_WORKFLOW = "workflow"
+    LAYOUT_DASHBOARD = "dashboard"
+    LAYOUT_SHOWCASE = "showcase"
+    LAYOUT_GUIDE = "guide"
     LAYOUT_CHOICES = [
-        (LAYOUT_RESEARCH, "Latest / Research (Claude-style)"),
-        (LAYOUT_PRODUCTIVITY, "Productivity (ChatGPT-style)"),
-        (LAYOUT_REPORTING, "Reporting (Gemini-style)"),
+        (LAYOUT_EDITORIAL, "Editorial — Narrative & Knowledge"),
+        (LAYOUT_WORKFLOW, "Workflow — Process & Hands-on"),
+        (LAYOUT_DASHBOARD, "Dashboard — Data & Reporting"),
+        (LAYOUT_SHOWCASE, "Showcase — Visual & Creative"),
+        (LAYOUT_GUIDE, "Guide — Step-by-step & Beginner"),
     ]
 
     slug = models.SlugField(unique=True)
@@ -56,10 +60,10 @@ class Workshop(models.Model):
     layout_variant = models.CharField(
         max_length=32,
         choices=LAYOUT_CHOICES,
-        default=LAYOUT_RESEARCH,
+        default=LAYOUT_EDITORIAL,
         help_text=(
-            "Untuk workshop baru, gunakan 'Latest / Research' agar memakai tampilan "
-            "terbaru seperti halaman Claude untuk Riset."
+            "Pilih gaya halaman berdasarkan cara materi ingin dipresentasikan: "
+            "Editorial, Workflow, Dashboard, Showcase, atau Guide."
         ),
     )
     eyebrow = models.CharField(max_length=80, default="AI WORKSHOP • ONLINE")
