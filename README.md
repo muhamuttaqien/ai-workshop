@@ -6,7 +6,7 @@ A Django-based website for managing and publishing practical AI workshops by **I
 
 - Dynamic workshop pages powered by Django
 - Django Admin for managing workshops, mentors, schedules, benefits, FAQs, and testimonials
-- Multiple workshop layout variants
+- Five reusable workshop layouts: Editorial, Workflow, Dashboard, Showcase, and Guide
 - Automatic handling of upcoming and past workshops
 - Registration CTA for active workshops
 - Recording request CTA for past workshops
