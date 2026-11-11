@@ -4,24 +4,31 @@
 {% block content %}
 <section class="catalog-hero">
   <div class="platform-container">
-    <div class="kicker">KATALOG PEMBELAJARAN</div>
-    <h1>Jelajahi Courses.</h1>
-    <p>Pilih topik yang sesuai dengan kebutuhanmu. Kursus yang masih disiapkan ditandai sebagai Segera Hadir.</p>
+    <a class="back-link" href="{% url 'courses:home' %}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali ke Beranda</a>
+    <div class="catalog-heading">
+      <div>
+        <span class="section-label"><span class="section-index">LIBRARY /</span> AI UNTUK SEMUA</span>
+        <h1>Jelajahi <em>Courses.</em></h1>
+      </div>
+      <p>Temukan topik AI yang relevan untukmu. Kursus yang belum tersedia ditandai sebagai <strong>Segera Hadir</strong>.</p>
+    </div>
   </div>
 </section>
-<section class="platform-section">
-  <div class="platform-container">
-    <div class="section-top">
-      <div>
-        <span class="section-label">COURSES</span>
-        <h2>Belajar AI secara bertahap.</h2>
-      </div>
+
+<section class="platform-section catalog-library">
+  <div class="platform-container catalog-layout">
+    <div class="catalog-aside">
+      <span class="section-label">COURSE LIBRARY</span>
+      <h2>Belajar AI secara bertahap.</h2>
+      <p>Semua materi disiapkan agar mudah dipahami dan relevan dengan kebutuhan sehari-hari.</p>
+      <span class="catalog-aside-foot">PILIH COURSE <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></span>
     </div>
     <div class="courses-grid">
       {% for course in courses %}
         {% include "courses/includes/course_card.html" %}
       {% empty %}
         <div class="empty-courses">
+          <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
           <h3>Belum ada course yang dipublikasikan.</h3>
           <p>Courses akan muncul di sini setelah dipublikasikan melalui Courses Admin.</p>
         </div>

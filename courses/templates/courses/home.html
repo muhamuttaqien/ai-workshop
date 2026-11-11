@@ -4,43 +4,63 @@
 <section class="platform-hero">
   <div class="platform-container platform-hero-grid">
     <div class="hero-copy">
-      <div class="kicker"><span class="dot"></span> AI LEARNING PLATFORM</div>
-      <h1>Belajar AI untuk <em>kehidupan sehari-hari.</em></h1>
-      <p>AI untuk Semua membantu kamu memahami dan menggunakan beragam tools AI secara praktis. Mulai dari kursus online mandiri hingga workshop interaktif.</p>
+      <div class="kicker"><span class="live-dot"></span> RUANG BELAJAR AI / INDONESIA</div>
+      <h1>Belajar AI untuk <em>hal-hal yang nyata.</em></h1>
+      <p>Kenali tools AI, pelajari cara menggunakannya, lalu coba sendiri. Semua dalam satu ruang belajar yang praktis, terstruktur, dan mudah diikuti.</p>
       <div class="hero-actions">
-        <a class="button button-primary" href="{% url 'courses:list' %}">Jelajahi Courses <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-        <a class="button button-secondary" href="{% url 'workshop:home' %}">Lihat Workshop</a>
+        <a class="button button-primary" href="{% url 'courses:list' %}">Jelajahi Courses <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        <a class="button button-secondary" href="{% url 'workshop:home' %}">Lihat Workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
       </div>
-      <div class="hero-caption"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Pembelajaran praktis • Bahasa Indonesia • Berbasis use case</div>
+      <div class="hero-caption"><span>01 / LEARN</span><span>02 / EXPLORE</span><span>03 / APPLY</span></div>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <div class="hero-art-head"><span>AI UNTUK SEMUA</span><i class="fa-solid fa-graduation-cap"></i></div>
-      <div class="hero-art-center">
-        <span class="art-orbit orbit-one"></span>
-        <span class="art-orbit orbit-two"></span>
-        <div class="art-feature"><i class="fa-solid fa-sparkles"></i><strong>Learn</strong><span>AI Tools</span></div>
+    <div class="hero-studio" aria-label="Pratinjau konsep ruang pembelajaran">
+      <div class="studio-header">
+        <span class="studio-header-brand"><span class="studio-led"></span> Learning Studio</span>
+        <span class="studio-label">PRATINJAU KONSEP</span>
       </div>
-      <div class="hero-art-foot"><span>Explore</span><span>Practice</span><span>Apply</span></div>
+      <div class="studio-content">
+        <div class="studio-eyebrow">YOUR LEARNING SPACE <span>01 / 03</span></div>
+        <h2>Belajar lebih dari <span>sekadar menonton.</span></h2>
+        <div class="studio-screen" aria-hidden="true">
+          <div class="studio-orbit one"></div><div class="studio-orbit two"></div>
+          <div class="studio-screen-center"><i class="fa-solid fa-play" aria-hidden="true"></i></div>
+          <span>VIDEO LESSON / AI FUNDAMENTALS</span>
+        </div>
+        <div class="studio-unit-list" aria-hidden="true">
+          <div><span class="studio-unit-icon"><i class="fa-regular fa-circle-play"></i></span><span>01 <strong>Pelajari materinya</strong></span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <div><span class="studio-unit-icon"><i class="fa-solid fa-list-check"></i></span><span>02 <strong>Uji pemahamanmu</strong></span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <div><span class="studio-unit-icon"><i class="fa-solid fa-laptop-code"></i></span><span>03 <strong>Coba langsung</strong></span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+        </div>
+      </div>
+      <div class="studio-footer"><span><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Contoh antarmuka pembelajaran</span><span>Coming soon</span></div>
     </div>
   </div>
 </section>
 
-<section class="platform-section" id="courses">
+<div class="platform-ticker" aria-hidden="true">
+  <div class="platform-container ticker-inner">
+    <span>BUKAN CUMA TEORI</span><i class="fa-solid fa-asterisk"></i>
+    <span>BELAJAR DENGAN CONTOH</span><i class="fa-solid fa-asterisk"></i>
+    <span>COBA SENDIRI</span>
+  </div>
+</div>
+
+<section class="platform-section course-library-section" id="courses">
   <div class="platform-container">
     <div class="section-top">
       <div>
-        <span class="section-label">ONLINE LEARNING</span>
+        <span class="section-label"><span class="section-index">01 /</span> LIBRARY</span>
         <h2>Courses untuk mulai belajar AI.</h2>
-        <p>Belajar sesuai kebutuhan melalui materi yang disusun dengan fokus pada penggunaan AI yang nyata.</p>
+        <p>Mulai dengan tool dan topik yang relevan untuk aktivitas sehari-hari. Pilih course yang sesuai kebutuhanmu.</p>
       </div>
-      <a class="section-link" href="{% url 'courses:list' %}">Semua Courses <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      <a class="section-link" href="{% url 'courses:list' %}">Semua Courses <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
     </div>
     <div class="courses-grid">
       {% for course in featured_courses %}
         {% include "courses/includes/course_card.html" %}
       {% empty %}
         <div class="empty-courses">
-          <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+          <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
           <h3>Courses sedang disiapkan.</h3>
           <p>Materi pembelajaran akan segera tersedia. Cek kembali halaman ini untuk pembaruan.</p>
         </div>
@@ -52,43 +72,30 @@
 <section class="platform-section learning-journey-section" id="mulai-belajar">
   <div class="platform-container learning-journey-layout">
     <div class="learning-journey-intro">
-      <span class="section-label">CARA BELAJAR</span>
+      <span class="section-label"><span class="section-index">02 /</span> CARA BELAJAR</span>
       <h2>Mulai Belajar AI Sekarang!</h2>
-      <p>Belajar AI secara online dengan langkah yang sederhana: mulai dari membuat akun gratis, menonton materi, menguji pemahaman, hingga mencoba langsung berbagai tools AI.</p>
-      <span class="journey-status"><i class="fa-regular fa-clock" aria-hidden="true"></i> Segera Hadir</span>
+      <p>Belajar AI online dengan alur sederhana. Mulai dari membuat akun gratis, lanjut ke video pembelajaran, kuis singkat, dan latihan yang bisa langsung dicoba.</p>
+      <span class="journey-status"><span class="status-dot"></span> Konsep pembelajaran • Segera Hadir</span>
     </div>
-
     <ol class="learning-path" aria-label="Alur pembelajaran online">
       <li class="learning-path-step">
         <span class="learning-path-number" aria-hidden="true">01</span>
-        <div class="learning-path-content">
-          <h3>Buat Akun Gratis</h3>
-          <p>Daftar tanpa biaya untuk memulai perjalanan belajar AI sesuai kebutuhanmu.</p>
-        </div>
+        <div class="learning-path-content"><h3>Buat Akun Gratis</h3><p>Daftar tanpa biaya untuk memulai perjalanan belajar AI sesuai kebutuhanmu.</p></div>
         <i class="fa-solid fa-user-plus learning-path-icon" aria-hidden="true"></i>
       </li>
       <li class="learning-path-step">
         <span class="learning-path-number" aria-hidden="true">02</span>
-        <div class="learning-path-content">
-          <h3>Akses Materi Video</h3>
-          <p>Pelajari berbagai topik AI melalui video singkat yang disusun secara bertahap.</p>
-        </div>
+        <div class="learning-path-content"><h3>Akses Materi Video</h3><p>Pelajari berbagai topik AI melalui video singkat yang disusun secara bertahap.</p></div>
         <i class="fa-regular fa-circle-play learning-path-icon" aria-hidden="true"></i>
       </li>
       <li class="learning-path-step">
         <span class="learning-path-number" aria-hidden="true">03</span>
-        <div class="learning-path-content">
-          <h3>Kerjakan Kuis</h3>
-          <p>Uji pemahaman dari setiap materi agar belajar menjadi lebih terarah.</p>
-        </div>
+        <div class="learning-path-content"><h3>Kerjakan Kuis</h3><p>Uji pemahaman dari setiap materi agar belajar menjadi lebih terarah.</p></div>
         <i class="fa-solid fa-list-check learning-path-icon" aria-hidden="true"></i>
       </li>
       <li class="learning-path-step">
         <span class="learning-path-number" aria-hidden="true">04</span>
-        <div class="learning-path-content">
-          <h3>Praktik Langsung</h3>
-          <p>Terapkan pengetahuan lewat latihan dan use case AI dalam kehidupan sehari-hari.</p>
-        </div>
+        <div class="learning-path-content"><h3>Praktik Langsung</h3><p>Terapkan pengetahuan lewat latihan dan use case AI dalam kehidupan sehari-hari.</p></div>
         <i class="fa-solid fa-laptop-code learning-path-icon" aria-hidden="true"></i>
       </li>
     </ol>
@@ -100,13 +107,17 @@
 
 <section class="platform-section platform-workshop-cta">
   <div class="platform-container workshop-teaser">
-    <div class="workshop-teaser-icon"><i class="fa-solid fa-video" aria-hidden="true"></i></div>
-    <div>
-      <span class="section-label">LIVE LEARNING</span>
+    <div class="workshop-teaser-copy">
+      <span class="section-label"><span class="section-index">03 /</span> LIVE EXPERIENCE</span>
       <h2>Ingin belajar bersama mentor?</h2>
-      <p>Ikuti Workshop AI untuk mempraktikkan penggunaan AI melalui sesi interaktif dan contoh use case.</p>
+      <p>Selain course online, ada Workshop AI untuk belajar langsung, berdiskusi, dan mencoba berbagai use case dalam sesi interaktif.</p>
+      <a class="text-link teaser-link" href="{% url 'workshop:home' %}">Lihat Workshop <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
     </div>
-    <a class="button button-primary" href="{% url 'workshop:home' %}">Lihat Workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    <div class="workshop-teaser-visual" aria-hidden="true">
+      <div class="teaser-circle"><i class="fa-solid fa-headset"></i></div>
+      <div class="teaser-orbit"></div>
+      <span>LIVE / MENTOR / COMMUNITY</span>
+    </div>
   </div>
 </section>
 {% endblock %}
