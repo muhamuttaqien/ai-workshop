@@ -25,21 +25,21 @@ class IntroParagraphInline(SortableInlineMixin, admin.TabularInline):
     model = WorkshopIntroParagraph
     fields = ("text", "sort_order")
     verbose_name = "Paragraf intro"
-    verbose_name_plural = "Tentang workshop: paragraf intro"
+    verbose_name_plural = "Tentang Workshop: Paragraf Intro"
 
 
 class OutcomeInline(SortableInlineMixin, admin.StackedInline):
     model = WorkshopOutcome
     fields = (("number", "sort_order"), "title", "text")
     verbose_name = "Outcome"
-    verbose_name_plural = "Tentang workshop: outcome"
+    verbose_name_plural = "Tentang Workshop: Outcome"
 
 
 class AudienceInline(SortableInlineMixin, admin.StackedInline):
     model = WorkshopAudience
     fields = (("icon", "sort_order"), "label", "text")
-    verbose_name = "Target peserta"
-    verbose_name_plural = "Target peserta"
+    verbose_name = "Target Peserta"
+    verbose_name_plural = "Target Peserta"
 
 
 class CurriculumModuleInline(SortableInlineMixin, admin.StackedInline):
@@ -52,28 +52,28 @@ class CurriculumModuleInline(SortableInlineMixin, admin.StackedInline):
         "text",
     )
     verbose_name = "Modul materi"
-    verbose_name_plural = "Materi workshop (urutkan semua modul dengan Sort order)"
+    verbose_name_plural = "Materi Workshop (Urutkan Modul Berdasarkan Sort Order)"
 
 
 class BenefitInline(SortableInlineMixin, admin.StackedInline):
     model = WorkshopBenefit
     fields = (("number", "kicker", "visual", "sort_order"), "title", "text")
     verbose_name = "Benefit"
-    verbose_name_plural = "Benefit & fasilitas"
+    verbose_name_plural = "Benefit & Fasilitas"
 
 
 class ScheduleInline(SortableInlineMixin, admin.StackedInline):
     model = WorkshopScheduleItem
     fields = (("number", "sort_order"), "label", "title", "text")
     verbose_name = "Sesi jadwal"
-    verbose_name_plural = "Jadwal sesi"
+    verbose_name_plural = "Jadwal Sesi"
 
 
 class FAQInline(SortableInlineMixin, admin.StackedInline):
     model = WorkshopFAQ
     fields = (("sort_order",), "question", "answer")
-    verbose_name = "FAQ"
-    verbose_name_plural = "FAQ"
+    verbose_name = "Pertanyaan Umum"
+    verbose_name_plural = "Pertanyaan Umum"
 
 
 @admin.register(Mentor)
@@ -166,6 +166,9 @@ class WorkshopAdmin(admin.ModelAdmin):
     date_hierarchy = "start_date"
     save_on_top = True
     actions = (duplicate_workshops,)
+
+    class Media:
+        css = {"all": ("workshop/admin_titles.css",)}
 
     fieldsets = (
         (
