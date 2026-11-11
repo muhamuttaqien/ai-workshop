@@ -55,6 +55,20 @@ def main():
                         device_scale_factor=1,
                     )
                     try:
+                        response = page.goto(BASE_URL + "/", wait_until="domcontentloaded")
+                        assert response is not None and response.status == 200
+                        assert page.locator(".platform-nav-cta").count() == 0
+                        assert page.locator(".hero-actions a").count() == 2
+                        assert page.locator(".hero-actions a").first.inner_text().strip().startswith("Jelajahi Courses")
+                        assert page.locator(".learning-journey-grid, .journey-step").count() == 0
+                        assert page.locator(".learning-journey-layout").count() == 1
+                        assert page.locator(".learning-path-step").count() == 4
+                        assert page.locator(".learning-path").evaluate(
+                            "(el) => window.getComputedStyle(el).listStyleType"
+                        ) == "none"
+                        assert page.evaluate(
+                            "() => document.documentElement.scrollWidth <= window.innerWidth + 1"
+                        ), ("homepage horizontal overflow", width)
                         for slug, layout in WORKSHOPS:
                             url = BASE_URL + "/workshop/" + slug + "/"
                             response = page.goto(url, wait_until="domcontentloaded")

@@ -8,6 +8,7 @@
       <h1>Belajar AI untuk <em>kehidupan sehari-hari.</em></h1>
       <p>AI untuk Semua membantu kamu memahami dan menggunakan beragam tools AI secara praktis. Mulai dari kursus online mandiri hingga workshop interaktif.</p>
       <div class="hero-actions">
+        <a class="button button-primary" href="{% url 'courses:list' %}">Jelajahi Courses <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         <a class="button button-secondary" href="{% url 'workshop:home' %}">Lihat Workshop</a>
       </div>
       <div class="hero-caption"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Pembelajaran praktis • Bahasa Indonesia • Berbasis use case</div>
@@ -49,38 +50,51 @@
 </section>
 
 <section class="platform-section learning-journey-section" id="mulai-belajar">
-  <div class="platform-container">
-    <div class="learning-journey-header">
-      <div>
-        <span class="section-label">CARA BELAJAR</span>
-        <h2>Mulai Belajar AI Sekarang!</h2>
-        <p>Belajar AI dengan cara yang mudah diikuti dan bisa langsung dipraktikkan. Inilah pengalaman belajar online yang sedang kami siapkan.</p>
-      </div>
+  <div class="platform-container learning-journey-layout">
+    <div class="learning-journey-intro">
+      <span class="section-label">CARA BELAJAR</span>
+      <h2>Mulai Belajar AI Sekarang!</h2>
+      <p>Belajar AI secara online dengan langkah yang sederhana: mulai dari membuat akun gratis, menonton materi, menguji pemahaman, hingga mencoba langsung berbagai tools AI.</p>
       <span class="journey-status"><i class="fa-regular fa-clock" aria-hidden="true"></i> Segera Hadir</span>
     </div>
-    <div class="learning-journey-grid">
-      <article class="journey-step">
-        <div class="journey-step-top"><span class="journey-step-icon"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></span><span class="journey-step-number">01</span></div>
-        <h3>Buat Akun Gratis</h3>
-        <p>Daftar tanpa biaya untuk mulai mengakses pembelajaran AI secara online.</p>
-      </article>
-      <article class="journey-step">
-        <div class="journey-step-top"><span class="journey-step-icon"><i class="fa-regular fa-circle-play" aria-hidden="true"></i></span><span class="journey-step-number">02</span></div>
-        <h3>Pelajari Materi Video</h3>
-        <p>Ikuti penjelasan singkat dan terstruktur sesuai topik yang ingin kamu pelajari.</p>
-      </article>
-      <article class="journey-step">
-        <div class="journey-step-top"><span class="journey-step-icon"><i class="fa-solid fa-list-check" aria-hidden="true"></i></span><span class="journey-step-number">03</span></div>
-        <h3>Kerjakan Kuis</h3>
-        <p>Uji pemahaman terhadap konsep dan fitur AI sebelum melanjutkan materi.</p>
-      </article>
-      <article class="journey-step">
-        <div class="journey-step-top"><span class="journey-step-icon"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></span><span class="journey-step-number">04</span></div>
-        <h3>Praktik Langsung</h3>
-        <p>Coba tools AI melalui latihan dan contoh penggunaan dalam kehidupan sehari-hari.</p>
-      </article>
-    </div>
-    <p class="journey-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Fitur pembuatan akun, materi video, kuis, dan praktik masih dalam pengembangan.</p>
+
+    <ol class="learning-path" aria-label="Alur pembelajaran online">
+      <li class="learning-path-step">
+        <span class="learning-path-number" aria-hidden="true">01</span>
+        <div class="learning-path-content">
+          <h3>Buat Akun Gratis</h3>
+          <p>Daftar tanpa biaya untuk memulai perjalanan belajar AI sesuai kebutuhanmu.</p>
+        </div>
+        <i class="fa-solid fa-user-plus learning-path-icon" aria-hidden="true"></i>
+      </li>
+      <li class="learning-path-step">
+        <span class="learning-path-number" aria-hidden="true">02</span>
+        <div class="learning-path-content">
+          <h3>Akses Materi Video</h3>
+          <p>Pelajari berbagai topik AI melalui video singkat yang disusun secara bertahap.</p>
+        </div>
+        <i class="fa-regular fa-circle-play learning-path-icon" aria-hidden="true"></i>
+      </li>
+      <li class="learning-path-step">
+        <span class="learning-path-number" aria-hidden="true">03</span>
+        <div class="learning-path-content">
+          <h3>Kerjakan Kuis</h3>
+          <p>Uji pemahaman dari setiap materi agar belajar menjadi lebih terarah.</p>
+        </div>
+        <i class="fa-solid fa-list-check learning-path-icon" aria-hidden="true"></i>
+      </li>
+      <li class="learning-path-step">
+        <span class="learning-path-number" aria-hidden="true">04</span>
+        <div class="learning-path-content">
+          <h3>Praktik Langsung</h3>
+          <p>Terapkan pengetahuan lewat latihan dan use case AI dalam kehidupan sehari-hari.</p>
+        </div>
+        <i class="fa-solid fa-laptop-code learning-path-icon" aria-hidden="true"></i>
+      </li>
+    </ol>
+  </div>
+  <div class="platform-container">
+    <p class="journey-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Akun, video pembelajaran, kuis, dan fitur praktik masih dalam pengembangan.</p>
   </div>
 </section>
 

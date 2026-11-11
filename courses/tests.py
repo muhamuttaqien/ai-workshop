@@ -16,7 +16,11 @@ class LearningPlatformTests(TestCase):
 
     def test_homepage_navigation_and_learning_journey(self):
         response = self.client.get(reverse("courses:home"))
-        self.assertNotContains(response, "Jelajahi Courses")
+        self.assertContains(response, "Jelajahi Courses", count=1)
+        self.assertNotContains(response, "platform-nav-cta")
+        self.assertContains(response, 'class="learning-path"')
+        self.assertNotContains(response, "learning-journey-grid")
+        self.assertNotContains(response, "journey-step")
         self.assertContains(response, 'aria-label="Navigasi Utama"')
         self.assertContains(response, 'href="/">Beranda</a>')
         self.assertContains(response, 'href="/courses/">Courses</a>')
@@ -24,7 +28,7 @@ class LearningPlatformTests(TestCase):
         self.assertContains(response, "Mulai Belajar AI Sekarang!")
         for phrase in (
             "Buat Akun Gratis",
-            "Pelajari Materi Video",
+            "Akses Materi Video",
             "Kerjakan Kuis",
             "Praktik Langsung",
             "masih dalam pengembangan",
