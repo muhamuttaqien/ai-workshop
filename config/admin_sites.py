@@ -7,13 +7,13 @@ from workshop.models import Mentor, Testimonial, Workshop
 
 
 class CoursesAdminSite(AdminSite):
-    site_header = "AI untuk Semua — Courses"
+    site_header = "Indonesia AI — Courses"
     site_title = "Courses Admin"
     index_title = "Kelola Courses"
 
 
 class WorkshopAdminSite(AdminSite):
-    site_header = "AI untuk Semua — Workshop"
+    site_header = "Indonesia AI — Workshop"
     site_title = "Workshop Admin"
     index_title = "Kelola Workshop"
 
