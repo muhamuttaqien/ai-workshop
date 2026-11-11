@@ -17,6 +17,9 @@ class LearningPlatformTests(TestCase):
     def test_homepage_navigation_and_learning_journey(self):
         response = self.client.get(reverse("courses:home"))
         self.assertContains(response, "Jelajahi Courses", count=1)
+        self.assertContains(response, 'href="#courses">Lihat Program')
+        html = response.content.decode("utf-8")
+        self.assertLess(html.index('href="#courses">Lihat Program'), html.index(">Jelajahi Courses"))
         self.assertNotContains(response, "platform-nav-cta")
         self.assertContains(response, 'class="learning-path"')
         self.assertNotContains(response, "learning-journey-grid")
@@ -71,6 +74,33 @@ class LearningPlatformTests(TestCase):
         self.assertIn("--bg: #0b0b0e;", css)
         for obsolete_color in ("#70e5d5", "#a898ff", "var(--violet)"):
             self.assertNotIn(obsolete_color, css)
+
+    def test_five_published_example_courses(self):
+        self.assertEqual(Course.objects.filter(is_published=True).count(), 5)
+        for slug, title in (
+            ("gemini-untuk-produktivitas-dan-laporan", "Gemini untuk Produktivitas dan Laporan"),
+            ("notebooklm-untuk-belajar-dari-dokumen", "NotebookLM untuk Belajar dari Dokumen"),
+        ):
+            with self.subTest(slug=slug):
+                course = Course.objects.get(slug=slug)
+                self.assertTrue(course.is_published)
+                self.assertEqual(course.status, "coming_soon")
+                self.assertEqual(course.title, title)
+                self.assertContains(self.client.get(reverse("courses:list")), title)
+                self.assertContains(
+                    self.client.get(reverse("courses:detail", args=[slug])), title
+                )
+                self.assertContains(self.client.get(reverse("courses:home")), title)
+
+    def test_course_theme_toggle_is_on_course_pages_only(self):
+        for route in ("/", "/courses/", "/courses/gemini-untuk-produktivitas-dan-laporan/"):
+            with self.subTest(route=route):
+                response = self.client.get(route)
+                self.assertContains(response, 'id="course-theme-toggle"')
+                self.assertContains(response, "courses/themes.css")
+                self.assertContains(response, "courses/theme.js")
+                self.assertContains(response, "Aktifkan mode terang")
+        self.assertNotContains(self.client.get("/workshop/"), 'id="course-theme-toggle"')
 
     def test_courses_catalog_and_details(self):
         response = self.client.get(reverse("courses:list"))
