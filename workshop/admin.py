@@ -79,7 +79,8 @@ class FAQInline(SortableInlineMixin, admin.StackedInline):
 @admin.register(Mentor)
 class MentorAdmin(admin.ModelAdmin):
     list_display = ("name", "role")
-    search_fields = ("name", "role")
+    search_fields = ("name", "role", "bio", "full_bio")
+    fields = ("name", "role", "photo", "bio", "full_bio")
 
 
 @admin.register(Testimonial)
