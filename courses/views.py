@@ -11,7 +11,7 @@ def home(request):
     return render(
         request,
         "courses/home.html",
-        {"featured_courses": _public_courses()[:3]},
+        {"featured_courses": _public_courses()[:5]},
     )
 
 
