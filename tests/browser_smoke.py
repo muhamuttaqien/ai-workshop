@@ -55,7 +55,7 @@ def main():
                         device_scale_factor=1,
                     )
                     try:
-                        response = page.goto(BASE_URL + "/", wait_until="domcontentloaded")
+                        response = page.goto(BASE_URL + "/", wait_until="load")
                         assert response is not None and response.status == 200
                         assert page.locator(".platform-brand .brand-mark").count() == 2
                         assert page.locator(".platform-header .brand-text").inner_text() == "Indonesia AI"
