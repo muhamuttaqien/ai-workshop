@@ -1,0 +1,18 @@
+<article class="course-card">
+  <a class="course-card-link" href="{% url 'courses:detail' course.slug %}" aria-label="Lihat {{ course.title }}">
+    <div class="course-art" aria-hidden="true">
+      <span class="course-art-small">AI COURSE</span>
+      <i class="fa-solid fa-layer-group"></i>
+      <strong>{{ course.tool_label|default:"AI Tools" }}</strong>
+    </div>
+    <div class="course-card-body">
+      <div class="course-badges">
+        <span class="badge-soft">{{ course.get_level_display }}</span>
+        <span class="badge-status">{{ course.get_status_display }}</span>
+      </div>
+      <h3>{{ course.title }}</h3>
+      <p>{{ course.short_description }}</p>
+      <span class="text-link">Lihat Course <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+    </div>
+  </a>
+</article>

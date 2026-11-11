@@ -1,0 +1,32 @@
+{% extends "courses/base.html" %}
+{% block title %}Semua Courses | AI untuk Semua{% endblock %}
+{% block meta_description %}Katalog kursus online AI untuk pemula dan profesional. Pelajari berbagai tools AI sesuai kebutuhan.{% endblock %}
+{% block content %}
+<section class="catalog-hero">
+  <div class="platform-container">
+    <div class="kicker">KATALOG PEMBELAJARAN</div>
+    <h1>Jelajahi Courses.</h1>
+    <p>Pilih topik yang sesuai dengan kebutuhanmu. Kursus yang masih disiapkan ditandai sebagai Segera Hadir.</p>
+  </div>
+</section>
+<section class="platform-section">
+  <div class="platform-container">
+    <div class="section-top">
+      <div>
+        <span class="section-label">COURSES</span>
+        <h2>Belajar AI secara bertahap.</h2>
+      </div>
+    </div>
+    <div class="courses-grid">
+      {% for course in courses %}
+        {% include "courses/includes/course_card.html" %}
+      {% empty %}
+        <div class="empty-courses">
+          <h3>Belum ada course yang dipublikasikan.</h3>
+          <p>Courses akan muncul di sini setelah dipublikasikan melalui Courses Admin.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

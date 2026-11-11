@@ -1,0 +1,147 @@
+:root{
+  --red:#ef4d4d;--red-dark:#d93d3d;--red-soft:#fff1f1;--ink:#161616;--muted:#646464;
+  --line:#e8e8e8;--soft:#f7f7f7;--paper:#fff;--dark:#151515;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",Arial,sans-serif;line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.platform-container{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+.platform-header{position:sticky;top:0;z-index:1000;border-bottom:1px solid #eaeaea;background:rgba(255,255,255,.95);backdrop-filter:blur(16px)}
+.platform-nav{min-height:76px;display:flex;align-items:center;gap:30px}
+.platform-brand{display:inline-flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em;white-space:nowrap;font-size:1.06rem}
+.brand-symbol{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;color:#fff;background:var(--red);font-family:"Manrope",sans-serif;font-weight:800}
+.platform-links{display:flex;align-items:center;gap:32px;margin-left:auto;font-weight:600;font-size:.91rem}
+.platform-links a:hover,.platform-links a.current{color:var(--red-dark)}
+.platform-nav-cta{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:11px;background:var(--red);color:#fff;font-weight:800;font-size:.86rem;white-space:nowrap}
+.platform-nav-cta:hover,.button-primary:hover{background:var(--red-dark)}
+.platform-mobile-menu{display:none;position:relative;margin-left:auto}
+.platform-mobile-menu summary{cursor:pointer;list-style:none;font-size:1.1rem;padding:10px}
+.platform-mobile-menu summary::-webkit-details-marker{display:none}
+.platform-mobile-links{position:absolute;right:0;top:100%;display:grid;gap:4px;min-width:200px;padding:10px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 36px #0002;border-radius:13px}
+.platform-mobile-links a{padding:10px 14px;border-radius:8px;font-weight:600}
+.platform-mobile-links a:hover{background:var(--red-soft)}
+.platform-hero{padding:86px 0 94px;background:radial-gradient(circle at 82% 18%,#ffe1e1 0,transparent 33%),linear-gradient(135deg,#fff 35%,#fff8f8)}
+.platform-hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:80px;align-items:center}
+.kicker,.section-label{font-size:.74rem;letter-spacing:.11em;font-weight:800;color:var(--red-dark)}
+.dot{display:inline-block;width:7px;height:7px;margin-right:9px;border-radius:50%;background:var(--red)}
+.hero-copy h1{font:800 clamp(3rem,5.7vw,5.3rem)/1.06 "Manrope",sans-serif;letter-spacing:-.055em;margin:18px 0 22px}
+.hero-copy h1 em{font-style:normal;color:var(--red)}
+.hero-copy p{max-width:610px;color:#5b5b5b;font-size:1.06rem;margin:0 0 28px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:14px 22px;border-radius:12px;font-weight:800;line-height:1.2;min-height:53px}
+.button-primary{color:#fff;background:var(--red);box-shadow:0 12px 26px #ef4d4d26}
+.button-secondary{border:1px solid #d8d8d8;background:#fff}
+.hero-caption{margin-top:23px;font-size:.82rem;color:#737373}
+.hero-caption i{color:var(--red);margin-right:6px}
+.hero-art{min-height:440px;padding:26px;border:1px solid #333;border-radius:30px;background:radial-gradient(circle at 54% 46%,#3d2020 0,transparent 57%),#141414;box-shadow:0 33px 90px #2116;color:#fff;overflow:hidden}
+.hero-art-head,.hero-art-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.71rem;font-weight:800;letter-spacing:.1em;color:#b7b7b7}
+.hero-art-center{height:320px;position:relative;display:grid;place-items:center}
+.art-orbit{position:absolute;border:1px solid #ffffff23;border-radius:50%;width:240px;height:240px}
+.orbit-two{width:330px;height:330px}
+.art-feature{z-index:1;width:175px;height:175px;display:flex;align-items:center;justify-content:center;flex-direction:column;border-radius:42px;background:linear-gradient(135deg,#f34d4d,#b82c2c);box-shadow:0 20px 55px #ef4d4d44;transform:rotate(-6deg)}
+.art-feature i{font-size:2.15rem}
+.art-feature strong{font:800 2.4rem "Manrope",sans-serif;margin-top:9px;letter-spacing:-.05em}
+.art-feature span{font-size:.75rem;letter-spacing:.1em;font-weight:800}
+.hero-art-foot{justify-content:space-around;color:#ddd;letter-spacing:.02em}
+.platform-section{padding:88px 0}
+.section-top{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:30px}
+.section-top h2,.workshop-teaser h2,.detail-main h2{font:800 clamp(1.8rem,3.2vw,2.6rem)/1.18 "Manrope",sans-serif;letter-spacing:-.045em;margin:8px 0 12px}
+.section-top p{max-width:670px;color:var(--muted);margin:0}
+.section-link,.text-link{display:inline-flex;align-items:center;gap:8px;color:var(--red-dark);font-size:.86rem;font-weight:800;white-space:nowrap}
+.courses-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.course-card{background:#fff;border:1px solid #e7e7e7;border-radius:22px;overflow:hidden;box-shadow:0 15px 45px #00000008;transition:transform .2s,box-shadow .2s}
+.course-card:hover{transform:translateY(-5px);box-shadow:0 19px 55px #00000016}
+.course-card-link{display:block;height:100%}
+.course-art{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:start;height:195px;padding:24px;background:radial-gradient(circle at 76% 35%,#693434 0,transparent 38%),linear-gradient(140deg,#191919,#262020);color:#fff}
+.course-art::after{content:"";position:absolute;width:148px;height:148px;border:1px solid #ffffff22;border-radius:45px;right:35px;top:24px;transform:rotate(22deg)}
+.course-art-small{font-size:.72rem;font-weight:800;letter-spacing:.12em;color:#ffb9b9}
+.course-art>i{position:absolute;right:73px;top:65px;color:#ff7878;font-size:3rem;transform:rotate(-10deg)}
+.course-art strong{font:800 1.72rem "Manrope",sans-serif;letter-spacing:-.03em;position:relative;z-index:1}
+.course-card-body{padding:25px;display:flex;flex-direction:column;min-height:265px}
+.course-badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge-soft,.badge-status{padding:5px 10px;border-radius:99px;font-size:.68rem;font-weight:800}
+.badge-soft{color:#5b5b5b;background:#f1f1f1}
+.badge-status{background:#fff0f0;color:var(--red-dark)}
+.course-card h3{font:800 1.2rem/1.35 "Manrope",sans-serif;letter-spacing:-.025em;margin:15px 0 10px}
+.course-card p{margin:0 0 22px;color:var(--muted);font-size:.87rem}
+.course-card .text-link{margin-top:auto}
+.empty-courses{grid-column:1/-1;padding:56px 30px;background:#fafafa;border-radius:20px;border:1px dashed #ddd;text-align:center}
+.empty-courses i{font-size:2rem;color:var(--red)}
+.empty-courses h3{margin:15px 0 5px}
+.empty-courses p{margin:0;color:var(--muted)}
+.platform-workshop-cta{padding-top:8px}
+.workshop-teaser{display:grid;grid-template-columns:auto 1fr auto;gap:27px;align-items:center;background:#f8f4f2;border:1px solid #f0e2e0;padding:36px;border-radius:24px}
+.workshop-teaser-icon{display:grid;place-items:center;width:70px;height:70px;border-radius:20px;background:#fff;color:var(--red);font-size:1.5rem}
+.workshop-teaser h2{margin-bottom:6px}
+.workshop-teaser p{margin:0;color:var(--muted);max-width:660px}
+.catalog-hero{padding:79px 0;background:linear-gradient(125deg,#171717,#281d1d);color:#fff}
+.catalog-hero h1{font:800 clamp(2.5rem,5vw,4.3rem)/1.07 "Manrope",sans-serif;letter-spacing:-.04em;margin:16px 0}
+.catalog-hero p{color:#c8c8c8;max-width:720px;margin:0}
+.course-detail-hero{padding:55px 0 75px;background:radial-gradient(circle at 80% 20%,#4d2929,transparent 38%),#171717;color:#fff}
+.back-link{display:inline-flex;align-items:center;gap:9px;color:#ccc;font-size:.86rem;font-weight:700}
+.back-link:hover{color:#fff}
+.detail-hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:55px;align-items:center;margin-top:45px}
+.detail-hero-grid h1{font:800 clamp(2.4rem,5vw,4.3rem)/1.08 "Manrope",sans-serif;letter-spacing:-.045em;margin:15px 0 22px}
+.detail-hero-grid p{color:#cacaca;max-width:690px}
+.detail-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.detail-badges span{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid #ffffff24;border-radius:9px;color:#e5e5e5;font-size:.81rem}
+.detail-badges i{color:#ff8989}
+.detail-visual{min-height:285px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #ffffff29;border-radius:24px;background:linear-gradient(140deg,#322020,#1b1b1b)}
+.detail-visual-icon{display:grid;place-items:center;background:#ef4d4d26;border:1px solid #ef4d4d50;width:92px;height:92px;border-radius:25px;color:#ff8989;font-size:2.2rem}
+.detail-visual small{color:#999;letter-spacing:.11em;font-weight:800;margin-top:19px}
+.detail-visual strong{font:800 1.8rem "Manrope",sans-serif;margin-top:6px}
+.detail-content{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:80px}
+.detail-main .description-copy{white-space:normal;color:#565656;font-size:1.02rem;line-height:1.85}
+.detail-main h3{font:800 1.45rem "Manrope",sans-serif;margin-top:37px}
+.objectives-list{list-style:none;margin:20px 0;padding:0;display:grid;gap:13px}
+.objectives-list li{display:flex;gap:13px;align-items:start;padding:15px 17px;border:1px solid var(--line);border-radius:11px}
+.objectives-list i{color:var(--red);margin-top:6px}
+.info-box{padding:28px;border:1px solid #e5e5e5;border-radius:22px;background:#fbfbfb}
+.info-box h3{font:800 1.5rem "Manrope",sans-serif;margin:13px 0 24px}
+.info-box p{display:grid;gap:4px;margin:16px 0;color:#555;font-size:.89rem}
+.info-box p strong{color:#202020}
+.info-box small{display:block;color:#777;margin-top:14px}
+.full-width{width:100%;margin-top:15px}
+.related-section{background:#fafafa}
+.platform-footer{margin-top:30px;padding:66px 0 25px;background:#161616;color:#fff}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:65px}
+.footer-grid .platform-brand{margin-bottom:15px}
+.footer-grid p{max-width:480px;color:#bbb;margin:0;font-size:.91rem}
+.footer-nav{display:flex;flex-direction:column;gap:10px}
+.footer-nav strong{margin-bottom:8px}
+.footer-nav a{font-size:.87rem;color:#aaa}
+.footer-nav a:hover{color:#fff}
+.footer-bottom{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #373737;margin-top:55px;padding-top:21px;color:#888;font-size:.75rem}
+@media(max-width:1020px){
+  .platform-hero-grid{gap:36px}
+  .courses-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .detail-content{gap:36px}
+}
+@media(max-width:760px){
+  .platform-container{width:calc(100% - 36px)}
+  .platform-nav{min-height:68px}
+  .platform-links,.platform-nav-cta{display:none}
+  .platform-mobile-menu{display:block}
+  .platform-hero{padding:55px 0 65px}
+  .platform-hero-grid,.detail-hero-grid,.detail-content,.footer-grid{grid-template-columns:1fr}
+  .hero-copy h1{font-size:clamp(2.6rem,10.5vw,3.8rem)}
+  .hero-copy p{font-size:.98rem}
+  .hero-art{min-height:320px;padding:21px}
+  .hero-art-center{height:210px}
+  .art-orbit{width:175px;height:175px}.orbit-two{width:240px;height:240px}
+  .art-feature{width:140px;height:140px;border-radius:31px}
+  .art-feature strong{font-size:1.9rem}
+  .platform-section{padding:65px 0}
+  .section-top{align-items:start;flex-direction:column}
+  .courses-grid{grid-template-columns:1fr}
+  .course-card-body{min-height:0}
+  .workshop-teaser{grid-template-columns:1fr;padding:26px}
+  .detail-hero-grid{gap:27px;margin-top:26px}
+  .detail-visual{min-height:220px}
+  .course-detail-hero,.catalog-hero{padding:50px 0}
+  .footer-grid{gap:38px}
+  .footer-bottom{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}

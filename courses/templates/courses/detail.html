@@ -1,0 +1,68 @@
+{% extends "courses/base.html" %}
+{% block title %}{{ course.title }} | AI untuk Semua{% endblock %}
+{% block meta_description %}{{ course.short_description }}{% endblock %}
+{% block content %}
+<section class="course-detail-hero">
+  <div class="platform-container">
+    <a class="back-link" href="{% url 'courses:list' %}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Semua Courses</a>
+    <div class="detail-hero-grid">
+      <div>
+        <div class="kicker">AI COURSE • {{ course.tool_label|default:"AI TOOLS" }}</div>
+        <h1>{{ course.title }}</h1>
+        <p>{{ course.short_description }}</p>
+        <div class="detail-badges">
+          <span><i class="fa-solid fa-signal" aria-hidden="true"></i> {{ course.get_level_display }}</span>
+          <span><i class="fa-solid fa-book-open" aria-hidden="true"></i> {{ course.get_status_display }}</span>
+          {% if course.duration_label %}<span><i class="fa-regular fa-clock" aria-hidden="true"></i> {{ course.duration_label }}</span>{% endif %}
+        </div>
+      </div>
+      <div class="detail-visual" aria-hidden="true">
+        <div class="detail-visual-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <small>LEARN • PRACTICE • APPLY</small>
+        <strong>{{ course.tool_label|default:"AI" }}</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="platform-section">
+  <div class="platform-container detail-content">
+    <div class="detail-main">
+      <span class="section-label">TENTANG COURSE</span>
+      <h2>Pelajari konsep dan penggunaannya.</h2>
+      <p class="description-copy">{{ course.description|linebreaksbr }}</p>
+      {% if course.objective_items %}
+        <h3>Yang akan dipelajari</h3>
+        <ul class="objectives-list">
+          {% for item in course.objective_items %}
+            <li><i class="fa-solid fa-check" aria-hidden="true"></i><span>{{ item }}</span></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    <aside class="detail-sidebar">
+      <div class="info-box">
+        <span class="section-label">INFORMASI COURSE</span>
+        <h3>{{ course.get_status_display }}</h3>
+        {% if course.audience %}<p><strong>Cocok untuk</strong><span>{{ course.audience }}</span></p>{% endif %}
+        <p><strong>Level</strong><span>{{ course.get_level_display }}</span></p>
+        {% if course.duration_label %}<p><strong>Durasi</strong><span>{{ course.duration_label }}</span></p>{% endif %}
+        <a class="button button-primary full-width" href="{% url 'courses:list' %}">Lihat Courses Lain <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        {% if course.status == "coming_soon" %}<small>Materi course ini sedang disiapkan dan belum bisa diikuti.</small>{% endif %}
+      </div>
+    </aside>
+  </div>
+</section>
+{% if related_courses %}
+<section class="platform-section related-section">
+  <div class="platform-container">
+    <div class="section-top"><div><span class="section-label">LANJUTKAN EKSPLORASI</span><h2>Courses lainnya.</h2></div></div>
+    <div class="courses-grid">
+      {% for course in related_courses %}
+        {% include "courses/includes/course_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

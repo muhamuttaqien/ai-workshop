@@ -1,79 +1,45 @@
-# Workshop AI
+# AI untuk Semua — Learning Platform
 
-A Django-based website for managing and publishing practical AI workshops by **Indonesia AI (PT. Teknologi Artifisial Indonesia)**. The platform is designed to make it easy to create, update, archive, and reuse workshop pages through Django Admin without building a new page for every event.
+A simple Django learning platform by **Indonesia AI (PT. Teknologi Artifisial Indonesia)**, with two sections: **Courses** and **Workshop**.
 
-## Features
+## Pages
 
-- Dynamic workshop pages powered by Django
-- Django Admin for managing workshops, mentors, schedules, benefits, FAQs, and testimonials
-- Five reusable workshop layouts: Editorial, Workflow, Dashboard, Showcase, and Guide
-- Automatic handling of upcoming and past workshops
-- Registration CTA for active workshops
-- Recording request CTA for past workshops
-- Responsive design for desktop, tablet, and mobile
+| Path | Description |
+| --- | --- |
+| `/` | Learning Platform homepage |
+| `/courses/` | Online course catalog |
+| `/courses/<slug>/` | Course details |
+| `/workshop/` | Featured workshop landing page (previously `/`) |
+| `/workshop/<slug>/` | Workshop details |
+| `/workshops/` | All workshops (existing catalog) |
+| `/admin-courses/` | Courses administration |
+| `/admin-workshop/` | Workshop administration |
 
-## Tech Stack
+The original `/admin/` still works for backward compatibility.
 
-- Python
-- Django
-- SQLite
-- HTML
-- CSS
-- JavaScript
-
-## Local Setup
-
-Create and activate a virtual environment:
+## Getting Started
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-```
-
-On Windows PowerShell:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
-```
-
-Run migrations:
-
-```bash
 python manage.py migrate
-```
-
-Start the development server:
-
-```bash
 python manage.py runserver
 ```
 
-Then open:
+On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1` instead.
 
-```text
-http://127.0.0.1:8000/
-```
-
-## Django Admin
-
-Create an admin account:
+Open **http://127.0.0.1:8000/**. To create an administrator account:
 
 ```bash
 python manage.py createsuperuser
 ```
 
-Then open:
+## Managing Content
 
-```text
-http://127.0.0.1:8000/admin/
-```
+- **Courses:** Add, edit, and publish course information at `/admin-courses/`.
+- **Workshop:** Manage existing workshops, mentors, testimonials, and workshop layouts at `/admin-workshop/`.
 
-## License
+Three example courses are included as **Coming Soon** placeholders and can be edited or unpublished in Courses Admin.
 
-This project is developed for Workshop AI by Indonesia AI.
+This first version provides course listings and detail pages only. Lesson playback, accounts, enrollment, and payments are **not implemented**. The existing workshop landing pages and their five layout variants are preserved.

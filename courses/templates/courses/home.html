@@ -1,0 +1,63 @@
+{% extends "courses/base.html" %}
+
+{% block content %}
+<section class="platform-hero">
+  <div class="platform-container platform-hero-grid">
+    <div class="hero-copy">
+      <div class="kicker"><span class="dot"></span> AI LEARNING PLATFORM</div>
+      <h1>Belajar AI untuk <em>kehidupan sehari-hari.</em></h1>
+      <p>AI untuk Semua membantu kamu memahami dan menggunakan beragam tools AI secara praktis. Mulai dari kursus online mandiri hingga workshop interaktif.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{% url 'courses:list' %}">Jelajahi Courses <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        <a class="button button-secondary" href="{% url 'workshop:home' %}">Lihat Workshop</a>
+      </div>
+      <div class="hero-caption"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Pembelajaran praktis • Bahasa Indonesia • Berbasis use case</div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="hero-art-head"><span>AI UNTUK SEMUA</span><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="hero-art-center">
+        <span class="art-orbit orbit-one"></span>
+        <span class="art-orbit orbit-two"></span>
+        <div class="art-feature"><i class="fa-solid fa-sparkles"></i><strong>Learn</strong><span>AI Tools</span></div>
+      </div>
+      <div class="hero-art-foot"><span>Explore</span><span>Practice</span><span>Apply</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="platform-section" id="courses">
+  <div class="platform-container">
+    <div class="section-top">
+      <div>
+        <span class="section-label">ONLINE LEARNING</span>
+        <h2>Courses untuk mulai belajar AI.</h2>
+        <p>Belajar sesuai kebutuhan melalui materi yang disusun dengan fokus pada penggunaan AI yang nyata.</p>
+      </div>
+      <a class="section-link" href="{% url 'courses:list' %}">Semua Courses <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="courses-grid">
+      {% for course in featured_courses %}
+        {% include "courses/includes/course_card.html" %}
+      {% empty %}
+        <div class="empty-courses">
+          <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+          <h3>Courses sedang disiapkan.</h3>
+          <p>Materi pembelajaran akan segera tersedia. Cek kembali halaman ini untuk pembaruan.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="platform-section platform-workshop-cta">
+  <div class="platform-container workshop-teaser">
+    <div class="workshop-teaser-icon"><i class="fa-solid fa-video" aria-hidden="true"></i></div>
+    <div>
+      <span class="section-label">LIVE LEARNING</span>
+      <h2>Ingin belajar bersama mentor?</h2>
+      <p>Ikuti Workshop AI untuk mempraktikkan penggunaan AI melalui sesi interaktif dan contoh use case.</p>
+    </div>
+    <a class="button button-primary" href="{% url 'workshop:home' %}">Lihat Workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+  </div>
+</section>
+{% endblock %}
