@@ -3864,7 +3864,61 @@ button {
     padding-inline: 6px;
   }
 }
-\n\n/* ============================================================\n   MOBILE CTA — ARCHIVED WORKSHOP\n   Shows a fixed link to the newest published workshop\n   ============================================================ */\n@media (max-width: 760px) {\n  .mobile-cta-archive {\n    align-items: center;\n  }\n\n  .mobile-archive-copy {\n    min-width: 0;\n    flex: 1 1 auto;\n    line-height: 1.18;\n  }\n\n  .mobile-archive-copy small,\n  .mobile-archive-copy strong {\n    display: block;\n  }\n\n  .mobile-archive-copy small {\n    margin-bottom: 4px;\n    color: #777;\n    font-size: .58rem;\n  }\n\n  .mobile-archive-copy strong {\n    color: var(--ink);\n    font-family: \"Manrope\", sans-serif;\n    font-size: .84rem;\n    font-weight: 800;\n    line-height: 1.15;\n    white-space: nowrap;\n  }\n\n  .mobile-latest-workshop-btn {\n    min-width: 0;\n    padding-inline: 17px !important;\n    font-size: .78rem;\n  }\n}\n\n@media (max-width: 380px) {\n  .mobile-latest-workshop-btn {\n    padding-inline: 13px !important;\n    font-size: .72rem;\n  }\n\n  .mobile-archive-copy strong {\n    font-size: .78rem;\n  }\n}\n
+
+
+/* ============================================================
+   MOBILE CTA — ARCHIVED WORKSHOP
+   Shows a fixed link to the newest published workshop
+   ============================================================ */
+@media (max-width: 760px) {
+  .mobile-cta-archive {
+    align-items: center;
+  }
+
+  .mobile-archive-copy {
+    min-width: 0;
+    flex: 1 1 auto;
+    line-height: 1.18;
+  }
+
+  .mobile-archive-copy small,
+  .mobile-archive-copy strong {
+    display: block;
+  }
+
+  .mobile-archive-copy small {
+    margin-bottom: 4px;
+    color: #777;
+    font-size: .58rem;
+  }
+
+  .mobile-archive-copy strong {
+    color: var(--ink);
+    font-family: \"Manrope\", sans-serif;
+    font-size: .84rem;
+    font-weight: 800;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+
+  .mobile-latest-workshop-btn {
+    min-width: 0;
+    padding-inline: 17px !important;
+    font-size: .78rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .mobile-latest-workshop-btn {
+    padding-inline: 13px !important;
+    font-size: .72rem;
+  }
+
+  .mobile-archive-copy strong {
+    font-size: .78rem;
+  }
+}
+
 
 /* Archived workshop mobile CTA: force button to the right */
 .mobile-cta-archive .mobile-latest-workshop-btn,
@@ -4852,5 +4906,95 @@ button {
   .layout-guide .workshop-session {
     grid-template-columns: 54px 1fr;
     padding: 20px;
+  }
+}
+
+
+/* ============================================================
+   AUDIT FIXES: FIVE WORKSHOP LAYOUTS
+   Preserve mobile card carousel after shared-section refactor.
+   ============================================================ */
+.layout-showcase .hero h1,
+.layout-guide .hero h1,
+.hero-showcase h1,
+.hero-guide h1 {
+  color: #ffffff;
+}
+.layout-showcase .hero-subtitle,
+.layout-guide .hero-subtitle,
+.hero-showcase .hero-subtitle,
+.hero-guide .hero-subtitle {
+  color: rgba(255, 255, 255, .72);
+}
+
+.layout-workflow .workshop-benefit-card:nth-child(2) h3,
+.layout-workflow .workshop-benefit-card:nth-child(5) h3,
+.layout-showcase .workshop-benefit-card:nth-child(2) h3,
+.layout-showcase .workshop-benefit-card:nth-child(6) h3 {
+  color: #ffffff;
+}
+.layout-workflow .workshop-benefit-card:nth-child(2) .benefit-kicker,
+.layout-workflow .workshop-benefit-card:nth-child(5) .benefit-kicker,
+.layout-showcase .workshop-benefit-card:nth-child(2) .benefit-kicker,
+.layout-showcase .workshop-benefit-card:nth-child(6) .benefit-kicker {
+  color: #ffb2b2;
+}
+
+@media (max-width: 760px) {
+  .workshop-section .workshop-outcomes,
+  .workshop-section .workshop-audience {
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+    max-width: none;
+    margin-inline: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding-block: 8px 18px;
+  }
+
+  .workshop-section .workshop-outcomes::-webkit-scrollbar,
+  .workshop-section .workshop-audience::-webkit-scrollbar {
+    display: none;
+  }
+
+  .workshop-section .workshop-outcomes > .workshop-outcome-card,
+  .workshop-section .workshop-audience > .workshop-audience-card {
+    display: block;
+    flex: 0 0 82%;
+    width: 82%;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    padding: 24px;
+    transform: none;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .workshop-section .workshop-outcomes .workshop-outcome-card h3,
+  .workshop-section .workshop-audience .workshop-audience-card h3 {
+    margin-top: 12px;
+    margin-bottom: 10px;
+  }
+
+  .workshop-section .workshop-outcomes .workshop-outcome-card p,
+  .workshop-section .workshop-audience .workshop-audience-card p {
+    margin-bottom: 0;
+  }
+
+  .layout-workflow .workshop-audience-card p,
+  .layout-guide .workshop-outcome-card p {
+    grid-column: auto;
+  }
+
+  .layout-dashboard .workshop-outcome-card,
+  .layout-workflow .workshop-audience-card {
+    min-height: 0;
   }
 }
