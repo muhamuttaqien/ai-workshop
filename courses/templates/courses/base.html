@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#090d13" />
-  <meta name="description" content="{% block meta_description %}AI untuk Semua, platform pembelajaran AI praktis melalui Courses dan Workshop.{% endblock %}" />
-  <title>{% block title %}AI untuk Semua — Learning Platform{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Indonesia AI, platform pembelajaran AI praktis melalui Courses dan Workshop.{% endblock %}" />
+  <title>{% block title %}Indonesia AI — Learning Platform{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@600;700;800&family=Manrope:wght@800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link rel="stylesheet" href="{% static 'courses/style.css' %}" />
 </head>
 <body class="courses-platform">
   <header class="platform-header">
     <div class="platform-container platform-nav">
-      <a class="platform-brand" href="{% url 'courses:home' %}" aria-label="AI untuk Semua — Beranda">
-        <span class="brand-symbol" aria-hidden="true">a<span>i</span><span class="brand-symbol-dot"></span></span>
-        <span class="brand-lockup">AI untuk Semua<small>Learning Platform</small></span>
+      <a class="platform-brand" href="{% url 'courses:home' %}" aria-label="Indonesia AI — Beranda">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span class="brand-text">Indonesia AI</span>
       </a>
       <nav class="platform-links" aria-label="Navigasi Utama">
         <a href="{% url 'courses:home' %}"{% if request.resolver_match.namespace == 'courses' and request.resolver_match.url_name == 'home' %} class="current"{% endif %}>Beranda</a>
@@ -42,8 +42,8 @@
     <div class="platform-container footer-grid">
       <div class="footer-about">
         <a class="platform-brand" href="{% url 'courses:home' %}">
-          <span class="brand-symbol" aria-hidden="true">a<span>i</span><span class="brand-symbol-dot"></span></span>
-          <span class="brand-lockup">AI untuk Semua<small>Learning Platform</small></span>
+          <span class="brand-mark" aria-hidden="true">AI</span>
+          <span class="brand-text">Indonesia AI</span>
         </a>
         <p>Ruang untuk memahami AI, mencoba tools baru, dan mengembangkan keterampilan praktis. Bagian dari Indonesia AI (PT. Teknologi Artifisial Indonesia).</p>
       </div>
