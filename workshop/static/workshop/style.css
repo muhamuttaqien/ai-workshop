@@ -5239,7 +5239,7 @@ button {
 }
 
 /* Touch devices present the complete profile directly, without hover or buttons. */
-@media (hover: none), (pointer: coarse) {
+@media (hover: none), (pointer: coarse), (max-width: 760px) {
   .mentor-card-interactive .mentor-card-track {
     display: flex;
     flex-direction: column;
