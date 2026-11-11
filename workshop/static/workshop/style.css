@@ -3903,6 +3903,21 @@ button {
     radial-gradient(circle at 78% 20%, rgba(239,77,77,.22), transparent 30%),
     linear-gradient(135deg, #101010 0%, #191313 54%, #101010 100%);
 }
+
+.hero-showcase h1,
+.hero-guide h1 {
+  color: #ffffff;
+}
+
+.hero-showcase h1 span,
+.hero-guide h1 span {
+  color: var(--red);
+}
+
+.hero-showcase .hero-subtitle,
+.hero-guide .hero-subtitle {
+  color: rgba(255,255,255,.68);
+}
 .showcase-hero-visual {
   position: relative;
   min-height: 500px;
