@@ -44,6 +44,19 @@ class LearningPlatformTests(TestCase):
             html.index("Ingin belajar bersama mentor?"),
         )
 
+    def test_courses_theme_uses_brand_palette(self):
+        from pathlib import Path
+        from django.contrib.staticfiles import finders
+
+        stylesheet = finders.find("courses/style.css")
+        self.assertIsNotNone(stylesheet)
+        css = Path(stylesheet).read_text(encoding="utf-8")
+        self.assertIn("--accent: #ef4d4d;", css)
+        self.assertIn("--ink: #f7f7f8;", css)
+        self.assertIn("--bg: #0b0b0e;", css)
+        for obsolete_color in ("#70e5d5", "#a898ff", "var(--violet)"):
+            self.assertNotIn(obsolete_color, css)
+
     def test_courses_catalog_and_details(self):
         response = self.client.get(reverse("courses:list"))
         self.assertEqual(response.status_code, 200)
