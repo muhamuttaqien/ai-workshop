@@ -69,6 +69,31 @@ def main():
                         assert page.evaluate(
                             "() => document.documentElement.scrollWidth <= window.innerWidth + 1"
                         ), ("homepage horizontal overflow", width)
+
+                        # Courses must have a completely independent dark UI.
+                        assert page.locator("body").evaluate(
+                            "(el) => getComputedStyle(el).backgroundColor"
+                        ) == "rgb(8, 13, 20)", ("homepage dark background", width)
+                        assert page.locator(".platform-header").evaluate(
+                            "(el) => getComputedStyle(el).backgroundColor"
+                        ).startswith("rgba(8, 13, 20,"), ("dark navigation", width)
+                        assert page.locator(".hero-studio").count() == 1
+                        assert page.locator(".studio-label").inner_text() == "PRATINJAU KONSEP"
+                        assert page.locator(".course-card").count() == 3
+                        for route, selector in (
+                            ("/courses/", ".catalog-layout"),
+                            ("/courses/chatgpt-untuk-aktivitas-sehari-hari/", ".detail-content"),
+                        ):
+                            course_response = page.goto(BASE_URL + route, wait_until="domcontentloaded")
+                            assert course_response is not None and course_response.status == 200, route
+                            assert page.locator(selector).count() == 1, (route, selector)
+                            assert page.locator("body").evaluate(
+                                "(el) => getComputedStyle(el).backgroundColor"
+                            ) == "rgb(8, 13, 20)", ("dark course page", route, width)
+                            assert page.evaluate(
+                                "() => document.documentElement.scrollWidth <= window.innerWidth + 1"
+                            ), ("courses horizontal overflow", route, width)
+
                         for slug, layout in WORKSHOPS:
                             url = BASE_URL + "/workshop/" + slug + "/"
                             response = page.goto(url, wait_until="domcontentloaded")
