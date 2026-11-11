@@ -199,7 +199,7 @@ class WorkshopPageTests(TestCase):
         )
         response = self.client.get(reverse("workshop:detail", args=[reporting.slug]))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'class="hero hero-reporting"')
+        self.assertContains(response, "hero-dashboard")
         self.assertContains(response, "reporting-hero-visual")
 
     @override_settings(WORKSHOP_RECORDING_REQUEST_URL="https://example.com/request-rekaman")
@@ -300,3 +300,24 @@ class WorkshopPageTests(TestCase):
             workshop = Workshop.objects.get(slug=slug)
             self.assertEqual(workshop.layout_variant, layout)
             self.assertTrue(workshop.is_published)
+
+
+    def test_all_layouts_share_the_same_sections(self):
+        section_ids = [
+            'id="tentang"',
+            'id="untuk-siapa"',
+            'id="materi"',
+            'id="benefit"',
+            'id="jadwal"',
+            'id="mentor"',
+            'id="daftar"',
+            'id="testimonial"',
+            'id="faq"',
+        ]
+        for layout in ["editorial", "workflow", "dashboard", "showcase", "guide"]:
+            self.current.layout_variant = layout
+            self.current.save(update_fields=["layout_variant"])
+            response = self.client.get(reverse("workshop:detail", args=[self.current.slug]))
+            self.assertEqual(response.status_code, 200)
+            for section_id in section_ids:
+                self.assertContains(response, section_id)
