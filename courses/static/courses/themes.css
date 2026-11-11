@@ -1,24 +1,40 @@
 /* Courses theme controls. Workshop uses a separate stylesheet and is unaffected. */
 #courses { scroll-margin-top: 98px; }
 
+/* Floating, compact on/off switch, present on Courses pages only. */
 .theme-toggle {
-  display: inline-flex;
+  position: fixed;
+  z-index: 1100;
+  right: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
-  padding: 0;
-  border: 1px solid #45454b;
-  border-radius: 10px;
-  background: #1b1b20;
-  color: #f5f5f7;
+  justify-content: flex-start;
+  width: 78px;
+  height: 46px;
+  flex: 0 0 78px;
+  padding: 5px;
+  border: 1px solid #734044;
+  border-radius: 999px;
+  background: #1c1a20;
+  box-shadow: 0 8px 32px rgba(0,0,0,.32);
   cursor: pointer;
-  transition: background .2s ease, border-color .2s ease;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
-.theme-toggle:hover { background: #2a2528; border-color: #ef4d4d; }
+.theme-toggle:hover { border-color: #ef4d4d; box-shadow: 0 10px 34px rgba(0,0,0,.38); }
 .theme-toggle:focus-visible { outline: 2px solid #ef4d4d; outline-offset: 4px; }
-.theme-toggle i { color: #ff999d; font-size: .95rem; }
+.theme-toggle .theme-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 50%;
+  background: #ef4d4d;
+  color: #fff;
+  font-size: .94rem;
+  transition: transform .2s ease;
+}
 
 /* Color tokens and site canvas */
 html[data-theme="light"] {
@@ -47,12 +63,15 @@ html[data-theme="light"] .platform-links a:hover,
 html[data-theme="light"] .platform-links a.current { color: var(--ink); }
 html[data-theme="light"] .platform-links a { color: #4d4d53; }
 html[data-theme="light"] .theme-toggle {
-  background: #fafafa;
-  color: #29292c;
-  border-color: #d7d7dc;
+  background: #fff;
+  border-color: #dbbfc2;
+  box-shadow: 0 8px 28px rgba(0,0,0,.14);
 }
-html[data-theme="light"] .theme-toggle:hover { background: #fff0f0; border-color: #ef4d4d; }
-html[data-theme="light"] .theme-toggle i { color: #c33137; }
+html[data-theme="light"] .theme-toggle:hover { background: #fff4f4; border-color: #ef4d4d; }
+html[data-theme="light"] .theme-toggle .theme-icon {
+  color: #fff;
+  transform: translateX(32px);
+}
 html[data-theme="light"] .platform-mobile-menu summary {
   color: #232327;
   background: #fff;
@@ -209,9 +228,17 @@ html[data-theme="light"] .footer-bottom { color: #626269; border-color: #d6d6da;
 @media (max-width: 760px) {
   #courses { scroll-margin-top: 83px; }
   .platform-nav { gap: 12px; }
-  .theme-toggle { width: 42px; height: 42px; flex-basis: 42px; margin-left: auto; }
-  .platform-mobile-menu { margin-left: 0; }
+  .theme-toggle {
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: 72px;
+    height: 44px;
+    flex-basis: 72px;
+    padding: 4px;
+  }
+  html[data-theme="light"] .theme-toggle .theme-icon { transform: translateX(28px); }
+  .platform-mobile-menu { margin-left: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .theme-toggle { transition: none; }
+  .theme-toggle, .theme-toggle .theme-icon { transition: none; }
 }

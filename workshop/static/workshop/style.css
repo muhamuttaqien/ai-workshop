@@ -5258,3 +5258,9 @@ button {
     border-top: 1px solid var(--line);
   }
 }
+
+/* Distinguish the Workshop brand without changing its visual identity. */
+@media (max-width: 420px) {
+  .brand { gap: 8px; }
+  .brand-text { font-size: .85rem; }
+}

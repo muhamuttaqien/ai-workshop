@@ -72,7 +72,7 @@ a:focus-visible, summary:focus-visible {
   font-weight: 800;
   letter-spacing: normal;
 }
-.brand-text { color: #f7f7f8; font-size: 1.05rem; }
+.brand-text { color: #f7f7f8; font-size: 1.05rem; white-space: nowrap; }
 .platform-links { display: flex; align-items: center; gap: 36px; margin-left: auto; font-size: .88rem; font-weight: 700; }
 .platform-links a { position: relative; padding: 10px 0; color: var(--muted); transition: color .18s ease; }
 .platform-links a:hover, .platform-links a.current { color: var(--ink); }
@@ -427,4 +427,10 @@ a:focus-visible, summary:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .button, .course-card, .course-card-arrow, .platform-links a { transition: none; }
+}
+
+/* Keep the extended Courses brand readable beside the mobile menu. */
+@media (max-width: 420px) {
+  .platform-brand { gap: 8px; }
+  .brand-text { font-size: .85rem; }
 }

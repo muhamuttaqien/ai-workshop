@@ -52,12 +52,12 @@ class LearningPlatformTests(TestCase):
             with self.subTest(url=url):
                 response = self.client.get(url)
                 self.assertContains(response, 'class="brand-mark"')
-                self.assertContains(response, 'class="brand-text">Indonesia AI</span>')
+                self.assertContains(response, 'class="brand-text">Indonesia AI (Courses)</span>')
                 self.assertNotContains(response, "AI untuk Semua")
                 self.assertContains(response, 'href="/courses/">Courses</a>')
 
         workshop_response = self.client.get("/workshop/")
-        self.assertContains(workshop_response, 'aria-label="Indonesia AI"')
+        self.assertContains(workshop_response, 'aria-label="Indonesia AI (Workshop)"')
         self.assertContains(workshop_response, '<span class="brand-mark">AI</span>')
         self.assertNotContains(workshop_response, 'href="/courses/">Courses</a>')
         self.assertContains(workshop_response, 'href="/workshop/">Workshop</a>')
@@ -155,6 +155,35 @@ class LearningPlatformTests(TestCase):
         self.assertNotContains(response, "platform-ticker")
         self.assertContains(response, 'id="course-theme-toggle"')
         self.assertNotContains(response, 'class="theme-label"')
+
+    def test_floating_theme_control_and_scoped_course_brand(self):
+        for route in (
+            reverse("courses:home"),
+            reverse("courses:list"),
+            reverse("courses:detail", args=["notebooklm-untuk-belajar-dari-dokumen"]),
+            reverse("courses:lesson", args=[
+                "notebooklm-untuk-belajar-dari-dokumen", "mengenal-notebooklm",
+            ]),
+        ):
+            response = self.client.get(route)
+            self.assertContains(response, 'class="brand-text">Indonesia AI (Courses)</span>')
+            self.assertContains(response, 'id="course-theme-toggle"', count=1)
+            html = response.content.decode("utf-8")
+            self.assertLess(html.index("</footer>"), html.index('id="course-theme-toggle"'))
+            self.assertNotIn('class="theme-label"', html)
+
+        lesson = self.client.get(reverse("courses:lesson", args=[
+            "notebooklm-untuk-belajar-dari-dokumen", "mengenal-notebooklm",
+        ]))
+        self.assertNotContains(lesson, 'class="lesson-sidebar-back"')
+        self.assertNotContains(lesson, "> Semua Materi</a>")
+        self.assertContains(lesson, "Video pembelajaran sedang disiapkan")
+
+    def test_workshop_brand_has_workshop_suffix_only(self):
+        response = self.client.get(reverse("workshop:home"))
+        self.assertContains(response, 'class="brand-text">Indonesia AI (Workshop)</span>')
+        self.assertNotContains(response, 'id="course-theme-toggle"')
+        self.assertNotContains(response, 'class="brand-text">Indonesia AI (Courses)</span>')
 
     def test_lesson_sidebar_has_three_lessons_without_play_arrow(self):
         for course in Course.objects.filter(is_published=True):

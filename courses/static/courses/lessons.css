@@ -61,8 +61,6 @@
 .lesson-nav-item:hover { background: #252126; color: #fff; }
 .lesson-nav-item.active { background: #462329; color: #fff; font-weight: 700; }
 .lesson-nav-index { font: 700 .73rem var(--font-head); color: var(--accent-soft); }
-.lesson-sidebar-back { display: inline-flex; align-items: center; gap: 10px; margin: 12px 9px 0; font-size: .79rem; color: var(--muted); }
-.lesson-sidebar-back:hover { color: var(--accent-soft); }
 
 .lesson-main { min-width: 0; }
 .lesson-heading { margin: 10px 0 30px; }
@@ -90,7 +88,7 @@
   text-align: center;
 }
 .lesson-video-placeholder-icon { display: grid; place-items: center; width: 71px; height: 71px; border: 1px solid #a74a55; background: #ef4d4d1c; border-radius: 50%; color: #ff9898; font-size: 1.8rem; }
-.lesson-video-placeholder strong { font: 700 clamp(1rem,2vw,1.3rem) var(--font-head); }
+.lesson-video-placeholder strong { font: 700 clamp(1rem,2vw,1.3rem) var(--font-head); color: #fff; }
 .lesson-video-placeholder > span:last-child { color: #d3c5c8; font-size: .83rem; }
 
 .lesson-explanation { margin-top: 53px; }
@@ -149,7 +147,9 @@ html[data-theme="light"] .lesson-heading h1,
 html[data-theme="light"] .lesson-explanation h2,
 html[data-theme="light"] .lesson-quiz h2 { color: #19191d; }
 html[data-theme="light"] .lesson-content-text { color: #45454b; }
-html[data-theme="light"] .lesson-video-placeholder { border-color: #dad5d7; }
+html[data-theme="light"] .lesson-video-placeholder { border-color: #dad5d7; color: #fff; }
+html[data-theme="light"] .lesson-video-placeholder strong { color: #fff; }
+html[data-theme="light"] .lesson-video-placeholder > span:last-child { color: #f0e3e5; }
 html[data-theme="light"] .quiz-question legend { color: #25252a; }
 html[data-theme="light"] .quiz-option { background: #fff; color: #25252a; border-color: #dddddf; }
 html[data-theme="light"] .quiz-option:hover { background: #fff5f5; border-color: #ef4d4d; }
@@ -181,7 +181,6 @@ html[data-theme="light"] .lesson-bottom-nav a:hover { color: #771f26; }
   .lesson-sidebar-head h2 { font-size: 1.2rem; }
   .lesson-sidebar-nav { gap: 2px; padding: 7px 0; }
   .lesson-nav-item { padding: 10px 8px; }
-  .lesson-sidebar-back { margin-top: 4px; }
   .lesson-main { width: 100%; }
   .lesson-heading { margin: 0 0 22px; }
   .lesson-heading h1 { font-size: clamp(2rem,8.5vw,2.8rem); }

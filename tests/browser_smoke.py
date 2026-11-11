@@ -58,12 +58,20 @@ def main():
                         response = page.goto(BASE_URL + "/", wait_until="load")
                         assert response is not None and response.status == 200
                         assert page.locator(".platform-brand .brand-mark").count() == 2
-                        assert page.locator(".platform-header .brand-text").inner_text() == "Indonesia AI"
+                        assert page.locator(".platform-header .brand-text").inner_text() == "Indonesia AI (Courses)"
                         assert page.locator(".platform-header .brand-mark").evaluate(
                             "(el) => getComputedStyle(el).backgroundColor"
                         ) == "rgb(239, 77, 77)", ("Courses logo background", width)
                         assert page.locator(".platform-ticker").count() == 0
                         assert page.locator(".theme-label").count() == 0
+                        assert page.locator(".platform-header #course-theme-toggle").count() == 0
+                        assert page.locator("#course-theme-toggle").evaluate(
+                            "(el) => getComputedStyle(el).position"
+                        ) == "fixed"
+                        toggle_bounds = page.locator("#course-theme-toggle").bounding_box()
+                        assert toggle_bounds is not None
+                        assert toggle_bounds["x"] > width - 115, ("floating switch right", width)
+                        assert toggle_bounds["y"] > 730, ("floating switch bottom", width)
                         assert page.locator("#course-theme-toggle .theme-icon").count() == 1
                         assert page.locator(".platform-nav-cta").count() == 0
                         assert page.locator(".hero-actions a").count() == 2
@@ -171,6 +179,10 @@ def main():
                             "(items) => items.every((el) => getComputedStyle(el).gridTemplateColumns.split(' ').length === 2)"
                         )
                         assert page.locator(".lesson-video-placeholder").count() == 1
+                        assert page.locator(".lesson-sidebar-back").count() == 0
+                        assert page.locator(".lesson-video-placeholder strong").evaluate(
+                            "(el) => getComputedStyle(el).color"
+                        ) == "rgb(255, 255, 255)", ("dark placeholder text", width)
                         assert page.locator(".lesson-content-text p").count() >= 2
                         assert page.locator(".quiz-question").count() == 1
                         page.locator(".quiz-option input[value='b']").check()
@@ -182,6 +194,9 @@ def main():
                         # The lesson pages use the same persisted light/dark preference.
                         page.locator("#course-theme-toggle").click()
                         assert page.locator("html").get_attribute("data-theme") == "light"
+                        assert page.locator(".lesson-video-placeholder strong").evaluate(
+                            "(el) => getComputedStyle(el).color"
+                        ) == "rgb(255, 255, 255)", ("light placeholder remains white", width)
                         page.locator(".lesson-bottom-nav a").last.click()
                         assert page.url.endswith("/lessons/menulis-prompt-yang-jelas/")
                         assert page.locator("html").get_attribute("data-theme") == "light"
@@ -196,8 +211,9 @@ def main():
                             response = page.goto(url, wait_until="domcontentloaded")
                             assert response is not None and response.status == 200, url
                             assert page.locator("body").get_attribute("class") == "layout-" + layout, url
-                            assert page.locator(".site-header .brand-text").inner_text() == "Indonesia AI", url
+                            assert page.locator(".site-header .brand-text").inner_text() == "Indonesia AI (Workshop)", url
                             assert page.locator("#course-theme-toggle").count() == 0, url
+                            assert page.locator(".site-footer .brand-text").inner_text() == "Indonesia AI (Workshop)", url
                             assert page.locator(".site-header .nav-links a").filter(has_text="Courses").count() == 0, url
                             assert page.locator(".hero h1").count() == 1, url
                             assert page.locator(".hero h1").inner_text().strip(), url
