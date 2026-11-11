@@ -6,7 +6,7 @@ from .models import Course, Lesson, QuizQuestion
 class LessonInline(admin.TabularInline):
     model = Lesson
     extra = 0
-    fields = ("title", "slug", "sort_order", "is_published")
+    fields = ("title", "slug", "content", "youtube_video_id", "sort_order", "is_published")
     show_change_link = True
 
 

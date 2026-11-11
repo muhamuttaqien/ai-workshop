@@ -43,6 +43,7 @@ def lesson_detail(request, slug, lesson_slug):
         slug=lesson_slug,
     )
     lessons = list(course.lessons.filter(is_published=True))
+    lesson_index = next(i for i, item in enumerate(lessons) if item.pk == lesson.pk)
     questions = list(lesson.quiz_questions.all())
     quiz_results = None
     quiz_score = 0
@@ -65,4 +66,7 @@ def lesson_detail(request, slug, lesson_slug):
         "quiz_results": quiz_results,
         "quiz_score": quiz_score,
         "quiz_total": len(questions),
+        "lesson_position": lesson_index + 1,
+        "previous_lesson": lessons[lesson_index - 1] if lesson_index > 0 else None,
+        "next_lesson": lessons[lesson_index + 1] if lesson_index + 1 < len(lessons) else None,
     })
