@@ -21,7 +21,6 @@
         <a href="{% url 'courses:lesson' course.slug item.slug %}" class="lesson-nav-item{% if item.pk == lesson.pk %} active{% endif %}" {% if item.pk == lesson.pk %}aria-current="page"{% endif %}>
           <span class="lesson-nav-index">{{ forloop.counter|stringformat:"02d" }}</span>
           <span>{{ item.title }}</span>
-          {% if item.pk == lesson.pk %}<i class="fa-solid fa-play" aria-hidden="true"></i>{% endif %}
         </a>
       {% endfor %}
     </nav>

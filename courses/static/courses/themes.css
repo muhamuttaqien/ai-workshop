@@ -5,24 +5,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  min-height: 40px;
-  flex: 0 0 auto;
-  padding: 8px 13px;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  padding: 0;
   border: 1px solid #45454b;
   border-radius: 10px;
   background: #1b1b20;
   color: #f5f5f7;
-  font-family: "DM Sans", sans-serif;
-  font-size: .8rem;
-  font-weight: 700;
   cursor: pointer;
   transition: background .2s ease, border-color .2s ease;
 }
 .theme-toggle:hover { background: #2a2528; border-color: #ef4d4d; }
 .theme-toggle:focus-visible { outline: 2px solid #ef4d4d; outline-offset: 4px; }
 .theme-toggle i { color: #ff999d; font-size: .95rem; }
-.theme-toggle .theme-label { white-space: nowrap; }
 
 /* Color tokens and site canvas */
 html[data-theme="light"] {
@@ -125,11 +121,6 @@ html[data-theme="light"] .studio-unit-list strong { color: #29292e; }
 html[data-theme="light"] .studio-unit-list > div > i { color: #8d8d95; }
 html[data-theme="light"] .studio-unit-icon { background: #ffeeef; color: #bd3038; }
 
-/* Ticker */
-html[data-theme="light"] .platform-ticker { background: #fff1f2; border-color: #f3d2d5; }
-html[data-theme="light"] .ticker-inner { color: #a9333a; }
-html[data-theme="light"] .ticker-inner i { color: #d63840; }
-
 /* Course catalog lists */
 html[data-theme="light"] .course-library-section,
 html[data-theme="light"] .detail-section { background: #fff; }
@@ -218,8 +209,7 @@ html[data-theme="light"] .footer-bottom { color: #626269; border-color: #d6d6da;
 @media (max-width: 760px) {
   #courses { scroll-margin-top: 83px; }
   .platform-nav { gap: 12px; }
-  .theme-toggle { width: 42px; height: 42px; min-height: 42px; padding: 0; margin-left: auto; }
-  .theme-toggle .theme-label { display: none; }
+  .theme-toggle { width: 42px; height: 42px; flex-basis: 42px; margin-left: auto; }
   .platform-mobile-menu { margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {

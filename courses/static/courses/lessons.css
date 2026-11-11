@@ -49,7 +49,7 @@
 .lesson-sidebar-nav { display: grid; padding: 11px 0; gap: 5px; }
 .lesson-nav-item {
   display: grid;
-  grid-template-columns: 26px minmax(0,1fr) 12px;
+  grid-template-columns: 26px minmax(0,1fr);
   align-items: center;
   gap: 12px;
   padding: 13px 10px;
@@ -58,7 +58,6 @@
   font-size: .85rem;
   line-height: 1.45;
 }
-.lesson-nav-item i { font-size: .64rem; }
 .lesson-nav-item:hover { background: #252126; color: #fff; }
 .lesson-nav-item.active { background: #462329; color: #fff; font-weight: 700; }
 .lesson-nav-index { font: 700 .73rem var(--font-head); color: var(--accent-soft); }
@@ -167,7 +166,7 @@ html[data-theme="light"] .lesson-bottom-nav a:hover { color: #771f26; }
 
 @media (max-width: 900px) {
   .lesson-layout { grid-template-columns: minmax(220px,245px) minmax(0,1fr); gap: 30px; }
-  .lesson-nav-item { grid-template-columns: 22px minmax(0,1fr) 10px; gap: 8px; }
+  .lesson-nav-item { grid-template-columns: 22px minmax(0,1fr); gap: 8px; }
 }
 @media (max-width: 760px) {
   .course-syllabus-section .section-top { align-items: flex-start; }

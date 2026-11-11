@@ -206,9 +206,6 @@ a:focus-visible, summary:focus-visible {
 .studio-footer i { margin-right: 5px; }
 
 /* Thin visual divider, different from workshop landing sections */
-.platform-ticker { border-top: 1px solid #3a292d; border-bottom: 1px solid #3a292d; background: #27181b; }
-.ticker-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 17px 0; color: #ffcbcb; font-family: var(--font-head); font-size: .71rem; letter-spacing: .09em; font-weight: 700; }
-.ticker-inner i { font-size: .62rem; color: var(--accent); }
 
 /* Library rows: course-specific design, not workshop landing cards */
 .platform-section { padding: 102px 0; }
@@ -384,9 +381,6 @@ a:focus-visible, summary:focus-visible {
   .studio-header, .studio-footer { padding-inline: 15px; }
   .studio-content { padding: 20px 17px; }
   .studio-screen { height: 165px; }
-  .platform-ticker { overflow: hidden; }
-  .ticker-inner { justify-content: center; gap: 12px; flex-wrap: wrap; text-align: center; }
-  .ticker-inner span { font-size: .59rem; }
   .platform-section { padding: 70px 0; }
   .section-top, .catalog-heading { flex-direction: column; align-items: flex-start; gap: 21px; }
   .section-top h2, .learning-journey-intro h2, .workshop-teaser h2, .detail-main h2 { font-size: clamp(2rem,7.2vw,2.75rem); }

@@ -41,7 +41,7 @@ python manage.py createsuperuser
 - **Courses:** Add, edit, and publish course information at `/admin-courses/`.
 - **Workshop:** Manage existing workshops, mentors, testimonials, and workshop layouts at `/admin-workshop/`.
 
-Five example courses are included. Each has **two introductory lessons** with explanation text and a sample quiz. All can be edited or unpublished.
+Five example courses are included. Each has **three introductory lessons** with explanation text and a sample quiz. All can be edited or unpublished.
 
 ### Managing lessons and quizzes
 

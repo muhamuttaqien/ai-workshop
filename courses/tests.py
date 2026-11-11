@@ -130,11 +130,11 @@ class LearningPlatformTests(TestCase):
         )
 
     def test_seeded_lessons_and_quizzes_are_accessible(self):
-        self.assertEqual(Lesson.objects.filter(is_published=True).count(), 10)
-        self.assertEqual(QuizQuestion.objects.count(), 10)
+        self.assertEqual(Lesson.objects.filter(is_published=True).count(), 15)
+        self.assertEqual(QuizQuestion.objects.count(), 15)
         for course in Course.objects.filter(is_published=True):
             with self.subTest(course=course.slug):
-                self.assertEqual(course.lessons.filter(is_published=True).count(), 2)
+                self.assertEqual(course.lessons.filter(is_published=True).count(), 3)
                 first = course.lessons.first()
                 response = self.client.get(reverse("courses:lesson", args=[course.slug, first.slug]))
                 self.assertEqual(response.status_code, 200)
@@ -146,6 +146,23 @@ class LearningPlatformTests(TestCase):
                 self.assertContains(response, "Periksa Jawaban")
                 self.assertContains(response, "Materi Berikutnya")
                 self.assertContains(response, 'id="course-theme-toggle"')
+
+    def test_home_ticker_removed_and_compact_theme_toggle(self):
+        response = self.client.get(reverse("courses:home"))
+        self.assertNotContains(response, "BUKAN CUMA TEORI")
+        self.assertNotContains(response, "BELAJAR DENGAN CONTOH")
+        self.assertNotContains(response, "COBA SENDIRI")
+        self.assertNotContains(response, "platform-ticker")
+        self.assertContains(response, 'id="course-theme-toggle"')
+        self.assertNotContains(response, 'class="theme-label"')
+
+    def test_lesson_sidebar_has_three_lessons_without_play_arrow(self):
+        for course in Course.objects.filter(is_published=True):
+            lesson = course.lessons.filter(is_published=True).first()
+            response = self.client.get(reverse("courses:lesson", args=[course.slug, lesson.slug]))
+            self.assertContains(response, 'class="lesson-nav-item', count=3)
+            self.assertNotContains(response, "fa-solid fa-play")
+            self.assertContains(response, "MATERI 01 / 03")
 
     def test_quiz_grading_and_answer_feedback(self):
         course = Course.objects.get(slug="chatgpt-untuk-aktivitas-sehari-hari")

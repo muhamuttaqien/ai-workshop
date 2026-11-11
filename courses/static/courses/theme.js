@@ -6,7 +6,6 @@
 
   const key = "indonesia-ai-course-theme";
   const root = document.documentElement;
-  const label = button.querySelector(".theme-label");
   const icon = button.querySelector(".theme-icon");
   const meta = document.querySelector('meta[name="theme-color"]');
 
@@ -18,7 +17,7 @@
     }
     button.setAttribute("aria-pressed", String(light));
     button.setAttribute("aria-label", light ? "Aktifkan mode gelap" : "Aktifkan mode terang");
-    if (label) label.textContent = light ? "Gelap" : "Terang";
+    button.title = light ? "Ubah ke mode gelap" : "Ubah ke mode terang";
     if (icon) icon.className = "fa-solid theme-icon " + (light ? "fa-moon" : "fa-sun");
     if (meta) meta.setAttribute("content", light ? "#ffffff" : "#0b0b0e");
   }

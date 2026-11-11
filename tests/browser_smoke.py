@@ -62,6 +62,9 @@ def main():
                         assert page.locator(".platform-header .brand-mark").evaluate(
                             "(el) => getComputedStyle(el).backgroundColor"
                         ) == "rgb(239, 77, 77)", ("Courses logo background", width)
+                        assert page.locator(".platform-ticker").count() == 0
+                        assert page.locator(".theme-label").count() == 0
+                        assert page.locator("#course-theme-toggle .theme-icon").count() == 1
                         assert page.locator(".platform-nav-cta").count() == 0
                         assert page.locator(".hero-actions a").count() == 2
                         assert page.locator(".hero-actions a").first.inner_text().strip().startswith("Lihat Program")
@@ -158,11 +161,15 @@ def main():
                         assert detail_response is not None and detail_response.status == 200
                         labels = page.locator(".detail-section .section-index, .course-syllabus-section .section-index, .related-section .section-index")
                         assert labels.all_inner_texts() == ["01 /", "02 /", "03 /"]
-                        assert page.locator(".syllabus-list li").count() == 2
+                        assert page.locator(".syllabus-list li").count() == 3
                         page.locator(".syllabus-start").click()
                         assert page.url.endswith("/courses/chatgpt-untuk-aktivitas-sehari-hari/lessons/mengenal-chatgpt/")
-                        assert page.locator(".lesson-sidebar-nav a").count() == 2
+                        assert page.locator(".lesson-sidebar-nav a").count() == 3
                         assert page.locator(".lesson-nav-item.active").count() == 1
+                        assert page.locator(".lesson-nav-item i").count() == 0
+                        assert page.locator(".lesson-nav-item").evaluate_all(
+                            "(items) => items.every((el) => getComputedStyle(el).gridTemplateColumns.split(' ').length === 2)"
+                        )
                         assert page.locator(".lesson-video-placeholder").count() == 1
                         assert page.locator(".lesson-content-text p").count() >= 2
                         assert page.locator(".quiz-question").count() == 1
